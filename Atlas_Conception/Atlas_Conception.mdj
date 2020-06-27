@@ -1331,7 +1331,7 @@
 											"top": 652,
 											"width": 95,
 											"height": 13,
-											"text": "+HEURS",
+											"text": "+HEURES",
 											"horizontalAlignment": 0
 										},
 										{
@@ -1893,13 +1893,30 @@
 											"height": 13,
 											"text": "+DESCRIPTION",
 											"horizontalAlignment": 0
+										},
+										{
+											"_type": "UMLAttributeView",
+											"_id": "AAAAAAFy9gLIa95nnW8=",
+											"_parent": {
+												"$ref": "AAAAAAFy9YNMNbzqBm0="
+											},
+											"model": {
+												"$ref": "AAAAAAFy9gLH9N5kn5A="
+											},
+											"font": "Arial;13;0",
+											"left": 173,
+											"top": 396,
+											"width": 115.603515625,
+											"height": 13,
+											"text": "+Date_demande",
+											"horizontalAlignment": 0
 										}
 									],
 									"font": "Arial;13;0",
 									"left": 168,
 									"top": 361,
 									"width": 125.603515625,
-									"height": 38
+									"height": 53
 								},
 								{
 									"_type": "UMLOperationCompartmentView",
@@ -1912,7 +1929,7 @@
 									},
 									"font": "Arial;13;0",
 									"left": 168,
-									"top": 399,
+									"top": 414,
 									"width": 125.603515625,
 									"height": 10
 								},
@@ -1954,7 +1971,7 @@
 							"left": 168,
 							"top": 336,
 							"width": 125.603515625,
-							"height": 73,
+							"height": 88,
 							"nameCompartment": {
 								"$ref": "AAAAAAFy9YNMNLzlg7w="
 							},
@@ -2259,7 +2276,7 @@
 								"$ref": "AAAAAAFy9YNMNLzk4ws="
 							},
 							"lineStyle": 1,
-							"points": "275:335;372:255"
+							"points": "280:335;372:255"
 						},
 						{
 							"_type": "UMLClassView",
@@ -3356,7 +3373,7 @@
 											"top": 303,
 											"width": 93.31689453125,
 											"height": 13,
-											"text": "EVAL"
+											"text": "Evaluation"
 										},
 										{
 											"_type": "LabelView",
@@ -9773,8 +9790,7 @@
 							"_parent": {
 								"$ref": "AAAAAAFy9X13Obuav3U="
 							},
-							"name": "HEURS",
-							"type": ""
+							"name": "HEURES"
 						},
 						{
 							"_type": "UMLAttribute",
@@ -10124,6 +10140,14 @@
 							},
 							"name": "DESCRIPTION",
 							"type": ""
+						},
+						{
+							"_type": "UMLAttribute",
+							"_id": "AAAAAAFy9gLH9N5kn5A=",
+							"_parent": {
+								"$ref": "AAAAAAFy9YNMM7zfRhA="
+							},
+							"name": "Date_demande"
 						}
 					]
 				},
@@ -10446,7 +10470,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "EVAL",
+					"name": "Evaluation",
 					"attributes": [
 						{
 							"_type": "UMLAttribute",
@@ -19212,6 +19236,196 @@
 							"nameCompartment": {
 								"$ref": "AAAAAAFy9dRBZpxvy28="
 							}
+						},
+						{
+							"_type": "UMLUseCaseSubjectView",
+							"_id": "AAAAAAFy9kZKVAaVzVk=",
+							"_parent": {
+								"$ref": "AAAAAAFy9btkPvoB4UQ="
+							},
+							"model": {
+								"$ref": "AAAAAAFy9kZKTwaTNo4="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAFy9kZKVAaWAHg=",
+									"_parent": {
+										"$ref": "AAAAAAFy9kZKVAaVzVk="
+									},
+									"model": {
+										"$ref": "AAAAAAFy9kZKTwaTNo4="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kZKVAaXa08=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kZKVAaWAHg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kZKVQaY/bI=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kZKVAaWAHg="
+											},
+											"font": "Arial;13;1",
+											"left": 749,
+											"top": 111,
+											"width": 109.10986328125,
+											"height": 13,
+											"text": "Evaluation"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kZKVQaZq14=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kZKVAaWAHg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"width": 150.97265625,
+											"height": 13,
+											"text": "(from UseCase Diagrams)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kZKVQaai1w=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kZKVAaWAHg="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 744,
+									"top": 104,
+									"width": 119.10986328125,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFy9kZKVAaXa08="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAFy9kZKVQaY/bI="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAFy9kZKVQaZq14="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFy9kZKVQaai1w="
+									}
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 744,
+							"top": 104,
+							"width": 119.10986328125,
+							"height": 25,
+							"nameCompartment": {
+								"$ref": "AAAAAAFy9kZKVAaWAHg="
+							}
+						},
+						{
+							"_type": "UMLUseCaseSubjectView",
+							"_id": "AAAAAAFy9kavEQf/Tno=",
+							"_parent": {
+								"$ref": "AAAAAAFy9btkPvoB4UQ="
+							},
+							"model": {
+								"$ref": "AAAAAAFy9kavEQf9o8Q="
+							},
+							"subViews": [
+								{
+									"_type": "UMLNameCompartmentView",
+									"_id": "AAAAAAFy9kavEQgA5EU=",
+									"_parent": {
+										"$ref": "AAAAAAFy9kavEQf/Tno="
+									},
+									"model": {
+										"$ref": "AAAAAAFy9kavEQf9o8Q="
+									},
+									"subViews": [
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kavEQgBj0E=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kavEQgA5EU="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kavEQgCaRw=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kavEQgA5EU="
+											},
+											"font": "Arial;13;1",
+											"left": 861,
+											"top": 207,
+											"width": 137.99169921875,
+											"height": 13,
+											"text": "Gestion des employés"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kavEQgDaEM=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kavEQgA5EU="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"width": 150.97265625,
+											"height": 13,
+											"text": "(from UseCase Diagrams)"
+										},
+										{
+											"_type": "LabelView",
+											"_id": "AAAAAAFy9kavEQgERi0=",
+											"_parent": {
+												"$ref": "AAAAAAFy9kavEQgA5EU="
+											},
+											"visible": false,
+											"font": "Arial;13;0",
+											"height": 13,
+											"horizontalAlignment": 1
+										}
+									],
+									"font": "Arial;13;0",
+									"left": 856,
+									"top": 200,
+									"width": 147.99169921875,
+									"height": 25,
+									"stereotypeLabel": {
+										"$ref": "AAAAAAFy9kavEQgBj0E="
+									},
+									"nameLabel": {
+										"$ref": "AAAAAAFy9kavEQgCaRw="
+									},
+									"namespaceLabel": {
+										"$ref": "AAAAAAFy9kavEQgDaEM="
+									},
+									"propertyLabel": {
+										"$ref": "AAAAAAFy9kavEQgERi0="
+									}
+								}
+							],
+							"font": "Arial;13;0",
+							"left": 856,
+							"top": 200,
+							"width": 147.99169921875,
+							"height": 25,
+							"nameCompartment": {
+								"$ref": "AAAAAAFy9kavEQgA5EU="
+							}
 						}
 					]
 				},
@@ -19894,6 +20108,22 @@
 						"$ref": "AAAAAAFy9btkPvoA7mo="
 					},
 					"name": "Timesheet"
+				},
+				{
+					"_type": "UMLUseCaseSubject",
+					"_id": "AAAAAAFy9kZKTwaTNo4=",
+					"_parent": {
+						"$ref": "AAAAAAFy9btkPvoA7mo="
+					},
+					"name": "Evaluation"
+				},
+				{
+					"_type": "UMLUseCaseSubject",
+					"_id": "AAAAAAFy9kavEQf9o8Q=",
+					"_parent": {
+						"$ref": "AAAAAAFy9btkPvoA7mo="
+					},
+					"name": "Gestion des employés"
 				}
 			]
 		}
