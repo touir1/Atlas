@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Facturation implements Serializable {
@@ -19,6 +20,9 @@ public class Facturation implements Serializable {
 	private Float montantTotale;
 	private String document;
 
+	@ManyToOne
+	private Mission mission;
+	
 	public Facturation(Long id, Date dateFacturation, String libelle, Float montantTotale, String document) {
 		super();
 		this.id = id;

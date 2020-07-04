@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rubrique implements Serializable {
@@ -15,6 +16,9 @@ public class Rubrique implements Serializable {
 	private Long id;
 	private String titre;
 	private Float estimation;
+	
+	@ManyToOne
+	private Projet projet;
 
 	public Rubrique(Long id, String titre, Float estimation) {
 		super();

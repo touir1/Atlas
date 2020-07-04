@@ -2,11 +2,14 @@ package tn.esprit.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Mission implements Serializable {
@@ -18,6 +21,15 @@ public class Mission implements Serializable {
 	private Float duree;
 	private String lieu;
 
+	@OneToMany(mappedBy="mission")
+	private List<Frais> frais;
+	
+	@OneToMany(mappedBy="mission")
+	private List<Facturation> facturations;
+	
+	@ManyToOne
+	private Projet projet;
+	
 	public Long getId() {
 		return id;
 	}

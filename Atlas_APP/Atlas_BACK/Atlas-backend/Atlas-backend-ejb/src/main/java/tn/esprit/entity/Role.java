@@ -1,6 +1,7 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -10,6 +11,12 @@ public class Role implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String libelle;
+
+	@ManyToMany(mappedBy = "roles")
+	private List<Permission> permissions;
+
+	@ManyToMany
+	private List<Compte> comptes;
 
 	public Role(Long id, String libelle) {
 		super();
@@ -40,6 +47,22 @@ public class Role implements Serializable {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public List<Permission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<Permission> permissions) {
+		this.permissions = permissions;
+	}
+
+	public List<Compte> getComptes() {
+		return comptes;
+	}
+
+	public void setComptes(List<Compte> comptes) {
+		this.comptes = comptes;
 	}
 
 }

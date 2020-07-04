@@ -15,6 +15,12 @@ public class Frais implements Serializable {
 	private String description;
 	private String justificatif;
 	private Boolean remboursable;
+	
+	@ManyToOne
+	private User user;
+	
+	@ManyToOne
+	private Mission mission;
 
 	public Long getId() {
 		return id;

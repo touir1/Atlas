@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Evaluation implements Serializable {
@@ -16,6 +17,9 @@ public class Evaluation implements Serializable {
 	private String createdBy;
 	private String status;
 
+	@ManyToOne
+	private User user;
+	
 	public Evaluation(Long id, String createdBy, String status) {
 		super();
 		this.id = id;

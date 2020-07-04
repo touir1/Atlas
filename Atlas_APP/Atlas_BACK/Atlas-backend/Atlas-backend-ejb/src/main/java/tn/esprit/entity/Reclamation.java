@@ -13,6 +13,9 @@ public class Reclamation implements Serializable {
 	private String type;
 	private String niveau;
 	private String status;
+	
+	@ManyToOne
+	private User user;
 
 	public Reclamation(Long id, String libelle, String type, String niveau, String status) {
 		super();

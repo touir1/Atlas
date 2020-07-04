@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Choix implements Serializable {
@@ -15,6 +16,9 @@ public class Choix implements Serializable {
 	private Long id;
 	private String ordre;
 	private String libelle;
+	
+	@ManyToOne
+	private Question question;
 
 	public Choix(Long id, String ordre, String libelle) {
 		super();

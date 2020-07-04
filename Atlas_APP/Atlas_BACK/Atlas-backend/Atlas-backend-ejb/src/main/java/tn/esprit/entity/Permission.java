@@ -1,6 +1,7 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -12,6 +13,9 @@ public class Permission implements Serializable {
 	private String ecran;
 	private String action;
 	private String application;
+
+	@ManyToMany
+	private List<Role> roles;
 
 	public Permission(Long id, String ecran, String action, String application) {
 		super();
@@ -62,6 +66,14 @@ public class Permission implements Serializable {
 
 	public void setApplication(String application) {
 		this.application = application;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
 	}
 
 }

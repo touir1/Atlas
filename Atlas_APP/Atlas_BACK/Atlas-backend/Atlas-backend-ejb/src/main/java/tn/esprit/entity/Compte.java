@@ -1,6 +1,7 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -11,6 +12,12 @@ public class Compte implements Serializable {
 	private Long id;
 	private String username;
 	private String password;
+
+	@ManyToMany(mappedBy = "comptes")
+	private List<Role> roles;
+
+	@ManyToOne
+	private User user;
 
 	public Compte(Long id, String username, String password) {
 		super();
@@ -51,6 +58,22 @@ public class Compte implements Serializable {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public List<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<Role> roles) {
+		this.roles = roles;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

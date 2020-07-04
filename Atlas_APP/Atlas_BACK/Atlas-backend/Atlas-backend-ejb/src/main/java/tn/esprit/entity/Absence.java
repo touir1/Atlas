@@ -15,6 +15,9 @@ public class Absence implements Serializable {
 	private Float heures;
 	private String status;
 	private String type;
+	
+	@ManyToOne
+	private User user;
 
 	public Absence(Long id, Date dateDebutConge, Date dateFinConge, Float heures, String status, String type) {
 		super();

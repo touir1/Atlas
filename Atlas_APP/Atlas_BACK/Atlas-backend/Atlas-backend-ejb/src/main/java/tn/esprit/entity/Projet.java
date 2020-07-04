@@ -2,11 +2,14 @@ package tn.esprit.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Projet implements Serializable {
@@ -16,6 +19,15 @@ public class Projet implements Serializable {
 	private String titre;
 	private Date dateCreation;
 	private Date dateCloture;
+	
+	@ManyToMany
+	private List<User> membres;
+	
+	@OneToMany(mappedBy="projet")
+	private List<Mission> missions;
+	
+	@OneToMany(mappedBy="projet")
+	private List<Rubrique> rubriques;
 
 	public Projet(Long id, String titre, Date dateCreation, Date dateCloture) {
 		super();

@@ -2,6 +2,7 @@ package tn.esprit.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,6 +18,27 @@ public class User implements Serializable {
 	private String image;
 	private Date dateNaissance;
 	private Date dateContrat;
+
+	@OneToMany(mappedBy = "user")
+	private List<Compte> comptes;
+	
+	@OneToMany(mappedBy="user")
+	private List<Evaluation> evaluations;
+	
+	@ManyToMany(mappedBy="membres")
+	private List<Projet> projets;
+
+	@OneToMany(mappedBy = "user")
+	private List<Frais> frais;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Absence> absences;
+	
+	@OneToMany(mappedBy = "user")
+	private List<Reclamation> reclamations;
+	
+	@ManyToOne
+	private User chef;
 
 	public User(Long id, String nom, String prenom, String email, String poste, String image, Date dateNaissance,
 			Date dateContrat) {
@@ -109,6 +131,22 @@ public class User implements Serializable {
 
 	public void setDateContrat(Date dateContrat) {
 		this.dateContrat = dateContrat;
+	}
+
+	public List<Compte> getComptes() {
+		return comptes;
+	}
+
+	public void setComptes(List<Compte> comptes) {
+		this.comptes = comptes;
+	}
+
+	public User getChef() {
+		return chef;
+	}
+
+	public void setChef(User chef) {
+		this.chef = chef;
 	}
 
 }
