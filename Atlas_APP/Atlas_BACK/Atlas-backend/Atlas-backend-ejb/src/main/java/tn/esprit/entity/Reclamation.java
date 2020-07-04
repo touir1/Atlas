@@ -13,7 +13,7 @@ public class Reclamation implements Serializable {
 	private String type;
 	private String niveau;
 	private String status;
-	
+
 	@ManyToOne
 	private User user;
 
@@ -76,6 +76,14 @@ public class Reclamation implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

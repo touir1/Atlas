@@ -19,14 +19,14 @@ public class Projet implements Serializable {
 	private String titre;
 	private Date dateCreation;
 	private Date dateCloture;
-	
+
 	@ManyToMany
 	private List<User> membres;
-	
-	@OneToMany(mappedBy="projet")
+
+	@OneToMany(mappedBy = "projet")
 	private List<Mission> missions;
-	
-	@OneToMany(mappedBy="projet")
+
+	@OneToMany(mappedBy = "projet")
 	private List<Rubrique> rubriques;
 
 	public Projet(Long id, String titre, Date dateCreation, Date dateCloture) {
@@ -78,6 +78,30 @@ public class Projet implements Serializable {
 
 	public void setDateCloture(Date dateCloture) {
 		this.dateCloture = dateCloture;
+	}
+
+	public List<User> getMembres() {
+		return membres;
+	}
+
+	public void setMembres(List<User> membres) {
+		this.membres = membres;
+	}
+
+	public List<Mission> getMissions() {
+		return missions;
+	}
+
+	public void setMissions(List<Mission> missions) {
+		this.missions = missions;
+	}
+
+	public List<Rubrique> getRubriques() {
+		return rubriques;
+	}
+
+	public void setRubriques(List<Rubrique> rubriques) {
+		this.rubriques = rubriques;
 	}
 
 }

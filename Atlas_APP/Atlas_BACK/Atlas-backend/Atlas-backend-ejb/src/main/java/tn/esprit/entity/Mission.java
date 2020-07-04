@@ -21,15 +21,15 @@ public class Mission implements Serializable {
 	private Float duree;
 	private String lieu;
 
-	@OneToMany(mappedBy="mission")
+	@OneToMany(mappedBy = "mission")
 	private List<Frais> frais;
-	
-	@OneToMany(mappedBy="mission")
+
+	@OneToMany(mappedBy = "mission")
 	private List<Facturation> facturations;
-	
+
 	@ManyToOne
 	private Projet projet;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -89,6 +89,30 @@ public class Mission implements Serializable {
 
 	public Mission() {
 		super();
+	}
+
+	public List<Frais> getFrais() {
+		return frais;
+	}
+
+	public void setFrais(List<Frais> frais) {
+		this.frais = frais;
+	}
+
+	public List<Facturation> getFacturations() {
+		return facturations;
+	}
+
+	public void setFacturations(List<Facturation> facturations) {
+		this.facturations = facturations;
+	}
+
+	public Projet getProjet() {
+		return projet;
+	}
+
+	public void setProjet(Projet projet) {
+		this.projet = projet;
 	}
 
 }

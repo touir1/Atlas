@@ -1,12 +1,14 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Rubrique implements Serializable {
@@ -16,9 +18,12 @@ public class Rubrique implements Serializable {
 	private Long id;
 	private String titre;
 	private Float estimation;
-	
+
 	@ManyToOne
 	private Projet projet;
+
+	@OneToMany(mappedBy = "rubrique")
+	private List<Rapport> rapports;
 
 	public Rubrique(Long id, String titre, Float estimation) {
 		super();
@@ -59,6 +64,22 @@ public class Rubrique implements Serializable {
 
 	public void setEstimation(Float estimation) {
 		this.estimation = estimation;
+	}
+
+	public Projet getProjet() {
+		return projet;
+	}
+
+	public void setProjet(Projet projet) {
+		this.projet = projet;
+	}
+
+	public List<Rapport> getRapports() {
+		return rapports;
+	}
+
+	public void setRapports(List<Rapport> rapports) {
+		this.rapports = rapports;
 	}
 
 }

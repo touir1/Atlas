@@ -15,7 +15,7 @@ public class Absence implements Serializable {
 	private Float heures;
 	private String status;
 	private String type;
-	
+
 	@ManyToOne
 	private User user;
 
@@ -88,6 +88,14 @@ public class Absence implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

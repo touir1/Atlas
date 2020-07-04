@@ -16,7 +16,7 @@ public class Choix implements Serializable {
 	private Long id;
 	private String ordre;
 	private String libelle;
-	
+
 	@ManyToOne
 	private Question question;
 
@@ -59,6 +59,14 @@ public class Choix implements Serializable {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 }

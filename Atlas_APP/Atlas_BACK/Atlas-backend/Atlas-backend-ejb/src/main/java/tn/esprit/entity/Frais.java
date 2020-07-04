@@ -15,10 +15,10 @@ public class Frais implements Serializable {
 	private String description;
 	private String justificatif;
 	private Boolean remboursable;
-	
+
 	@ManyToOne
 	private User user;
-	
+
 	@ManyToOne
 	private Mission mission;
 
@@ -91,6 +91,22 @@ public class Frais implements Serializable {
 
 	public Frais() {
 		super();
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Mission getMission() {
+		return mission;
+	}
+
+	public void setMission(Mission mission) {
+		this.mission = mission;
 	}
 
 }

@@ -7,13 +7,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rapport implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
 	private Boolean valider;
 	private Date dateCreation;
 	private Date dateImputation;
@@ -22,18 +20,12 @@ public class Rapport implements Serializable {
 	private Integer joursSemaine;
 	private Float duree;
 
-	public Rapport(Long id, Boolean valider, Date dateCreation, Date dateImputation, Integer semaine, Integer mois,
-			Integer joursSemaine, Float duree) {
-		super();
-		this.id = id;
-		this.valider = valider;
-		this.dateCreation = dateCreation;
-		this.dateImputation = dateImputation;
-		this.semaine = semaine;
-		this.mois = mois;
-		this.joursSemaine = joursSemaine;
-		this.duree = duree;
-	}
+	@Id
+	@ManyToOne
+	private User user;
+	@Id
+	@ManyToOne
+	private Rubrique rubrique;
 
 	public Rapport(Boolean valider, Date dateCreation, Date dateImputation, Integer semaine, Integer mois,
 			Integer joursSemaine, Float duree) {
@@ -49,14 +41,6 @@ public class Rapport implements Serializable {
 
 	public Rapport() {
 		super();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public Boolean getValider() {
@@ -113,6 +97,22 @@ public class Rapport implements Serializable {
 
 	public void setDuree(Float duree) {
 		this.duree = duree;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Rubrique getRubrique() {
+		return rubrique;
+	}
+
+	public void setRubrique(Rubrique rubrique) {
+		this.rubrique = rubrique;
 	}
 
 }

@@ -1,6 +1,7 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -10,6 +11,9 @@ public class Formation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String libelle;
+
+	@OneToMany(mappedBy = "formation")
+	private List<UserFormation> userFormations;
 
 	public Formation(Long id, String libelle) {
 		super();
@@ -40,6 +44,14 @@ public class Formation implements Serializable {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public List<UserFormation> getUserFormations() {
+		return userFormations;
+	}
+
+	public void setUserFormations(List<UserFormation> userFormations) {
+		this.userFormations = userFormations;
 	}
 
 }

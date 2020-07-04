@@ -22,7 +22,7 @@ public class Facturation implements Serializable {
 
 	@ManyToOne
 	private Mission mission;
-	
+
 	public Facturation(Long id, Date dateFacturation, String libelle, Float montantTotale, String document) {
 		super();
 		this.id = id;
@@ -82,6 +82,14 @@ public class Facturation implements Serializable {
 
 	public void setDocument(String document) {
 		this.document = document;
+	}
+
+	public Mission getMission() {
+		return mission;
+	}
+
+	public void setMission(Mission mission) {
+		this.mission = mission;
 	}
 
 }

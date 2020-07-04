@@ -1,12 +1,26 @@
 package tn.esprit.entity;
 
-public class Reponse {
+import java.io.Serializable;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+@Entity
+public class Reponse implements Serializable {
 
 	private Float note;
 	private String reponseText;
 	private String teponseNumeric;
 	private Float noteSuperior;
 	private String commentaire;
+
+	@Id
+	@ManyToOne
+	private Evaluation evaluation;
+	@Id
+	@ManyToOne
+	private Question question;
 
 	public Reponse(Float note, String reponseText, String teponseNumeric, Float noteSuperior, String commentaire) {
 		super();
@@ -59,6 +73,22 @@ public class Reponse {
 
 	public void setCommentaire(String commentaire) {
 		this.commentaire = commentaire;
+	}
+
+	public Evaluation getEvaluation() {
+		return evaluation;
+	}
+
+	public void setEvaluation(Evaluation evaluation) {
+		this.evaluation = evaluation;
+	}
+
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 }

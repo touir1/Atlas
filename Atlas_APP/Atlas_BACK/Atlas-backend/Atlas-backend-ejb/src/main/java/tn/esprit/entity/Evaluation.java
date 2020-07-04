@@ -1,12 +1,14 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Evaluation implements Serializable {
@@ -19,7 +21,10 @@ public class Evaluation implements Serializable {
 
 	@ManyToOne
 	private User user;
-	
+
+	@OneToMany(mappedBy = "evaluation")
+	private List<Reponse> reponses;
+
 	public Evaluation(Long id, String createdBy, String status) {
 		super();
 		this.id = id;
@@ -59,6 +64,22 @@ public class Evaluation implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public List<Reponse> getReponses() {
+		return reponses;
+	}
+
+	public void setReponses(List<Reponse> reponses) {
+		this.reponses = reponses;
 	}
 
 }

@@ -21,22 +21,28 @@ public class User implements Serializable {
 
 	@OneToMany(mappedBy = "user")
 	private List<Compte> comptes;
-	
-	@OneToMany(mappedBy="user")
+
+	@OneToMany(mappedBy = "user")
 	private List<Evaluation> evaluations;
-	
-	@ManyToMany(mappedBy="membres")
+
+	@ManyToMany(mappedBy = "membres")
 	private List<Projet> projets;
 
 	@OneToMany(mappedBy = "user")
 	private List<Frais> frais;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<Absence> absences;
-	
+
 	@OneToMany(mappedBy = "user")
 	private List<Reclamation> reclamations;
-	
+
+	@OneToMany(mappedBy = "user")
+	private List<UserFormation> userFormations;
+
+	@OneToMany(mappedBy = "user")
+	private List<Rapport> rapports;
+
 	@ManyToOne
 	private User chef;
 
@@ -147,6 +153,62 @@ public class User implements Serializable {
 
 	public void setChef(User chef) {
 		this.chef = chef;
+	}
+
+	public List<Evaluation> getEvaluations() {
+		return evaluations;
+	}
+
+	public void setEvaluations(List<Evaluation> evaluations) {
+		this.evaluations = evaluations;
+	}
+
+	public List<Projet> getProjets() {
+		return projets;
+	}
+
+	public void setProjets(List<Projet> projets) {
+		this.projets = projets;
+	}
+
+	public List<Frais> getFrais() {
+		return frais;
+	}
+
+	public void setFrais(List<Frais> frais) {
+		this.frais = frais;
+	}
+
+	public List<Absence> getAbsences() {
+		return absences;
+	}
+
+	public void setAbsences(List<Absence> absences) {
+		this.absences = absences;
+	}
+
+	public List<Reclamation> getReclamations() {
+		return reclamations;
+	}
+
+	public void setReclamations(List<Reclamation> reclamations) {
+		this.reclamations = reclamations;
+	}
+
+	public List<UserFormation> getUserFormations() {
+		return userFormations;
+	}
+
+	public void setUserFormations(List<UserFormation> userFormations) {
+		this.userFormations = userFormations;
+	}
+
+	public List<Rapport> getRapports() {
+		return rapports;
+	}
+
+	public void setRapports(List<Rapport> rapports) {
+		this.rapports = rapports;
 	}
 
 }

@@ -25,6 +25,9 @@ public class Question implements Serializable {
 	@OneToMany(mappedBy = "question")
 	private List<Choix> choix;
 
+	@OneToMany(mappedBy = "question")
+	private List<Reponse> reponses;
+
 	public Question(Long id, String type, String libelle) {
 		super();
 		this.id = id;
@@ -64,6 +67,30 @@ public class Question implements Serializable {
 
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
+	}
+
+	public Sujet getSujet() {
+		return sujet;
+	}
+
+	public void setSujet(Sujet sujet) {
+		this.sujet = sujet;
+	}
+
+	public List<Choix> getChoix() {
+		return choix;
+	}
+
+	public void setChoix(List<Choix> choix) {
+		this.choix = choix;
+	}
+
+	public List<Reponse> getReponses() {
+		return reponses;
+	}
+
+	public void setReponses(List<Reponse> reponses) {
+		this.reponses = reponses;
 	}
 
 }
