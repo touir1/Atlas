@@ -2,40 +2,40 @@ package tn.esprit.entity;
 
 import java.sql.Date;
 
-public class User_formation {
+public class UserFormation {
 
-	private String Status;
-	private String Description;
-	private Date Date_demande;
+	private String status;
+	private String description;
+	private Date dateDemande;
 	
-	public User_formation(String status, String description, Date date_demande) {
+	public UserFormation(String status, String description, Date dateDemande) {
 		super();
-		Status = status;
-		Description = description;
-		Date_demande = date_demande;
+		this.status = status;
+		this.description = description;
+		this.dateDemande = dateDemande;
 	}
 	
-	public User_formation() {
+	public UserFormation() {
 		super();
 	}
 
 	public String getStatus() {
-		return Status;
+		return status;
 	}
 	public void setStatus(String status) {
-		Status = status;
+		this.status = status;
 	}
 	public String getDescription() {
-		return Description;
+		return description;
 	}
 	public void setDescription(String description) {
-		Description = description;
+		this.description = description;
 	}
 	public Date getDate_demande() {
-		return Date_demande;
+		return dateDemande;
 	}
-	public void setDate_demande(Date date_demande) {
-		Date_demande = date_demande;
+	public void setDate_demande(Date dateDemande) {
+		this.dateDemande = dateDemande;
 	}
 	
 	

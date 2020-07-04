@@ -1,7 +1,7 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,53 +11,72 @@ import javax.persistence.Id;
 @Entity
 public class Mission implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id ;
-	private String Type;
-	private Date Date;
-	private Float Duree;
-	private String Lieu;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String type;
+	private Date date;
+	private Float duree;
+	private String lieu;
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
+
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
+
 	public String getType() {
-		return Type;
+		return type;
 	}
+
 	public void setType(String type) {
-		Type = type;
+		this.type = type;
 	}
+
 	public Date getDate() {
-		return Date;
+		return date;
 	}
+
 	public void setDate(Date date) {
-		Date = date;
+		this.date = date;
 	}
+
 	public Float getDuree() {
-		return Duree;
+		return duree;
 	}
+
 	public void setDuree(Float duree) {
-		Duree = duree;
+		this.duree = duree;
 	}
+
 	public String getLieu() {
-		return Lieu;
+		return lieu;
 	}
+
 	public void setLieu(String lieu) {
-		Lieu = lieu;
+		this.lieu = lieu;
 	}
-	public Mission(String type, java.sql.Date date, Float duree, String lieu) {
+
+	public Mission(Long id, String type, Date date, Float duree, String lieu) {
 		super();
-		Type = type;
-		Date = date;
-		Duree = duree;
-		Lieu = lieu;
+		this.id = id;
+		this.type = type;
+		this.date = date;
+		this.duree = duree;
+		this.lieu = lieu;
 	}
+
+	public Mission(String type, Date date, Float duree, String lieu) {
+		super();
+		this.type = type;
+		this.date = date;
+		this.duree = duree;
+		this.lieu = lieu;
+	}
+
 	public Mission() {
 		super();
 	}
-	
-	
 
 }

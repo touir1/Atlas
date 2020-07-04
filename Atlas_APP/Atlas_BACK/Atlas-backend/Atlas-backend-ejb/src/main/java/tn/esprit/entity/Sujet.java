@@ -7,50 +7,65 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Sujet implements Serializable {
 
-	
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id ;
-	private String Titre;
-	private int Coeficient;
-	private int Noter ;
-	public Long getId() {
-		return Id;
-	}
-	public void setId(Long id) {
-		Id = id;
-	}
-	public String getTitre() {
-		return Titre;
-	}
-	public void setTitre(String titre) {
-		Titre = titre;
-	}
-	public int getCoeficient() {
-		return Coeficient;
-	}
-	public void setCoeficient(int coeficient) {
-		Coeficient = coeficient;
-	}
-	public int getNoter() {
-		return Noter;
-	}
-	public void setNoter(int noter) {
-		Noter = noter;
-	}
-	public Sujet(String titre, int coeficient, int noter) {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String titre;
+	private Integer coeficient;
+	private Boolean noter;
+
+	public Sujet(Long id, String titre, Integer coeficient, Boolean noter) {
 		super();
-		Titre = titre;
-		Coeficient = coeficient;
-		Noter = noter;
+		this.id = id;
+		this.titre = titre;
+		this.coeficient = coeficient;
+		this.noter = noter;
 	}
+
+	public Sujet(String titre, Integer coeficient, Boolean noter) {
+		super();
+		this.titre = titre;
+		this.coeficient = coeficient;
+		this.noter = noter;
+	}
+
 	public Sujet() {
 		super();
 	}
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public Integer getCoeficient() {
+		return coeficient;
+	}
+
+	public void setCoeficient(Integer coeficient) {
+		this.coeficient = coeficient;
+	}
+
+	public Boolean getNoter() {
+		return noter;
+	}
+
+	public void setNoter(Boolean noter) {
+		this.noter = noter;
+	}
+
 }

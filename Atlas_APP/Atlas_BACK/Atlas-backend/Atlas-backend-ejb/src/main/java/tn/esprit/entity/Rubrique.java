@@ -7,42 +7,54 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Rubrique implements Serializable {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id ;
-	private String Titre;
-	private Float Estimation ;
-	public Long getId() {
-		return Id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String titre;
+	private Float estimation;
+
+	public Rubrique(Long id, String titre, Float estimation) {
+		super();
+		this.id = id;
+		this.titre = titre;
+		this.estimation = estimation;
 	}
-	public void setId(Long id) {
-		Id = id;
-	}
-	public String getTitre() {
-		return Titre;
-	}
-	public void setTitre(String titre) {
-		Titre = titre;
-	}
-	public Float getEstimation() {
-		return Estimation;
-	}
-	public void setEstimation(Float estimation) {
-		Estimation = estimation;
-	}
+
 	public Rubrique(String titre, Float estimation) {
 		super();
-		Titre = titre;
-		Estimation = estimation;
+		this.titre = titre;
+		this.estimation = estimation;
 	}
+
 	public Rubrique() {
 		super();
 	}
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public Float getEstimation() {
+		return estimation;
+	}
+
+	public void setEstimation(Float estimation) {
+		this.estimation = estimation;
+	}
 
 }

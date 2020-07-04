@@ -5,46 +5,52 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-public class Compte  implements Serializable{
+public class Compte implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
-	private String Username;
-	private String Password;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String username;
+	private String password;
+
+	public Compte(Long id, String username, String password) {
+		super();
+		this.id = id;
+		this.username = username;
+		this.password = password;
+	}
+
 	public Compte(String username, String password) {
 		super();
-		Username = username;
-		Password = password;
+		this.username = username;
+		this.password = password;
 	}
-	
+
 	public Compte() {
 		super();
 	}
 
 	public Long getId() {
-		return Id;
+		return id;
 	}
 
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
 
 	public String getUsername() {
-		return Username;
+		return username;
 	}
 
 	public void setUsername(String username) {
-		Username = username;
+		this.username = username;
 	}
 
 	public String getPassword() {
-		return Password;
+		return password;
 	}
 
 	public void setPassword(String password) {
-		Password = password;
+		this.password = password;
 	}
-	
-	
-	
+
 }

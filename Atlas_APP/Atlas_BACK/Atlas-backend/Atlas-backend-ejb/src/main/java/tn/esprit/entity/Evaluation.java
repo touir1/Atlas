@@ -7,42 +7,54 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
-public class Evaluation implements Serializable{
-	
+public class Evaluation implements Serializable {
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id ;
-	private String Created_by;
-	private String Statut;
-	public Long getId() {
-		return Id;
-	}
-	public void setId(Long id) {
-		Id = id;
-	}
-	public String getCreated_by() {
-		return Created_by;
-	}
-	public void setCreated_by(String created_by) {
-		Created_by = created_by;
-	}
-	public String getStatut() {
-		return Statut;
-	}
-	public void setStatut(String statut) {
-		Statut = statut;
-	}
-	public Evaluation(String created_by, String statut) {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String createdBy;
+	private String status;
+
+	public Evaluation(Long id, String createdBy, String status) {
 		super();
-		Created_by = created_by;
-		Statut = statut;
+		this.id = id;
+		this.createdBy = createdBy;
+		this.status = status;
 	}
+
+	public Evaluation(String createdBy, String status) {
+		super();
+		this.createdBy = createdBy;
+		this.status = status;
+	}
+
 	public Evaluation() {
 		super();
 	}
-	
-	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getCreatedBy() {
+		return createdBy;
+	}
+
+	public void setCreatedBy(String createdBy) {
+		this.createdBy = createdBy;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 }

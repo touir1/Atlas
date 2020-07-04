@@ -7,46 +7,61 @@ import javax.persistence.*;
 @Entity
 public class Permission implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
-	private String Ecran;
-	private String Action;
-	private String Application;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String ecran;
+	private String action;
+	private String application;
+
+	public Permission(Long id, String ecran, String action, String application) {
+		super();
+		this.id = id;
+		this.ecran = ecran;
+		this.action = action;
+		this.application = application;
+	}
+
 	public Permission(String ecran, String action, String application) {
 		super();
-		Ecran = ecran;
-		Action = action;
-		Application = application;
+		this.ecran = ecran;
+		this.action = action;
+		this.application = application;
 	}
+
 	public Permission() {
 		super();
 	}
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
+
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
+
 	public String getEcran() {
-		return Ecran;
+		return ecran;
 	}
+
 	public void setEcran(String ecran) {
-		Ecran = ecran;
+		this.ecran = ecran;
 	}
+
 	public String getAction() {
-		return Action;
+		return action;
 	}
+
 	public void setAction(String action) {
-		Action = action;
+		this.action = action;
 	}
+
 	public String getApplication() {
-		return Application;
+		return application;
 	}
+
 	public void setApplication(String application) {
-		Application = application;
+		this.application = application;
 	}
-	
-	
-	
-	
+
 }

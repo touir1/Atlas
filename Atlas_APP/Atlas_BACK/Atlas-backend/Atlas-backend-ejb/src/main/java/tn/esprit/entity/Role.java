@@ -5,31 +5,41 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 @Entity
-public class Role implements Serializable{
+public class Role implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
-	private String Libelle;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String libelle;
+
+	public Role(Long id, String libelle) {
+		super();
+		this.id = id;
+		this.libelle = libelle;
+	}
+
 	public Role(String libelle) {
 		super();
-		Libelle = libelle;
+		this.libelle = libelle;
 	}
+
 	public Role() {
 		super();
 	}
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
+
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
+
 	public String getLibelle() {
-		return Libelle;
+		return libelle;
 	}
+
 	public void setLibelle(String libelle) {
-		Libelle = libelle;
+		this.libelle = libelle;
 	}
-	
-	
-	
+
 }

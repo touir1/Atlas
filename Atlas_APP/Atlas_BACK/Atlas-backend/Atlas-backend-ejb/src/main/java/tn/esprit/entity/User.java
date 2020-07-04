@@ -1,85 +1,114 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
-public class User implements Serializable{
+public class User implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
-	private String Nom;
-	private String Prenom;
-	private String Email;
-	private String Poste;
-	private String Image;
-	private Date Date_Naiss;
-	private Date Date_Contrat;
-	public User(String nom, String prenom, String email, String poste, String image, Date date_Naiss,
-			Date date_Contrat) {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String nom;
+	private String prenom;
+	private String email;
+	private String poste;
+	private String image;
+	private Date dateNaissance;
+	private Date dateContrat;
+
+	public User(Long id, String nom, String prenom, String email, String poste, String image, Date dateNaissance,
+			Date dateContrat) {
 		super();
-		Nom = nom;
-		Prenom = prenom;
-		Email = email;
-		Poste = poste;
-		Image = image;
-		Date_Naiss = date_Naiss;
-		Date_Contrat = date_Contrat;
+		this.id = id;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.poste = poste;
+		this.image = image;
+		this.dateNaissance = dateNaissance;
+		this.dateContrat = dateContrat;
 	}
+
+	public User(String nom, String prenom, String email, String poste, String image, Date dateNaissance,
+			Date dateContrat) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.poste = poste;
+		this.image = image;
+		this.dateNaissance = dateNaissance;
+		this.dateContrat = dateContrat;
+	}
+
 	public User() {
 		super();
 	}
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
+
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
+
 	public String getNom() {
-		return Nom;
+		return nom;
 	}
+
 	public void setNom(String nom) {
-		Nom = nom;
+		this.nom = nom;
 	}
+
 	public String getPrenom() {
-		return Prenom;
+		return prenom;
 	}
+
 	public void setPrenom(String prenom) {
-		Prenom = prenom;
+		this.prenom = prenom;
 	}
+
 	public String getEmail() {
-		return Email;
+		return email;
 	}
+
 	public void setEmail(String email) {
-		Email = email;
+		this.email = email;
 	}
+
 	public String getPoste() {
-		return Poste;
+		return poste;
 	}
+
 	public void setPoste(String poste) {
-		Poste = poste;
+		this.poste = poste;
 	}
+
 	public String getImage() {
-		return Image;
+		return image;
 	}
+
 	public void setImage(String image) {
-		Image = image;
+		this.image = image;
 	}
-	public Date getDate_Naiss() {
-		return Date_Naiss;
+
+	public Date getDateNaissance() {
+		return dateNaissance;
 	}
-	public void setDate_Naiss(Date date_Naiss) {
-		Date_Naiss = date_Naiss;
+
+	public void setDateNaissance(Date dateNaissance) {
+		this.dateNaissance = dateNaissance;
 	}
-	public Date getDate_Contrat() {
-		return Date_Contrat;
+
+	public Date getDateContrat() {
+		return dateContrat;
 	}
-	public void setDate_Contrat(Date date_Contrat) {
-		Date_Contrat = date_Contrat;
+
+	public void setDateContrat(Date dateContrat) {
+		this.dateContrat = dateContrat;
 	}
-	
-	
-	
+
 }

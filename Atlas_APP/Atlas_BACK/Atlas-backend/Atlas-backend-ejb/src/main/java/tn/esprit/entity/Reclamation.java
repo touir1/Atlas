@@ -7,54 +7,72 @@ import javax.persistence.*;
 @Entity
 public class Reclamation implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
-	private String Libelle;
-	private String Type;
-	private String Niveau;
-	private String Statut;
-	public Reclamation(String libelle, String type, String niveau, String statut) {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private String libelle;
+	private String type;
+	private String niveau;
+	private String status;
+
+	public Reclamation(Long id, String libelle, String type, String niveau, String status) {
 		super();
-		Libelle = libelle;
-		Type = type;
-		Niveau = niveau;
-		Statut = statut;
+		this.id = id;
+		this.libelle = libelle;
+		this.type = type;
+		this.niveau = niveau;
+		this.status = status;
 	}
+
+	public Reclamation(String libelle, String type, String niveau, String status) {
+		super();
+		this.libelle = libelle;
+		this.type = type;
+		this.niveau = niveau;
+		this.status = status;
+	}
+
 	public Reclamation() {
 		super();
 	}
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
+
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
+
 	public String getLibelle() {
-		return Libelle;
+		return libelle;
 	}
+
 	public void setLibelle(String libelle) {
-		Libelle = libelle;
+		this.libelle = libelle;
 	}
+
 	public String getType() {
-		return Type;
+		return type;
 	}
+
 	public void setType(String type) {
-		Type = type;
+		this.type = type;
 	}
+
 	public String getNiveau() {
-		return Niveau;
+		return niveau;
 	}
+
 	public void setNiveau(String niveau) {
-		Niveau = niveau;
+		this.niveau = niveau;
 	}
-	public String getStatut() {
-		return Statut;
+
+	public String getStatus() {
+		return status;
 	}
-	public void setStatut(String statut) {
-		Statut = statut;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
-	
-	
-	
-	
+
 }

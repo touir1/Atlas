@@ -1,70 +1,90 @@
 package tn.esprit.entity;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.*;
 
 @Entity
-public class Absence implements Serializable{
+public class Absence implements Serializable {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long Id;
-	private Date DateDConge;
-	private Date DateFConge;
-	private float Heurs;
-	private String Statut;
-	private String Type;
-	public Absence(Date dateDConge, Date dateFConge, float heurs, String statut, String type) {
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	private Date dateDebutConge;
+	private Date dateFinConge;
+	private Float heures;
+	private String status;
+	private String type;
+
+	public Absence(Long id, Date dateDebutConge, Date dateFinConge, Float heures, String status, String type) {
 		super();
-		DateDConge = dateDConge;
-		DateFConge = dateFConge;
-		Heurs = heurs;
-		Statut = statut;
-		Type = type;
+		this.id = id;
+		this.dateDebutConge = dateDebutConge;
+		this.dateFinConge = dateFinConge;
+		this.heures = heures;
+		this.status = status;
+		this.type = type;
 	}
+
+	public Absence(Date dateDebutConge, Date dateFinConge, Float heures, String status, String type) {
+		super();
+		this.dateDebutConge = dateDebutConge;
+		this.dateFinConge = dateFinConge;
+		this.heures = heures;
+		this.status = status;
+		this.type = type;
+	}
+
 	public Absence() {
 		super();
 	}
+
 	public Long getId() {
-		return Id;
+		return id;
 	}
+
 	public void setId(Long id) {
-		Id = id;
+		this.id = id;
 	}
-	public Date getDateDConge() {
-		return DateDConge;
+
+	public Date getDateDebutConge() {
+		return dateDebutConge;
 	}
-	public void setDateDConge(Date dateDConge) {
-		DateDConge = dateDConge;
+
+	public void setDateDebutConge(Date dateDebutConge) {
+		this.dateDebutConge = dateDebutConge;
 	}
-	public Date getDateFConge() {
-		return DateFConge;
+
+	public Date getDateFinConge() {
+		return dateFinConge;
 	}
-	public void setDateFConge(Date dateFConge) {
-		DateFConge = dateFConge;
+
+	public void setDateFinConge(Date dateFinConge) {
+		this.dateFinConge = dateFinConge;
 	}
-	public float getHeurs() {
-		return Heurs;
+
+	public Float getHeures() {
+		return heures;
 	}
-	public void setHeurs(float heurs) {
-		Heurs = heurs;
+
+	public void setHeures(Float heures) {
+		this.heures = heures;
 	}
-	public String getStatut() {
-		return Statut;
+
+	public String getStatus() {
+		return status;
 	}
-	public void setStatut(String statut) {
-		Statut = statut;
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
+
 	public String getType() {
-		return Type;
+		return type;
 	}
+
 	public void setType(String type) {
-		Type = type;
+		this.type = type;
 	}
-	
-	
-	
-	
 
 }
