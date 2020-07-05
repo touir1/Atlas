@@ -7,18 +7,18 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Sujet;
-import tn.esprit.interfaces.ISujet;
+import tn.esprit.interfaces.ISujetService;
 
 
 @Stateful
-public class SujetService implements ISujet {
+public class SujetService implements ISujetService {
 	
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddSujet(Sujet a) {
+	public int addSujet(Sujet a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -29,7 +29,7 @@ public class SujetService implements ISujet {
 	}
 
 	@Override
-	public int RemoveSujet(int idSujet) {
+	public int removeSujet(long idSujet) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Sujet.class, idSujet));
@@ -40,7 +40,7 @@ public class SujetService implements ISujet {
 	}
 
 	@Override
-	public Sujet getSujet(int i) {
+	public Sujet getSujet(long i) {
 		// TODO Auto-generated method stub
 		Sujet abs = em.find(Sujet.class, i);
 		return abs;

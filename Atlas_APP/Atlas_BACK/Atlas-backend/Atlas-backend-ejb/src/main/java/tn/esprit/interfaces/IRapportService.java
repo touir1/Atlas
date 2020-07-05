@@ -9,11 +9,11 @@ import tn.esprit.entity.Rapport;
 
 
 @Remote
-public interface IRapport {
+public interface IRapportService {
 	
-	public int AddRapport  (Rapport   a);
-	public int RemoveRapport  (int idRapport);
-	public Rapport  getRapport (int i);
+	public int addRapport  (Rapport   a);
+	public int removeRapport  (long idRapport);
+	public Rapport  getRapport (long i);
 	public List<Rapport> getAll();
 	public Rapport  updateRapport (Rapport   a);
 	

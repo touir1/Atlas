@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Permission;
-import tn.esprit.interfaces.IPermission;
+import tn.esprit.interfaces.IPermissionService;
 
 @Stateless
-public class PermissionService  implements IPermission{
+public class PermissionService  implements IPermissionService{
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int AddPermission(Permission a) {
+	public int addPermission(Permission a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -26,7 +26,7 @@ public class PermissionService  implements IPermission{
 	}
 
 	@Override
-	public int RemovePermission(int idPermission) {
+	public int removePermission(long idPermission) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Permission.class, idPermission));
@@ -37,7 +37,7 @@ public class PermissionService  implements IPermission{
 	}
 
 	@Override
-	public Permission getPermission(int i) {
+	public Permission getPermission(long i) {
 		// TODO Auto-generated method stub
 		Permission abs = em.find(Permission.class, i);
 		return abs;

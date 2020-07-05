@@ -9,11 +9,11 @@ import tn.esprit.entity.Frais;
 
 
 @Remote
-public interface IFrais {
+public interface IFraisService {
 	
-	public int AddFrais(Frais a);
-	public int RemoveFrais(int idFrais);
-	public Frais getFrais(int i);
+	public int addFrais(Frais a);
+	public int removeFrais(long idFrais);
+	public Frais getFrais(long id);
 	public List<Frais> getAll();
 	public Frais updateFrais(Frais a);
 

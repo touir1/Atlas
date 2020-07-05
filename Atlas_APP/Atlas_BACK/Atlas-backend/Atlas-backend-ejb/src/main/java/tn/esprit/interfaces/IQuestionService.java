@@ -8,11 +8,11 @@ import tn.esprit.entity.Question;
 
 
 @Remote
-public interface IQuestion {
+public interface IQuestionService {
 	
-	public int AddQuestion (Question  a);
-	public int RemoveQuestion (int idQuestion);
-	public Question  getQuestion(int i);
+	public int addQuestion (Question  a);
+	public int removeQuestion (long idQuestion);
+	public Question  getQuestion(long i);
 	public List<Question> getAll();
 	public Question  updateQuestion(Question  a);
 

@@ -6,37 +6,37 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.User;
-import tn.esprit.interfaces.IUser;
+import tn.esprit.interfaces.IUserService;
 
-public class UserService implements IUser {
+public class UserService implements IUserService {
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddUser(User a) {
+	public boolean addUser(User a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int RemoveUser(int idUser) {
+	public boolean removeUser(long idUser) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(User.class, idUser));
-			return 1;
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public User getUser(int i) {
+	public User getUser(long i) {
 		// TODO Auto-generated method stub
 		User abs = em.find(User.class, i);
 		return abs;

@@ -8,17 +8,17 @@ import javax.persistence.PersistenceContext;
 
 
 import tn.esprit.entity.Formation;
-import tn.esprit.interfaces.IFormation;
+import tn.esprit.interfaces.IFormationService;
 
 @Stateless
-public class FormationService implements IFormation{
+public class FormationService implements IFormationService{
 
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddFormation(Formation a) {
+	public int addFormation(Formation a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -29,7 +29,7 @@ public class FormationService implements IFormation{
 	}
 
 	@Override
-	public int RemoveFormation(int idFormation) {
+	public int removeFormation(long idFormation) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Formation.class, idFormation));
@@ -41,7 +41,7 @@ public class FormationService implements IFormation{
 	}
 
 	@Override
-	public Formation getFormation(int i) {
+	public Formation getFormation(long i) {
 		// TODO Auto-generated method stub
 		Formation abs = em.find(Formation.class, i);
 		return abs;

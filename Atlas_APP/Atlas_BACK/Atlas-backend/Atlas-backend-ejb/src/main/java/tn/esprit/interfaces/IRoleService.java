@@ -9,12 +9,12 @@ import tn.esprit.entity.Role;
 
 
 @Remote
-public interface IRole {
+public interface IRoleService {
 	
 	
-	public int AddRole  (Role a);
-	public int RemoveRole  (int idRole);
-	public Role  getRole (int i);
+	public int addRole  (Role a);
+	public int removeRole  (long idRole);
+	public Role  getRole (long i);
 	public List<Role> getAll();
 	public Role updateRole(Role a);
 

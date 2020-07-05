@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Evaluation;
-import tn.esprit.interfaces.IEvaluation;
+import tn.esprit.interfaces.IEvaluationService;
 
 @Stateless
-public class EvaluationService implements IEvaluation{
+public class EvaluationService implements IEvaluationService{
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	
 	@Override
-	public int AddEvaluation(Evaluation a) {
+	public int qddEvaluation(Evaluation a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class EvaluationService implements IEvaluation{
 	}
 
 	@Override
-	public int RemoveEvaluation(int idEvaluation) {
+	public int removeEvaluation(long idEvaluation) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Evaluation.class, idEvaluation));
@@ -38,7 +38,7 @@ public class EvaluationService implements IEvaluation{
 	}
 
 	@Override
-	public Evaluation getEvaluation(int i) {
+	public Evaluation getEvaluation(long i) {
 		// TODO Auto-generated method stub
 		Evaluation abs = em.find(Evaluation.class, i);
 		return abs;

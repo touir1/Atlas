@@ -7,11 +7,11 @@ import javax.ejb.Remote;
 import tn.esprit.entity.Absence;
 
 @Remote
-public interface IAbsence {
+public interface IAbsenceService {
 
-	public int AddAbsence(Absence a);
-	public int RemoveAbsence(int idAbsence);
-	public Absence getAbsence(int i);
+	public int addAbsence(Absence a);
+	public int removeAbsence(long idAbsence);
+	public Absence getAbsence(long i);
 	public List<Absence> getAll();
 	public Absence updateAbsence(Absence a);
 }

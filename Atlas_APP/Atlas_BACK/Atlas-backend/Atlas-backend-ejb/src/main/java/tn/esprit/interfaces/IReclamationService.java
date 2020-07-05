@@ -7,11 +7,11 @@ import javax.ejb.Remote;
 import tn.esprit.entity.Reclamation;
 
 @Remote
-public interface IReclamation {
+public interface IReclamationService {
 	
-	public int AddReclamation  (Reclamation  a);
-	public int RemoveReclamation  (int idReclamation);
-	public Reclamation  getReclamation (int i);
+	public int addReclamation  (Reclamation  a);
+	public int removeReclamation  (long idReclamation);
+	public Reclamation  getReclamation (long i);
 	public List<Reclamation> getAll();
 	public Reclamation  updateReclamation (Reclamation  a);
 

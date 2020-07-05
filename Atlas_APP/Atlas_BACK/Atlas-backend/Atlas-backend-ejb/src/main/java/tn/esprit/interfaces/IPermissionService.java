@@ -10,11 +10,11 @@ import tn.esprit.entity.Permission;
 
 
 @Remote
-public interface IPermission {
+public interface IPermissionService {
 	
-	public int AddPermission(Permission a);
-	public int RemovePermission(int idPermission);
-	public Permission getPermission(int i);
+	public int addPermission(Permission a);
+	public int removePermission(long idPermission);
+	public Permission getPermission(long i);
 	public List<Permission> getAll();
 	public Permission updatePermission(Permission a);
 }

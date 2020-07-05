@@ -7,17 +7,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Reponse;
-import tn.esprit.interfaces.IReponse;
+import tn.esprit.interfaces.IReponseService;
 
 @Stateful
-public class ReponseService implements IReponse {
+public class ReponseService implements IReponseService {
 
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddReponse(Reponse a) {
+	public int addReponse(Reponse a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -28,7 +28,7 @@ public class ReponseService implements IReponse {
 	}
 
 	@Override
-	public int RemoveReponse(int idReponse) {
+	public int removeReponse(long idReponse) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Reponse.class, idReponse));
@@ -39,7 +39,7 @@ public class ReponseService implements IReponse {
 	}
 
 	@Override
-	public Reponse getReponse(int i) {
+	public Reponse getReponse(long i) {
 		// TODO Auto-generated method stub
 		Reponse abs = em.find(Reponse.class, i);
 		return abs;

@@ -8,10 +8,10 @@ import tn.esprit.entity.Choix;
 
 
 @Remote
-public interface IChoix {
-	public int AddChoix(Choix a);
-	public int RemoveChoix(int idChoix);
-	public Choix getChoix(int i);
+public interface IChoixService {
+	public int addChoix(Choix a);
+	public int removeChoix(long idChoix);
+	public Choix getChoix(long id);
 	public List<Choix> getAll();
 	public Choix updateChoix(Choix a);
 

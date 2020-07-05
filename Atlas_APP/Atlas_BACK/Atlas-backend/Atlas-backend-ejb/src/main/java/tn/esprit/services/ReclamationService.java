@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Reclamation;
-import tn.esprit.interfaces.IReclamation;
+import tn.esprit.interfaces.IReclamationService;
 
 @Stateless
-public class ReclamationService implements IReclamation {
+public class ReclamationService implements IReclamationService {
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int AddReclamation(Reclamation a) {
+	public int addReclamation(Reclamation a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -26,7 +26,7 @@ public class ReclamationService implements IReclamation {
 	}
 
 	@Override
-	public int RemoveReclamation(int idReclamation) {
+	public int removeReclamation(long idReclamation) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Reclamation.class, idReclamation));
@@ -37,7 +37,7 @@ public class ReclamationService implements IReclamation {
 	}
 
 	@Override
-	public Reclamation getReclamation(int i) {
+	public Reclamation getReclamation(long i) {
 		// TODO Auto-generated method stub
 		Reclamation abs = em.find(Reclamation.class, i);
 		return abs;

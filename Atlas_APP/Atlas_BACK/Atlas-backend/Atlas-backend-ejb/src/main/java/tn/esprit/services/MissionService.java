@@ -8,15 +8,15 @@ import javax.persistence.PersistenceContext;
 
 
 import tn.esprit.entity.Mission;
-import tn.esprit.interfaces.IMission;
+import tn.esprit.interfaces.IMissionService;
 
 @Stateless
-public class MissionService implements IMission {
+public class MissionService implements IMissionService {
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int AddMission(Mission a) {
+	public int addMission(Mission a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class MissionService implements IMission {
 	}
 
 	@Override
-	public int RemoveMission(int idMission) {
+	public int removeMission(long idMission) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Mission.class, idMission));
@@ -38,7 +38,7 @@ public class MissionService implements IMission {
 	}
 
 	@Override
-	public Mission getMission(int i) {
+	public Mission getMission(long i) {
 		// TODO Auto-generated method stub
 		Mission abs = em.find(Mission.class, i);
 		return abs;

@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Absence;
-import tn.esprit.interfaces.IAbsence;
+import tn.esprit.interfaces.IAbsenceService;
 
 @Stateless
-public class AbsenceService  implements IAbsence{
+public class AbsenceService  implements IAbsenceService{
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddAbsence(Absence a) {
+	public int addAbsence(Absence a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -28,7 +28,7 @@ public class AbsenceService  implements IAbsence{
 	}
 
 	@Override
-	public int RemoveAbsence(int idAbsence) {
+	public int removeAbsence(long idAbsence) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Absence.class, idAbsence));
@@ -40,7 +40,7 @@ public class AbsenceService  implements IAbsence{
 	}
 
 	@Override
-	public Absence getAbsence(int i) {
+	public Absence getAbsence(long i) {
 		// TODO Auto-generated method stub
 		Absence abs = em.find(Absence.class, i);
 		return abs;

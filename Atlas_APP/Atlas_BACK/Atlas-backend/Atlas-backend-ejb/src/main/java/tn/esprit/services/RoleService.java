@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Role;
-import tn.esprit.interfaces.IRole;
+import tn.esprit.interfaces.IRoleService;
 
 @Stateful
-public class RoleService implements IRole{
+public class RoleService implements IRoleService{
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddRole(Role a) {
+	public int addRole(Role a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -26,7 +26,7 @@ public class RoleService implements IRole{
 	}
 
 	@Override
-	public int RemoveRole(int idRole) {
+	public int removeRole(long idRole) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Role.class, idRole));
@@ -37,7 +37,7 @@ public class RoleService implements IRole{
 	}
 
 	@Override
-	public Role getRole(int i) {
+	public Role getRole(long i) {
 		// TODO Auto-generated method stub
 		Role abs = em.find(Role.class, i);
 		return abs;

@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Rapport;
-import tn.esprit.interfaces.IRapport;
+import tn.esprit.interfaces.IRapportService;
 
 @Stateless
-public class RapportService implements IRapport {
+public class RapportService implements IRapportService {
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int AddRapport(Rapport a) {
+	public int addRapport(Rapport a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -26,7 +26,7 @@ public class RapportService implements IRapport {
 	}
 
 	@Override
-	public int RemoveRapport(int idRapport) {
+	public int removeRapport(long idRapport) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Rapport.class, idRapport));
@@ -37,7 +37,7 @@ public class RapportService implements IRapport {
 	}
 
 	@Override
-	public Rapport getRapport(int i) {
+	public Rapport getRapport(long i) {
 		// TODO Auto-generated method stub
 		Rapport abs = em.find(Rapport.class, i);
 		return abs;

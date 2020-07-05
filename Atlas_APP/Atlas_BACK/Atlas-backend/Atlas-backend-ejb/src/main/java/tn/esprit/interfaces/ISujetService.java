@@ -9,11 +9,11 @@ import tn.esprit.entity.Sujet;
 
 
 @Remote
-public interface ISujet {
+public interface ISujetService {
 	
-	public int AddSujet  (Sujet a);
-	public int RemoveSujet  (int idSujet);
-	public Sujet getSujet (int i);
+	public int addSujet  (Sujet a);
+	public int removeSujet  (long idSujet);
+	public Sujet getSujet (long i);
 	public List<Sujet> getAll();
 	public Sujet updateSujet(Sujet a);
 

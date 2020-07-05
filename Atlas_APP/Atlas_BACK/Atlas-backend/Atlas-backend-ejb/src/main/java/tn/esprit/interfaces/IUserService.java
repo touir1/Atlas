@@ -9,11 +9,11 @@ import tn.esprit.entity.User;
 
 
 @Remote
-public interface IUser {
+public interface IUserService {
 	
-	public int AddUser  (User a);
-	public int RemoveUser  (int idUser);
-	public User getUser (int i);
+	public boolean addUser  (User a);
+	public boolean removeUser  (long idUser);
+	public User getUser (long i);
 	public List<User> getAll();
 	public User updateUser(User a);
 

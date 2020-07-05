@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Frais;
-import tn.esprit.interfaces.IFrais;
+import tn.esprit.interfaces.IFraisService;
 
 @Stateless
-public class FraisService implements IFrais {
+public class FraisService implements IFraisService {
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	
 	@Override
-	public int AddFrais(Frais a) {
+	public int addFrais(Frais a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class FraisService implements IFrais {
 	}
 
 	@Override
-	public int RemoveFrais(int idFrais) {
+	public int removeFrais(long idFrais) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Frais.class, idFrais));
@@ -38,7 +38,7 @@ public class FraisService implements IFrais {
 	}
 
 	@Override
-	public Frais getFrais(int i) {
+	public Frais getFrais(long i) {
 		// TODO Auto-generated method stub
 		Frais abs = em.find(Frais.class, i);
 		return abs;

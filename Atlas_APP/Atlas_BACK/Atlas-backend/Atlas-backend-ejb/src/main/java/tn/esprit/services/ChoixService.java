@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Choix;
-import tn.esprit.interfaces.IChoix;
+import tn.esprit.interfaces.IChoixService;
 
 @Stateless
-public class ChoixService implements IChoix {
+public class ChoixService implements IChoixService {
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddChoix(Choix a) {
+	public int addChoix(Choix a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class ChoixService implements IChoix {
 	}
 
 	@Override
-	public int RemoveChoix(int idChoix) {
+	public int removeChoix(long idChoix) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Choix.class, idChoix));
@@ -38,9 +38,9 @@ public class ChoixService implements IChoix {
 	}
 
 	@Override
-	public Choix getChoix(int i) {
+	public Choix getChoix(long id) {
 		// TODO Auto-generated method stub
-		Choix ch = em.find(Choix.class, i);
+		Choix ch = em.find(Choix.class, id);
 				return ch;
 	}
 

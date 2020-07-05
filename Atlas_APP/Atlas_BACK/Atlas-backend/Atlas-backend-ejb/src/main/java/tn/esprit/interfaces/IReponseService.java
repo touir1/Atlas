@@ -9,11 +9,11 @@ import tn.esprit.entity.Reponse;
 
 
 @Remote
-public interface IReponse {
+public interface IReponseService {
 	
-	public int AddReponse  (Reponse  a);
-	public int RemoveReponse  (int idReponse);
-	public Reponse  getReponse (int i);
+	public int addReponse  (Reponse  a);
+	public int removeReponse  (long idReponse);
+	public Reponse  getReponse (long i);
 	public List<Reponse> getAll();
 	public Reponse updateReponse(Reponse a);
 

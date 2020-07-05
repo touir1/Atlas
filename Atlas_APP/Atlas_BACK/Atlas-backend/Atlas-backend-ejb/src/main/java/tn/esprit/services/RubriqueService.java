@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Rubrique;
-import tn.esprit.interfaces.IRubrique;
+import tn.esprit.interfaces.IRubriqueService;
 
 @Stateful
-public class RubriqueService implements IRubrique {
+public class RubriqueService implements IRubriqueService {
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddRubrique(Rubrique a) {
+	public int addRubrique(Rubrique a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -28,7 +28,7 @@ public class RubriqueService implements IRubrique {
 	}
 
 	@Override
-	public int RemoveRubrique(int idRubrique) {
+	public int removeRubrique(long idRubrique) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Rubrique.class, idRubrique));
@@ -39,7 +39,7 @@ public class RubriqueService implements IRubrique {
 	}
 
 	@Override
-	public Rubrique getRubrique(int i) {
+	public Rubrique getRubrique(long i) {
 		// TODO Auto-generated method stub
 		Rubrique abs = em.find(Rubrique.class, i);
 		return abs;

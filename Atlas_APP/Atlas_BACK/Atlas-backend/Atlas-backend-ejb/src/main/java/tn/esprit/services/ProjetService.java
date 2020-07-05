@@ -7,15 +7,15 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Projet;
-import tn.esprit.interfaces.IProjet;
+import tn.esprit.interfaces.IProjetService;
 
 @Stateless
-public class ProjetService implements IProjet {
+public class ProjetService implements IProjetService {
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int AddProjet(Projet a) {
+	public int addProjet(Projet a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -26,7 +26,7 @@ public class ProjetService implements IProjet {
 	}
 
 	@Override
-	public int RemoveProjet(int idProjet) {
+	public int removeProjet(long idProjet) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Projet.class, idProjet));
@@ -37,7 +37,7 @@ public class ProjetService implements IProjet {
 	}
 
 	@Override
-	public Projet getProjet(int i) {
+	public Projet getProjet(long i) {
 		// TODO Auto-generated method stub
 		Projet abs = em.find(Projet.class, i);
 		return abs;

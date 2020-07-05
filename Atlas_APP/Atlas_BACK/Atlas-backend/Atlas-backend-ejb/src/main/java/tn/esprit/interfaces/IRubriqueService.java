@@ -9,11 +9,11 @@ import tn.esprit.entity.Rubrique;
 
 
 @Remote
-public interface IRubrique {
+public interface IRubriqueService {
 
-	public int AddRubrique  (Rubrique a);
-	public int RemoveRubrique  (int idRubrique);
-	public Rubrique getRubrique (int i);
+	public int addRubrique  (Rubrique a);
+	public int removeRubrique  (long idRubrique);
+	public Rubrique getRubrique (long i);
 	public List<Rubrique> getAll();
 	public Rubrique updateRubrique(Rubrique a);
 	

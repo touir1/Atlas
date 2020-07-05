@@ -16,7 +16,7 @@ public class UserFormationService implements IUserFormation{
 	EntityManager em;
 
 	@Override
-	public int AddUserFormation(UserFormation a) {
+	public int addUserFormation(UserFormation a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class UserFormationService implements IUserFormation{
 	}
 
 	@Override
-	public int RemoveUserFormation(int idUserFormation) {
+	public int removeUserFormation(long idUserFormation) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(UserFormation.class, idUserFormation));
@@ -38,7 +38,7 @@ public class UserFormationService implements IUserFormation{
 	}
 
 	@Override
-	public UserFormation getUserFormation(int i) {
+	public UserFormation getUserFormation(long i) {
 		// TODO Auto-generated method stub
 		UserFormation abs = em.find(UserFormation.class, i);
 		return abs;

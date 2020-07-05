@@ -7,16 +7,16 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Question;
-import tn.esprit.interfaces.IQuestion;
+import tn.esprit.interfaces.IQuestionService;
 
 @Stateless
-public class QuestionService  implements IQuestion{
+public class QuestionService  implements IQuestionService{
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddQuestion(Question a) {
+	public int addQuestion(Question a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class QuestionService  implements IQuestion{
 	}
 
 	@Override
-	public int RemoveQuestion(int idQuestion) {
+	public int removeQuestion(long idQuestion) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Question.class, idQuestion));
@@ -38,7 +38,7 @@ public class QuestionService  implements IQuestion{
 	}
 
 	@Override
-	public Question getQuestion(int i) {
+	public Question getQuestion(long i) {
 		// TODO Auto-generated method stub
 		Question abs = em.find(Question.class, i);
 		return abs;

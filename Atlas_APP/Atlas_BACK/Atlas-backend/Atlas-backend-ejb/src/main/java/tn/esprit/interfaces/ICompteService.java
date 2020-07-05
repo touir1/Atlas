@@ -7,10 +7,10 @@ import javax.ejb.Remote;
 import tn.esprit.entity.Compte;
 
 @Remote
-public interface ICompte {
-	public int AddCompte(Compte a);
-	public int RemoveCompte(int idCompte);
-	public Compte getCompte(int i);
+public interface ICompteService {
+	public int addCompte(Compte a);
+	public int removeCompte(long idCompte);
+	public Compte getCompte(long id);
 	public List<Compte> getAll();
 	public Compte updateCompte(Compte a);
 

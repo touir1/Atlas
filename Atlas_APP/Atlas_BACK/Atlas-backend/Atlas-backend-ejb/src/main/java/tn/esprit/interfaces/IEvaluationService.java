@@ -8,10 +8,10 @@ import tn.esprit.entity.Evaluation;
 
 
 @Remote
-public interface IEvaluation {
-	public int AddEvaluation(Evaluation a);
-	public int RemoveEvaluation(int idEvaluation);
-	public Evaluation getEvaluation(int i);
+public interface IEvaluationService {
+	public int qddEvaluation(Evaluation a);
+	public int removeEvaluation(long idEvaluation);
+	public Evaluation getEvaluation(long i);
 	public List<Evaluation> getAll();
 	public Evaluation updateEvaluation(Evaluation a);
 

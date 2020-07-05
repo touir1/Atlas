@@ -8,16 +8,16 @@ import javax.persistence.PersistenceContext;
 
 
 import tn.esprit.entity.Facturation;
-import tn.esprit.interfaces.IFacturation;
+import tn.esprit.interfaces.IFacturationService;
 
 @Stateless
-public class FacturationService implements IFacturation{
+public class FacturationService implements IFacturationService{
 	
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 
 	@Override
-	public int AddFacturation(Facturation a) {
+	public int addFacturation(Facturation a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -28,7 +28,7 @@ public class FacturationService implements IFacturation{
 	}
 
 	@Override
-	public int RemoveFacturation(int idFacturation) {
+	public int removeFacturation(long idFacturation) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Facturation.class, idFacturation));
@@ -39,7 +39,7 @@ public class FacturationService implements IFacturation{
 	}
 
 	@Override
-	public Facturation getFacturation(int i) {
+	public Facturation getFacturation(long i) {
 		// TODO Auto-generated method stub
 		Facturation cp = em.find(Facturation.class, i);
 		return cp;

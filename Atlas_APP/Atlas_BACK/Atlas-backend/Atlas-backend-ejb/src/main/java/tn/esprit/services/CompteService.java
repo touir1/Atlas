@@ -8,15 +8,15 @@ import javax.persistence.PersistenceContext;
 
 
 import tn.esprit.entity.Compte;
-import tn.esprit.interfaces.ICompte;
+import tn.esprit.interfaces.ICompteService;
 
 @Stateless
-public class CompteService implements ICompte{
+public class CompteService implements ICompteService{
 
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int AddCompte(Compte a) {
+	public int addCompte(Compte a) {
 		// TODO Auto-generated method stub
 		try {
 			em.persist(a);
@@ -27,7 +27,7 @@ public class CompteService implements ICompte{
 	}
 
 	@Override
-	public int RemoveCompte(int idCompte) {
+	public int removeCompte(long idCompte) {
 		// TODO Auto-generated method stub
 		try {
 			em.remove(em.find(Compte.class, idCompte));
@@ -38,7 +38,7 @@ public class CompteService implements ICompte{
 	}
 
 	@Override
-	public Compte getCompte(int i) {
+	public Compte getCompte(long i) {
 		// TODO Auto-generated method stub
 		Compte cp = em.find(Compte.class, i);
 		return cp;

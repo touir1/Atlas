@@ -8,12 +8,12 @@ import tn.esprit.entity.Mission;
 
 
 @Remote
-public interface IMission {
+public interface IMissionService {
 
 	
-	public int AddMission(Mission a);
-	public int RemoveMission(int idMission);
-	public Mission getMission(int i);
+	public int addMission(Mission a);
+	public int removeMission(long idMission);
+	public Mission getMission(long i);
 	public List<Mission> getAll();
 	public Mission updateMission(Mission a);
 }
