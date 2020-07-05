@@ -15,5 +15,6 @@ public interface ISujet {
 	public int RemoveSujet  (int idSujet);
 	public Sujet getSujet (int i);
 	public List<Sujet> getAll();
+	public Sujet updateSujet(Sujet a);
 
 }

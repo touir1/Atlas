@@ -16,5 +16,6 @@ public interface IRole {
 	public int RemoveRole  (int idRole);
 	public Role  getRole (int i);
 	public List<Role> getAll();
+	public Role updateRole(Role a);
 
 }

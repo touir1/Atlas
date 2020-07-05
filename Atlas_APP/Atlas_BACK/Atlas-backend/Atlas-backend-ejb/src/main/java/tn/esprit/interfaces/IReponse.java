@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Remote;
 
+
 import tn.esprit.entity.Reponse;
 
 
@@ -14,5 +15,6 @@ public interface IReponse {
 	public int RemoveReponse  (int idReponse);
 	public Reponse  getReponse (int i);
 	public List<Reponse> getAll();
+	public Reponse updateReponse(Reponse a);
 
 }

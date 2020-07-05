@@ -14,5 +14,6 @@ public interface IUserFormation {
 	public int RemoveUserFormation  (int idUserFormation);
 	public UserFormation getUserFormation (int i);
 	public List<UserFormation> getAll();
+	public UserFormation updateUserFormation(UserFormation a);
 
 }

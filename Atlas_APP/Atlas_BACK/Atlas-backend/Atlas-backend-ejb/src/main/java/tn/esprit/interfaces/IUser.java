@@ -15,5 +15,6 @@ public interface IUser {
 	public int RemoveUser  (int idUser);
 	public User getUser (int i);
 	public List<User> getAll();
+	public User updateUser(User a);
 
 }

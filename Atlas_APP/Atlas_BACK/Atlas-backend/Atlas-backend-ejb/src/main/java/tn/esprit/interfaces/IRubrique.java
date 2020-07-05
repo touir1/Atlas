@@ -15,5 +15,6 @@ public interface IRubrique {
 	public int RemoveRubrique  (int idRubrique);
 	public Rubrique getRubrique (int i);
 	public List<Rubrique> getAll();
+	public Rubrique updateRubrique(Rubrique a);
 	
 }
