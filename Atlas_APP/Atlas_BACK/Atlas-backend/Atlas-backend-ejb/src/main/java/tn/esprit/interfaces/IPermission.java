@@ -16,5 +16,5 @@ public interface IPermission {
 	public int RemovePermission(int idPermission);
 	public Permission getPermission(int i);
 	public List<Permission> getAll();
-
+	public Permission updatePermission(Permission a);
 }

@@ -14,6 +14,7 @@ public interface IProjet {
 	public int RemoveProjet(int idProjet);
 	public Projet getProjet(int i);
 	public List<Projet> getAll();
+	public Projet updateProjet(Projet a);
 	
 	
 

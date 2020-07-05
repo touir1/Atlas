@@ -15,5 +15,6 @@ public interface IFrais {
 	public int RemoveFrais(int idFrais);
 	public Frais getFrais(int i);
 	public List<Frais> getAll();
+	public Frais updateFrais(Frais a);
 
 }

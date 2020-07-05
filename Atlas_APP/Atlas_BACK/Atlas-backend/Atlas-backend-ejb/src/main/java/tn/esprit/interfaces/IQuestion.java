@@ -12,7 +12,8 @@ public interface IQuestion {
 	
 	public int AddQuestion (Question  a);
 	public int RemoveQuestion (int idQuestion);
-	public Question  getProjet(int i);
+	public Question  getQuestion(int i);
 	public List<Question> getAll();
+	public Question  updateQuestion(Question  a);
 
 }

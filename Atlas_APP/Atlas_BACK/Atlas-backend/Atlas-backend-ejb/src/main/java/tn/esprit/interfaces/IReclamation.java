@@ -13,5 +13,6 @@ public interface IReclamation {
 	public int RemoveReclamation  (int idReclamation);
 	public Reclamation  getReclamation (int i);
 	public List<Reclamation> getAll();
+	public Reclamation  updateReclamation (Reclamation  a);
 
 }

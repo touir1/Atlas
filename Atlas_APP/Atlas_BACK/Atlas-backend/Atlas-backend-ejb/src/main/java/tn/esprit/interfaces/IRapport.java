@@ -15,6 +15,7 @@ public interface IRapport {
 	public int RemoveRapport  (int idRapport);
 	public Rapport  getRapport (int i);
 	public List<Rapport> getAll();
+	public Rapport  updateRapport (Rapport   a);
 	
 
 }

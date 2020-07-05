@@ -15,4 +15,5 @@ public interface IMission {
 	public int RemoveMission(int idMission);
 	public Mission getMission(int i);
 	public List<Mission> getAll();
+	public Mission updateMission(Mission a);
 }
