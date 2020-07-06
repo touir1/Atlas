@@ -6,6 +6,9 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class User implements Serializable {
 	@Id
@@ -16,30 +19,40 @@ public class User implements Serializable {
 	private String email;
 	private String poste;
 	private String image;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dateNaissance;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date dateContrat;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Compte> comptes;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Evaluation> evaluations;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "membres")
 	private List<Projet> projets;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Frais> frais;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Absence> absences;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Reclamation> reclamations;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<UserFormation> userFormations;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Rapport> rapports;
 

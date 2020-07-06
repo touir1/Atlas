@@ -2,14 +2,17 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Rubrique;
 import tn.esprit.interfaces.IRubriqueService;
 
-@Stateful
+@Stateless
+@LocalBean
 public class RubriqueService implements IRubriqueService {
 	
 	@PersistenceContext(unitName="primary")

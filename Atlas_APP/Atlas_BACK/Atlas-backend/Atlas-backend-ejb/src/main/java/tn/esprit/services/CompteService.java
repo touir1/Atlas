@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import tn.esprit.entity.Compte;
 import tn.esprit.interfaces.ICompteService;
 
 @Stateless
+@LocalBean
 public class CompteService implements ICompteService{
 
 	@PersistenceContext(unitName="primary")

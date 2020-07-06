@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import tn.esprit.entity.Absence;
 import tn.esprit.interfaces.IAbsenceService;
 
 @Stateless
+@LocalBean
 public class AbsenceService  implements IAbsenceService{
 	
 	@PersistenceContext(unitName="primary")

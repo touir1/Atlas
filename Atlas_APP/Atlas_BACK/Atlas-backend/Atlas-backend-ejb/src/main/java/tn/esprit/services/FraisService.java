@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -10,6 +11,7 @@ import tn.esprit.entity.Frais;
 import tn.esprit.interfaces.IFraisService;
 
 @Stateless
+@LocalBean
 public class FraisService implements IFraisService {
 
 	@PersistenceContext(unitName="primary")

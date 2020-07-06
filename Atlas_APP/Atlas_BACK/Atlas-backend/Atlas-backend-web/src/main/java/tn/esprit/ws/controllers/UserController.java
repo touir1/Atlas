@@ -1,5 +1,6 @@
 package tn.esprit.ws.controllers;
 
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -13,13 +14,18 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.log4j.Logger;
+
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IUserService;
+import tn.esprit.services.UserService;
 
 @Path("user")
 public class UserController {
 	
-	@Inject
+	private final static Logger logger = Logger.getLogger(UserController.class);
+	
+	@EJB
 	private IUserService userService;
 	
 	@GET
@@ -29,6 +35,7 @@ public class UserController {
 			return Response.status(Status.OK).entity(userService.getAll()).build();
 		}
 		catch(Exception e) {
+			logger.error("failed while trying to get the list of users",e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -44,6 +51,7 @@ public class UserController {
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		catch(Exception e) {
+			logger.error("failed while trying to get a user",e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -57,6 +65,7 @@ public class UserController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		catch(Exception e) {
+			logger.error("failed while trying to save a user",e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -69,6 +78,7 @@ public class UserController {
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
+			logger.error("failed while trying to update a user",e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		
@@ -82,6 +92,7 @@ public class UserController {
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
+			logger.error("failed while trying to delete a user",e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}

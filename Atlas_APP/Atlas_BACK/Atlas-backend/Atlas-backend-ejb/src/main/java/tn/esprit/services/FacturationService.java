@@ -2,6 +2,7 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,6 +12,7 @@ import tn.esprit.entity.Facturation;
 import tn.esprit.interfaces.IFacturationService;
 
 @Stateless
+@LocalBean
 public class FacturationService implements IFacturationService{
 	
 	@PersistenceContext(unitName="primary")

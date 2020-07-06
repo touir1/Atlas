@@ -2,16 +2,24 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
+import org.apache.log4j.Logger;
 
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IUserService;
 
+@Stateless
+@LocalBean
 public class UserService implements IUserService {
 	
+	private final static Logger logger = Logger.getLogger(UserService.class);
+	
 	@PersistenceContext(unitName="primary")
-	EntityManager em;
+	private EntityManager em;
 
 	@Override
 	public boolean addUser(User a) {
@@ -20,6 +28,7 @@ public class UserService implements IUserService {
 			em.persist(a);
 			return true;
 		} catch(Exception e) {
+			logger.error("error while trying to add a user",e);
 			return false;
 		}
 	}
@@ -31,6 +40,7 @@ public class UserService implements IUserService {
 			em.remove(em.find(User.class, idUser));
 			return true;
 		}catch(Exception e) {
+			logger.error("error while trying to remove a user",e);
 			return false;	
 		}
 	}

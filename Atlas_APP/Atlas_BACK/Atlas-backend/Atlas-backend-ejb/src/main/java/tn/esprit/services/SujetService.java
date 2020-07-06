@@ -2,7 +2,9 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -10,7 +12,8 @@ import tn.esprit.entity.Sujet;
 import tn.esprit.interfaces.ISujetService;
 
 
-@Stateful
+@Stateless
+@LocalBean
 public class SujetService implements ISujetService {
 	
 	

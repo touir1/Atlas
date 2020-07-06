@@ -2,14 +2,17 @@ package tn.esprit.services;
 
 import java.util.List;
 
+import javax.ejb.LocalBean;
 import javax.ejb.Stateful;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Reponse;
 import tn.esprit.interfaces.IReponseService;
 
-@Stateful
+@Stateless
+@LocalBean
 public class ReponseService implements IReponseService {
 
 	
