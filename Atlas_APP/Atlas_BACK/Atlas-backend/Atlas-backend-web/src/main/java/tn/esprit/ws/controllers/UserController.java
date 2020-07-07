@@ -1,7 +1,6 @@
 package tn.esprit.ws.controllers;
 
 import javax.ejb.EJB;
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -18,7 +17,6 @@ import org.apache.log4j.Logger;
 
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IUserService;
-import tn.esprit.services.UserService;
 
 @Path("user")
 public class UserController {
@@ -26,13 +24,13 @@ public class UserController {
 	private final static Logger logger = Logger.getLogger(UserController.class);
 	
 	@EJB
-	private IUserService userService;
+	private IUserService service;
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll(){
 		try {
-			return Response.status(Status.OK).entity(userService.getAll()).build();
+			return Response.status(Status.OK).entity(service.getAll()).build();
 		}
 		catch(Exception e) {
 			logger.error("failed while trying to get the list of users",e);
@@ -45,7 +43,7 @@ public class UserController {
 	@Path("{id}")
 	public Response getOne(@PathParam("id") long id) {
 		try {
-			User user = userService.get(id);
+			User user = service.get(id);
 			if(user != null)
 				return Response.status(Status.OK).entity(user).build();
 			return Response.status(Status.NOT_FOUND).build();
@@ -58,9 +56,9 @@ public class UserController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response add(User user) {
+	public Response add(User entity) {
 		try {
-			if(userService.add(user))
+			if(service.add(entity))
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		}
@@ -72,9 +70,9 @@ public class UserController {
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response update(User user) {
+	public Response update(User entity) {
 		try {
-			userService.update(user);
+			service.update(entity);
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
@@ -88,7 +86,7 @@ public class UserController {
 	@Path("{id}")
 	public Response delete(@PathParam("id") long id) {
 		try {
-			userService.remove(new User(id));
+			service.remove(new User(id));
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
