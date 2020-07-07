@@ -27,7 +27,7 @@ import tn.esprit.interfaces.IRapportService;
 public class RapportController {
 	private final static Logger logger = Logger.getLogger(ReponseController.class);
 	@EJB
-	public IRapportService service;
+	private IRapportService service;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

@@ -24,11 +24,11 @@ import tn.esprit.interfaces.IUserFormation;
 public class UserFormationController {
 	private final static Logger logger = Logger.getLogger(UserFormationController.class);
 	@EJB
-	public IUserFormation service;
+	private IUserFormation service;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getAll() {
+	private Response getAll() {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
 		} catch (Exception e) {

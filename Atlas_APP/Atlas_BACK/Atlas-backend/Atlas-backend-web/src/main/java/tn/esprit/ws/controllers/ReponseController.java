@@ -24,7 +24,7 @@ import tn.esprit.interfaces.IReponseService;
 public class ReponseController {
 	private final static Logger logger = Logger.getLogger(ReponseController.class);
 	@EJB
-	public IReponseService service;
+	private IReponseService service;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
