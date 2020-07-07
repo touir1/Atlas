@@ -15,14 +15,13 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
-import tn.esprit.entity.Evaluation;
-import tn.esprit.entity.Question;
+
 import tn.esprit.entity.Rapport;
-import tn.esprit.entity.Reponse;
+
 import tn.esprit.entity.Rubrique;
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IRapportService;
-import tn.esprit.interfaces.IReponseService;
+
 
 @Path("rapport")
 public class RapportController {

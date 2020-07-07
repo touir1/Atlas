@@ -16,9 +16,8 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
 
 import tn.esprit.entity.Permission;
-import tn.esprit.entity.Reclamation;
 import tn.esprit.interfaces.IPermissionService;
-import tn.esprit.interfaces.IReclamationService;
+
 
 @Path("permission")
 public class PermissionController {
