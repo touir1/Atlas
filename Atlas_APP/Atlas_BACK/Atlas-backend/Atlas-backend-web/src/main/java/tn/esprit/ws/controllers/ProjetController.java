@@ -29,7 +29,7 @@ private final static Logger logger = Logger.getLogger(ProjetController.class);
 			return Response.status(Status.OK).entity(service.getAll()).build();
 		}
 		catch(Exception e) {
-			logger.error("failed while trying to get the list of users",e);
+			logger.error("failed while trying to get the list of projets",e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -45,7 +45,7 @@ private final static Logger logger = Logger.getLogger(ProjetController.class);
 			return Response.status(Status.NOT_FOUND).build();
 		}
 		catch(Exception e) {
-			logger.error("failed while trying to get a user",e);
+			logger.error("failed while trying to get a projet",e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -59,7 +59,7 @@ private final static Logger logger = Logger.getLogger(ProjetController.class);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		catch(Exception e) {
-			logger.error("failed while trying to save a user",e);
+			logger.error("failed while trying to save a projet",e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -72,7 +72,7 @@ private final static Logger logger = Logger.getLogger(ProjetController.class);
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
-			logger.error("failed while trying to update a user",e);
+			logger.error("failed while trying to update a projet",e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		
@@ -86,7 +86,7 @@ private final static Logger logger = Logger.getLogger(ProjetController.class);
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
-			logger.error("failed while trying to delete a user",e);
+			logger.error("failed while trying to delete a projet",e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}

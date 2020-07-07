@@ -32,7 +32,7 @@ public class ReponseController {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get the list of users", e);
+			logger.error("failed while trying to get the list of reponses", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -47,7 +47,7 @@ public class ReponseController {
 				return Response.status(Status.OK).entity(reponse).build();
 			return Response.status(Status.NOT_FOUND).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get a user", e);
+			logger.error("failed while trying to get a reponse", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -60,7 +60,7 @@ public class ReponseController {
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to save a user", e);
+			logger.error("failed while trying to save a reponse", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -72,7 +72,7 @@ public class ReponseController {
 			service.update(entity);
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to update a user", e);
+			logger.error("failed while trying to update a reponse", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 
@@ -85,7 +85,7 @@ public class ReponseController {
 			service.remove(new Reponse(new Evaluation(idEvaluation), new Question(idQuestion)));
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to delete a user", e);
+			logger.error("failed while trying to delete a reponse", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}

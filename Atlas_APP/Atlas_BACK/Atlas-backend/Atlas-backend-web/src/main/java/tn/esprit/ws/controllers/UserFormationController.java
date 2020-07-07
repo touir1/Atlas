@@ -28,11 +28,11 @@ public class UserFormationController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	private Response getAll() {
+	public Response getAll() {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get the list of users", e);
+			logger.error("failed while trying to get the list of userFormation", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -47,7 +47,7 @@ public class UserFormationController {
 				return Response.status(Status.OK).entity(userForamtion).build();
 			return Response.status(Status.NOT_FOUND).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get a user", e);
+			logger.error("failed while trying to get a userFormation", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -60,7 +60,7 @@ public class UserFormationController {
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to save a user", e);
+			logger.error("failed while trying to save a userFormation", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -72,7 +72,7 @@ public class UserFormationController {
 			service.update(entity);
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to update a user", e);
+			logger.error("failed while trying to update a userFormation", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 
@@ -85,7 +85,7 @@ public class UserFormationController {
 			service.remove(new UserFormation(new Formation(idformation), new User(iduser)));
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to delete a user", e);
+			logger.error("failed while trying to delete a userFormation", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}

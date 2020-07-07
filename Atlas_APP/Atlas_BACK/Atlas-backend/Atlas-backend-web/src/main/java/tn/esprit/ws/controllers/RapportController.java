@@ -35,7 +35,7 @@ public class RapportController {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get the list of users", e);
+			logger.error("failed while trying to get the list of rapports", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -50,7 +50,7 @@ public class RapportController {
 				return Response.status(Status.OK).entity(reponse).build();
 			return Response.status(Status.NOT_FOUND).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get a user", e);
+			logger.error("failed while trying to get a rapport", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -63,7 +63,7 @@ public class RapportController {
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to save a user", e);
+			logger.error("failed while trying to save a rapport", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -75,7 +75,7 @@ public class RapportController {
 			service.update(entity);
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to update a user", e);
+			logger.error("failed while trying to update a rapport", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 
@@ -88,7 +88,7 @@ public class RapportController {
 			service.remove(new Rapport(new User(idUser), new Rubrique(idRubrique)));
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to delete a user", e);
+			logger.error("failed while trying to delete a rapport", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
