@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Role implements Serializable {
 	@Id
@@ -12,11 +14,18 @@ public class Role implements Serializable {
 	private Long id;
 	private String libelle;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "roles")
 	private List<Permission> permissions;
 
+	@JsonIgnore
 	@ManyToMany
 	private List<Compte> comptes;
+
+	public Role(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Role(Long id, String libelle) {
 		super();

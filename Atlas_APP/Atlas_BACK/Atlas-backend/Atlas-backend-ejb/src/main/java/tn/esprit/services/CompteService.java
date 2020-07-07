@@ -18,44 +18,40 @@ public class CompteService implements ICompteService{
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int addCompte(Compte a) {
-		// TODO Auto-generated method stub
+	public boolean add(Compte a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-					return 0;
+					return false;
 		}
 	}
 
 	@Override
-	public int removeCompte(long idCompte) {
-		// TODO Auto-generated method stub
+	public boolean remove(Compte c) {
 		try {
-			em.remove(em.find(Compte.class, idCompte));
-			return 1;
+			if(c == null) return false;
+			em.remove(em.find(Compte.class, c.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Compte getCompte(long i) {
-		// TODO Auto-generated method stub
-		Compte cp = em.find(Compte.class, i);
+	public Compte get(long id) {
+		Compte cp = em.find(Compte.class, id);
 		return cp;
 	}
 
 	@Override
 	public List<Compte> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Compte",Compte.class)
 				.getResultList();
 	}
 
 	@Override
-	public Compte updateCompte(Compte a) {
-		// TODO Auto-generated method stub
+	public Compte update(Compte a) {
 		return em.merge(a);
 	}
 

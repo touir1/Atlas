@@ -17,44 +17,40 @@ public class ReclamationService implements IReclamationService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int addReclamation(Reclamation a) {
-		// TODO Auto-generated method stub
+	public boolean add(Reclamation a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeReclamation(long idReclamation) {
-		// TODO Auto-generated method stub
+	public boolean remove(Reclamation r) {
 		try {
-			em.remove(em.find(Reclamation.class, idReclamation));
-			return 1;
+			if(r == null) return false;
+			em.remove(em.find(Reclamation.class, r.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Reclamation getReclamation(long i) {
-		// TODO Auto-generated method stub
-		Reclamation abs = em.find(Reclamation.class, i);
+	public Reclamation get(long id) {
+		Reclamation abs = em.find(Reclamation.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Reclamation> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Reclamation",Reclamation.class)
 				.getResultList();
 	}
 
 	@Override
-	public Reclamation updateReclamation(Reclamation a) {
-		// TODO Auto-generated method stub
+	public Reclamation update(Reclamation a) {
 		return em.merge(a);
 	}
 

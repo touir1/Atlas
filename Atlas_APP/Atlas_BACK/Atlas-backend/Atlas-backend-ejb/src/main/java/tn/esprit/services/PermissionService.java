@@ -17,44 +17,40 @@ public class PermissionService  implements IPermissionService{
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int addPermission(Permission a) {
-		// TODO Auto-generated method stub
+	public boolean add(Permission a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removePermission(long idPermission) {
-		// TODO Auto-generated method stub
+	public boolean remove(Permission p) {
 		try {
-			em.remove(em.find(Permission.class, idPermission));
-			return 1;
+			if(p == null) return false;
+			em.remove(em.find(Permission.class, p.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Permission getPermission(long i) {
-		// TODO Auto-generated method stub
-		Permission abs = em.find(Permission.class, i);
+	public Permission get(long id) {
+		Permission abs = em.find(Permission.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Permission> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Permission",Permission.class)
 				.getResultList();
 	}
 
 	@Override
-	public Permission updatePermission(Permission a) {
-		// TODO Auto-generated method stub
+	public Permission update(Permission a) {
 		return em.merge(a);
 	}
 

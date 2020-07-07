@@ -9,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Facturation implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateFacturation;
 	private String libelle;
 	private Float montantTotale;
@@ -22,6 +25,11 @@ public class Facturation implements Serializable {
 
 	@ManyToOne
 	private Mission mission;
+
+	public Facturation(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Facturation(Long id, Date dateFacturation, String libelle, Float montantTotale, String document) {
 		super();

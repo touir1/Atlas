@@ -17,44 +17,49 @@ public class RapportService implements IRapportService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int addRapport(Rapport a) {
-		// TODO Auto-generated method stub
+	public boolean add(Rapport a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeRapport(long idRapport) {
-		// TODO Auto-generated method stub
+	public boolean remove(Rapport r) {
 		try {
-			em.remove(em.find(Rapport.class, idRapport));
-			return 1;
+			if(r == null || r.getUser() == null || r.getRubrique() == null) return false;
+			Rapport toRemove = em.createQuery("select r from Rapport r where r.user.id = :user"
+					+ " and r.rubrique.id = :rubrique",Rapport.class)
+					.setParameter("user", r.getUser().getId())
+					.setParameter("rubrique", r.getRubrique().getId())
+					.getSingleResult();
+			em.remove(toRemove);
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Rapport getRapport(long i) {
-		// TODO Auto-generated method stub
-		Rapport abs = em.find(Rapport.class, i);
+	public Rapport get(long idUser, long idRubrique) {
+		Rapport abs = em.createQuery("select r from Rapport r where r.user.id = :user"
+				+ " and r.rubrique.id = :rubrique",Rapport.class)
+				.setParameter("user", idUser)
+				.setParameter("rubrique", idRubrique)
+				.getSingleResult();
 		return abs;
 	}
 
 	@Override
 	public List<Rapport> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Rapport",Rapport.class)
 				.getResultList();
 	}
 
 	@Override
-	public Rapport updateRapport(Rapport a) {
-		// TODO Auto-generated method stub
+	public Rapport update(Rapport a) {
 		return em.merge(a);
 	}
 

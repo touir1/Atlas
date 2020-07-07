@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Question implements Serializable {
 
@@ -22,11 +24,18 @@ public class Question implements Serializable {
 	@ManyToOne
 	private Sujet sujet;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "question")
 	private List<Choix> choix;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "question")
 	private List<Reponse> reponses;
+
+	public Question(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Question(Long id, String type, String libelle) {
 		super();

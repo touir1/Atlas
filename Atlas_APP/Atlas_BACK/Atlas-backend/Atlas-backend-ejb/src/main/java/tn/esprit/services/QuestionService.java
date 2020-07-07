@@ -18,44 +18,40 @@ public class QuestionService  implements IQuestionService{
 	EntityManager em;
 
 	@Override
-	public int addQuestion(Question a) {
-		// TODO Auto-generated method stub
+	public boolean add(Question a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeQuestion(long idQuestion) {
-		// TODO Auto-generated method stub
+	public boolean remove(Question q) {
 		try {
-			em.remove(em.find(Question.class, idQuestion));
-			return 1;
+			if(q == null) return false;
+			em.remove(em.find(Question.class, q.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Question getQuestion(long i) {
-		// TODO Auto-generated method stub
-		Question abs = em.find(Question.class, i);
+	public Question get(long id) {
+		Question abs = em.find(Question.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Question> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Question",Question.class)
 				.getResultList();
 	}
 
 	@Override
-	public Question updateQuestion(Question a) {
-		// TODO Auto-generated method stub
+	public Question update(Question a) {
 		return em.merge(a);
 	}
 }

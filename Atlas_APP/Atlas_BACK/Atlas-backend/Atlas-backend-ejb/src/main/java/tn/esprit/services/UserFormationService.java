@@ -3,7 +3,6 @@ package tn.esprit.services;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,44 +18,49 @@ public class UserFormationService implements IUserFormation{
 	EntityManager em;
 
 	@Override
-	public int addUserFormation(UserFormation a) {
-		// TODO Auto-generated method stub
+	public boolean add(UserFormation a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeUserFormation(long idUserFormation) {
-		// TODO Auto-generated method stub
+	public boolean remove(UserFormation u) {
 		try {
-			em.remove(em.find(UserFormation.class, idUserFormation));
-			return 1;
+			if(u == null || u.getUser() == null || u.getFormation() == null) return false;
+			UserFormation toRemove = em.createQuery("select r from UserFormation r where r.user.id = :user"
+					+ " and r.formation.id = :formation",UserFormation.class)
+					.setParameter("user", u.getUser().getId())
+					.setParameter("formation", u.getFormation().getId())
+					.getSingleResult();
+			em.remove(toRemove);
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public UserFormation getUserFormation(long i) {
-		// TODO Auto-generated method stub
-		UserFormation abs = em.find(UserFormation.class, i);
+	public UserFormation get(long idUser, long idFormation) {
+		UserFormation abs = em.createQuery("select r from UserFormation r where r.user.id = :user"
+				+ " and r.formation.id = :formation",UserFormation.class)
+				.setParameter("user", idUser)
+				.setParameter("formation", idFormation)
+				.getSingleResult();
 		return abs;
 	}
 
 	@Override
 	public List<UserFormation> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from UserFormation",UserFormation.class)
 				.getResultList();
 	}
 
 	@Override
-	public UserFormation updateUserFormation(UserFormation a) {
-		// TODO Auto-generated method stub
+	public UserFormation update(UserFormation a) {
 		return em.merge(a);
 	}
 

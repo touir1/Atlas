@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Formation implements Serializable {
 	@Id
@@ -12,8 +14,14 @@ public class Formation implements Serializable {
 	private Long id;
 	private String libelle;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "formation")
 	private List<UserFormation> userFormations;
+
+	public Formation(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Formation(Long id, String libelle) {
 		super();

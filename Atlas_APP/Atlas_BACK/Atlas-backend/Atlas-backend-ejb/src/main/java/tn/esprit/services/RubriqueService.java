@@ -3,7 +3,6 @@ package tn.esprit.services;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -19,45 +18,41 @@ public class RubriqueService implements IRubriqueService {
 	EntityManager em;
 
 	@Override
-	public int addRubrique(Rubrique a) {
-		// TODO Auto-generated method stub
+	public boolean add(Rubrique a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 		
 	}
 
 	@Override
-	public int removeRubrique(long idRubrique) {
-		// TODO Auto-generated method stub
+	public boolean remove(Rubrique r) {
 		try {
-			em.remove(em.find(Rubrique.class, idRubrique));
-			return 1;
+			if(r == null) return false;
+			em.remove(em.find(Rubrique.class, r.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Rubrique getRubrique(long i) {
-		// TODO Auto-generated method stub
-		Rubrique abs = em.find(Rubrique.class, i);
+	public Rubrique get(long id) {
+		Rubrique abs = em.find(Rubrique.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Rubrique> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Rubrique",Rubrique.class)
 				.getResultList();
 	}
 
 	@Override
-	public Rubrique updateRubrique(Rubrique a) {
-		// TODO Auto-generated method stub
+	public Rubrique update(Rubrique a) {
 		return em.merge(a);
 	}
 

@@ -17,44 +17,40 @@ public class ProjetService implements IProjetService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int addProjet(Projet a) {
-		// TODO Auto-generated method stub
+	public boolean add(Projet a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeProjet(long idProjet) {
-		// TODO Auto-generated method stub
+	public boolean remove(Projet p) {
 		try {
-			em.remove(em.find(Projet.class, idProjet));
-			return 1;
+			if(p == null) return false;
+			em.remove(em.find(Projet.class, p.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Projet getProjet(long i) {
-		// TODO Auto-generated method stub
-		Projet abs = em.find(Projet.class, i);
+	public Projet get(long id) {
+		Projet abs = em.find(Projet.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Projet> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Projet",Projet.class)
 				.getResultList();
 	}
 
 	@Override
-	public Projet updateProjet(Projet a) {
-		// TODO Auto-generated method stub
+	public Projet update(Projet a) {
 		return em.merge(a);
 	}
 

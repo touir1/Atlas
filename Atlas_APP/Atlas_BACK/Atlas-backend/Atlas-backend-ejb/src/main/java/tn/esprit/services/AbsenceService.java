@@ -18,33 +18,31 @@ public class AbsenceService  implements IAbsenceService{
 	EntityManager em;
 
 	@Override
-	public int addAbsence(Absence a) {
-		// TODO Auto-generated method stub
+	public boolean add(Absence a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 		
 	}
 
 	@Override
-	public int removeAbsence(long idAbsence) {
-		// TODO Auto-generated method stub
+	public boolean remove(Absence a) {
 		try {
-			em.remove(em.find(Absence.class, idAbsence));
-			return 1;
+			if(a == null) return false;
+			em.remove(em.find(Absence.class, a.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 		
 	}
 
 	@Override
-	public Absence getAbsence(long i) {
-		// TODO Auto-generated method stub
-		Absence abs = em.find(Absence.class, i);
+	public Absence get(long id) {
+		Absence abs = em.find(Absence.class, id);
 		return abs;
 	}
 
@@ -55,8 +53,7 @@ public class AbsenceService  implements IAbsenceService{
 	}
 
 	@Override
-	public Absence updateAbsence(Absence a) {
-		// TODO Auto-generated method stub
+	public Absence update(Absence a) {
 		return em.merge(a);
 	}
 

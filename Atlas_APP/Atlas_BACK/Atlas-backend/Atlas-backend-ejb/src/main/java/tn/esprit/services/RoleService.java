@@ -3,7 +3,6 @@ package tn.esprit.services;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,44 +17,40 @@ public class RoleService implements IRoleService{
 	EntityManager em;
 
 	@Override
-	public int addRole(Role a) {
-		// TODO Auto-generated method stub
+	public boolean add(Role a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeRole(long idRole) {
-		// TODO Auto-generated method stub
+	public boolean remove(Role r) {
 		try {
-			em.remove(em.find(Role.class, idRole));
-			return 1;
+			if(r == null) return false;
+			em.remove(em.find(Role.class, r.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Role getRole(long i) {
-		// TODO Auto-generated method stub
-		Role abs = em.find(Role.class, i);
+	public Role get(long id) {
+		Role abs = em.find(Role.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Role> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Role",Role.class)
 				.getResultList();
 	}
 
 	@Override
-	public Role updateRole(Role a) {
-		// TODO Auto-generated method stub
+	public Role update(Role a) {
 		return em.merge(a);
 	}
 

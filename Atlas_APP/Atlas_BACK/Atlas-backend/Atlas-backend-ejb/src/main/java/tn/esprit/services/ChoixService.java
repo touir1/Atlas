@@ -18,43 +18,39 @@ public class ChoixService implements IChoixService {
 	EntityManager em;
 
 	@Override
-	public int addChoix(Choix a) {
-		// TODO Auto-generated method stub
+	public boolean add(Choix a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeChoix(long idChoix) {
-		// TODO Auto-generated method stub
+	public boolean remove(Choix c) {
 		try {
-			em.remove(em.find(Choix.class, idChoix));
-			return 1;
+			if(c == null) return false;
+			em.remove(em.find(Choix.class, c.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Choix getChoix(long id) {
-		// TODO Auto-generated method stub
+	public Choix get(long id) {
 		Choix ch = em.find(Choix.class, id);
 				return ch;
 	}
 
 	@Override
 	public List<Choix> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Choix",Choix.class)
 				.getResultList();	}
 
 	@Override
-	public Choix updateChoix(Choix a) {
-		// TODO Auto-generated method stub
+	public Choix update(Choix a) {
 		return em.merge(a);
 	}
 }

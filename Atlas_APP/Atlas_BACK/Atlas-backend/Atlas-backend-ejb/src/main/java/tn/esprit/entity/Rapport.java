@@ -9,11 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Rapport implements Serializable {
 
 	private Boolean valider;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateCreation;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateImputation;
 	private Integer semaine;
 	private Integer mois;
@@ -26,6 +30,12 @@ public class Rapport implements Serializable {
 	@Id
 	@ManyToOne
 	private Rubrique rubrique;
+
+	public Rapport(User user, Rubrique rubrique) {
+		super();
+		this.user = user;
+		this.rubrique = rubrique;
+	}
 
 	public Rapport(Boolean valider, Date dateCreation, Date dateImputation, Integer semaine, Integer mois,
 			Integer joursSemaine, Float duree) {

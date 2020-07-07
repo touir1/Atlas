@@ -20,6 +20,11 @@ public class Choix implements Serializable {
 	@ManyToOne
 	private Question question;
 
+	public Choix(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Choix(Long id, String ordre, String libelle) {
 		super();
 		this.id = id;

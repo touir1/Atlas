@@ -11,24 +11,35 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Mission implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String type;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date date;
 	private Float duree;
 	private String lieu;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "mission")
 	private List<Frais> frais;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "mission")
 	private List<Facturation> facturations;
 
 	@ManyToOne
 	private Projet projet;
+
+	public Mission(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Long getId() {
 		return id;

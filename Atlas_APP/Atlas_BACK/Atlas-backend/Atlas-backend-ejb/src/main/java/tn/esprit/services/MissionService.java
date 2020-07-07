@@ -18,44 +18,40 @@ public class MissionService implements IMissionService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public int addMission(Mission a) {
-		// TODO Auto-generated method stub
+	public boolean add(Mission a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeMission(long idMission) {
-		// TODO Auto-generated method stub
+	public boolean remove(Mission m) {
 		try {
-			em.remove(em.find(Mission.class, idMission));
-			return 1;
+			if(m == null) return false;
+			em.remove(em.find(Mission.class, m.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Mission getMission(long i) {
-		// TODO Auto-generated method stub
-		Mission abs = em.find(Mission.class, i);
+	public Mission get(long id) {
+		Mission abs = em.find(Mission.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Mission> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Mission",Mission.class)
 				.getResultList();
 	}
 
 	@Override
-	public Mission updateMission(Mission a) {
-		// TODO Auto-generated method stub
+	public Mission update(Mission a) {
 		return em.merge(a);
 	}
 

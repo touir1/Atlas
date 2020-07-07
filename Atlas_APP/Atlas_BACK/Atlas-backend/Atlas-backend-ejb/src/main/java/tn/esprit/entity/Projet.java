@@ -11,23 +11,36 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Projet implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String titre;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateCreation;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateCloture;
 
+	@JsonIgnore
 	@ManyToMany
 	private List<User> membres;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "projet")
 	private List<Mission> missions;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "projet")
 	private List<Rubrique> rubriques;
+
+	public Projet(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Projet(Long id, String titre, Date dateCreation, Date dateCloture) {
 		super();

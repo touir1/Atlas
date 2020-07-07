@@ -3,7 +3,6 @@ package tn.esprit.services;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,44 +20,40 @@ public class SujetService implements ISujetService {
 	EntityManager em;
 
 	@Override
-	public int addSujet(Sujet a) {
-		// TODO Auto-generated method stub
+	public boolean add(Sujet a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeSujet(long idSujet) {
-		// TODO Auto-generated method stub
+	public boolean remove(Sujet s) {
 		try {
-			em.remove(em.find(Sujet.class, idSujet));
-			return 1;
+			if(s == null) return false;
+			em.remove(em.find(Sujet.class, s.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Sujet getSujet(long i) {
-		// TODO Auto-generated method stub
-		Sujet abs = em.find(Sujet.class, i);
+	public Sujet get(long id) {
+		Sujet abs = em.find(Sujet.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Sujet> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Sujet",Sujet.class)
 				.getResultList();
 	}
 
 	@Override
-	public Sujet updateSujet(Sujet a) {
-		// TODO Auto-generated method stub
+	public Sujet update(Sujet a) {
 		return em.merge(a);
 	}
 

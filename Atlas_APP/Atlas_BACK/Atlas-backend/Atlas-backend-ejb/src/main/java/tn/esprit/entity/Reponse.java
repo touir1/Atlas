@@ -22,6 +22,12 @@ public class Reponse implements Serializable {
 	@ManyToOne
 	private Question question;
 
+	public Reponse(Evaluation evaluation, Question question) {
+		super();
+		this.evaluation = evaluation;
+		this.question = question;
+	}
+
 	public Reponse(Float note, String reponseText, String teponseNumeric, Float noteSuperior, String commentaire) {
 		super();
 		this.note = note;

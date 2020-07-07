@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Evaluation implements Serializable {
 
@@ -22,8 +24,14 @@ public class Evaluation implements Serializable {
 	@ManyToOne
 	private User user;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "evaluation")
 	private List<Reponse> reponses;
+
+	public Evaluation(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Evaluation(Long id, String createdBy, String status) {
 		super();

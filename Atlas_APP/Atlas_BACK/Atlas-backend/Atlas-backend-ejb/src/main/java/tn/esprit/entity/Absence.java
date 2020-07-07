@@ -5,12 +5,16 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 public class Absence implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateDebutConge;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateFinConge;
 	private Float heures;
 	private String status;
@@ -18,6 +22,11 @@ public class Absence implements Serializable {
 
 	@ManyToOne
 	private User user;
+
+	public Absence(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Absence(Long id, Date dateDebutConge, Date dateFinConge, Float heures, String status, String type) {
 		super();

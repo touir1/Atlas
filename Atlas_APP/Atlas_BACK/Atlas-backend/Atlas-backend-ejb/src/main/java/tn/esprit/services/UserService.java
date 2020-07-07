@@ -22,8 +22,7 @@ public class UserService implements IUserService {
 	private EntityManager em;
 
 	@Override
-	public boolean addUser(User a) {
-		// TODO Auto-generated method stub
+	public boolean add(User a) {
 		try {
 			em.persist(a);
 			return true;
@@ -34,10 +33,10 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public boolean removeUser(long idUser) {
-		// TODO Auto-generated method stub
+	public boolean remove(User u) {
 		try {
-			em.remove(em.find(User.class, idUser));
+			if(u == null) return false;
+			em.remove(em.find(User.class, u.getId()));
 			return true;
 		}catch(Exception e) {
 			logger.error("error while trying to remove a user",e);
@@ -46,22 +45,19 @@ public class UserService implements IUserService {
 	}
 
 	@Override
-	public User getUser(long i) {
-		// TODO Auto-generated method stub
-		User abs = em.find(User.class, i);
+	public User get(long id) {
+		User abs = em.find(User.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<User> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from User",User.class)
 				.getResultList();
 	}
 
 	@Override
-	public User updateUser(User a) {
-		// TODO Auto-generated method stub
+	public User update(User a) {
 		return em.merge(a);
 	}
 

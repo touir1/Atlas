@@ -19,9 +19,9 @@ public class User implements Serializable {
 	private String email;
 	private String poste;
 	private String image;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateNaissance;
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateContrat;
 
 	@JsonIgnore
@@ -58,6 +58,11 @@ public class User implements Serializable {
 
 	@ManyToOne
 	private User chef;
+
+	public User(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public User(Long id, String nom, String prenom, String email, String poste, String image, Date dateNaissance,
 			Date dateContrat) {

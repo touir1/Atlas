@@ -8,12 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "User_Formation")
 public class UserFormation implements Serializable {
 
 	private String status;
 	private String description;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.SSSZ")
 	private Date dateDemande;
 
 	@Id
@@ -22,6 +25,12 @@ public class UserFormation implements Serializable {
 	@Id
 	@ManyToOne
 	private User user;
+
+	public UserFormation(Formation formation, User user) {
+		super();
+		this.formation = formation;
+		this.user = user;
+	}
 
 	public UserFormation(String status, String description, Date dateDemande) {
 		super();

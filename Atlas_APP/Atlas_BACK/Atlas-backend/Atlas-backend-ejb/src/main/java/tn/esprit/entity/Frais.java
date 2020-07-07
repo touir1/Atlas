@@ -22,6 +22,11 @@ public class Frais implements Serializable {
 	@ManyToOne
 	private Mission mission;
 
+	public Frais(Long id) {
+		super();
+		this.id = id;
+	}
+
 	public Long getId() {
 		return id;
 	}

@@ -45,7 +45,7 @@ public class UserController {
 	@Path("{id}")
 	public Response getOne(@PathParam("id") long id) {
 		try {
-			User user = userService.getUser(id);
+			User user = userService.get(id);
 			if(user != null)
 				return Response.status(Status.OK).entity(user).build();
 			return Response.status(Status.NOT_FOUND).build();
@@ -60,7 +60,7 @@ public class UserController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response add(User user) {
 		try {
-			if(userService.addUser(user))
+			if(userService.add(user))
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		}
@@ -74,7 +74,7 @@ public class UserController {
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response update(User user) {
 		try {
-			userService.updateUser(user);
+			userService.update(user);
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {
@@ -88,7 +88,7 @@ public class UserController {
 	@Path("{id}")
 	public Response delete(@PathParam("id") long id) {
 		try {
-			userService.removeUser(id);
+			userService.remove(new User(id));
 			return Response.status(Status.ACCEPTED).build();
 		}
 		catch(Exception e) {

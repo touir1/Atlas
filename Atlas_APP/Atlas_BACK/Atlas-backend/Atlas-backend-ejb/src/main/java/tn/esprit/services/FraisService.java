@@ -18,44 +18,40 @@ public class FraisService implements IFraisService {
 	EntityManager em;
 	
 	@Override
-	public int addFrais(Frais a) {
-		// TODO Auto-generated method stub
+	public boolean add(Frais a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeFrais(long idFrais) {
-		// TODO Auto-generated method stub
+	public boolean remove(Frais f) {
 		try {
-			em.remove(em.find(Frais.class, idFrais));
-			return 1;
+			if(f == null) return false;
+			em.remove(em.find(Frais.class, f.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Frais getFrais(long i) {
-		// TODO Auto-generated method stub
-		Frais abs = em.find(Frais.class, i);
+	public Frais get(long id) {
+		Frais abs = em.find(Frais.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Frais> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Frais",Frais.class)
 				.getResultList();
 	}
 
 	@Override
-	public Frais updateFrais(Frais a) {
-		// TODO Auto-generated method stub
+	public Frais update(Frais a) {
 		return em.merge(a);
 	}
 

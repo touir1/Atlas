@@ -18,44 +18,40 @@ public class EvaluationService implements IEvaluationService{
 	EntityManager em;
 	
 	@Override
-	public int qddEvaluation(Evaluation a) {
-		// TODO Auto-generated method stub
+	public boolean add(Evaluation a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeEvaluation(long idEvaluation) {
-		// TODO Auto-generated method stub
+	public boolean remove(Evaluation ev) {
 		try {
-			em.remove(em.find(Evaluation.class, idEvaluation));
-			return 1;
+			if(ev == null) return false;
+			em.remove(em.find(Evaluation.class, ev.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;
 		}
 	}
 
 	@Override
-	public Evaluation getEvaluation(long i) {
-		// TODO Auto-generated method stub
-		Evaluation abs = em.find(Evaluation.class, i);
+	public Evaluation get(long id) {
+		Evaluation abs = em.find(Evaluation.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Evaluation> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Evaluation",Evaluation.class)
 				.getResultList();
 	}
 
 	@Override
-	public Evaluation updateEvaluation(Evaluation a) {
-		// TODO Auto-generated method stub
+	public Evaluation update(Evaluation a) {
 		return em.merge(a);
 	}
 

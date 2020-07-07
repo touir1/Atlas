@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Permission implements Serializable {
 	@Id
@@ -14,8 +16,14 @@ public class Permission implements Serializable {
 	private String action;
 	private String application;
 
+	@JsonIgnore
 	@ManyToMany
 	private List<Role> roles;
+
+	public Permission(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Permission(Long id, String ecran, String action, String application) {
 		super();

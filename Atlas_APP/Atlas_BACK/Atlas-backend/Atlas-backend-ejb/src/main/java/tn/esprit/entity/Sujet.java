@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Sujet implements Serializable {
 
@@ -19,8 +21,14 @@ public class Sujet implements Serializable {
 	private Integer coeficient;
 	private Boolean noter;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "sujet")
 	private List<Question> questions;
+
+	public Sujet(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Sujet(Long id, String titre, Integer coeficient, Boolean noter) {
 		super();

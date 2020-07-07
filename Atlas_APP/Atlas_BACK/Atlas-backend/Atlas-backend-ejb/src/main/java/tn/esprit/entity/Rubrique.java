@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class Rubrique implements Serializable {
 
@@ -22,8 +24,14 @@ public class Rubrique implements Serializable {
 	@ManyToOne
 	private Projet projet;
 
+	@JsonIgnore
 	@OneToMany(mappedBy = "rubrique")
 	private List<Rapport> rapports;
+
+	public Rubrique(Long id) {
+		super();
+		this.id = id;
+	}
 
 	public Rubrique(Long id, String titre, Float estimation) {
 		super();

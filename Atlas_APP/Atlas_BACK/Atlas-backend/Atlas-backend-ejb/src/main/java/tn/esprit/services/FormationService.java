@@ -20,45 +20,41 @@ public class FormationService implements IFormationService{
 	EntityManager em;
 
 	@Override
-	public int addFormation(Formation a) {
-		// TODO Auto-generated method stub
+	public boolean add(Formation a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeFormation(long idFormation) {
-		// TODO Auto-generated method stub
+	public boolean remove(Formation f) {
 		try {
-			em.remove(em.find(Formation.class, idFormation));
-			return 1;
+			if(f == null) return false;
+			em.remove(em.find(Formation.class, f.getId()));
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 		
 	}
 
 	@Override
-	public Formation getFormation(long i) {
-		// TODO Auto-generated method stub
-		Formation abs = em.find(Formation.class, i);
+	public Formation get(long id) {
+		Formation abs = em.find(Formation.class, id);
 		return abs;
 	}
 
 	@Override
 	public List<Formation> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Formation",Formation.class)
 				.getResultList();
 	}
 
 	@Override
-	public Formation updateFormation(Formation a) {
-		// TODO Auto-generated method stub
+	public Formation update(Formation a) {
 		return em.merge(a);
 	}
 }

@@ -3,7 +3,6 @@ package tn.esprit.services;
 import java.util.List;
 
 import javax.ejb.LocalBean;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -20,44 +19,49 @@ public class ReponseService implements IReponseService {
 	EntityManager em;
 
 	@Override
-	public int addReponse(Reponse a) {
-		// TODO Auto-generated method stub
+	public boolean add(Reponse a) {
 		try {
 			em.persist(a);
-			return 1;
+			return true;
 		} catch(Exception e) {
-			return 0;
+			return false;
 		}
 	}
 
 	@Override
-	public int removeReponse(long idReponse) {
-		// TODO Auto-generated method stub
+	public boolean remove(Reponse r) {
 		try {
-			em.remove(em.find(Reponse.class, idReponse));
-			return 1;
+			if(r == null || r.getEvaluation() == null || r.getQuestion() == null) return false;
+			Reponse toRemove = em.createQuery("select r from Reponse r where r.evaluation.id = :evaluation"
+					+ " and r.question.id = :question",Reponse.class)
+					.setParameter("evaluation", r.getEvaluation().getId())
+					.setParameter("question", r.getQuestion().getId())
+					.getSingleResult();
+			em.remove(toRemove);
+			return true;
 		}catch(Exception e) {
-			return 0;	
+			return false;	
 		}
 	}
 
 	@Override
-	public Reponse getReponse(long i) {
-		// TODO Auto-generated method stub
-		Reponse abs = em.find(Reponse.class, i);
+	public Reponse get(long idEvaluation, long idQuestion) {
+		Reponse abs = em.createQuery("select r from Reponse r where r.evaluation.id = :evaluation"
+				+ " and r.question.id = :question",Reponse.class)
+				.setParameter("evaluation", idEvaluation)
+				.setParameter("question", idQuestion)
+				.getSingleResult();
 		return abs;
 	}
 
 	@Override
 	public List<Reponse> getAll() {
-		// TODO Auto-generated method stub
 		return em.createQuery("from Reponse",Reponse.class)
 				.getResultList();
 	}
 
 	@Override
-	public Reponse updateReponse(Reponse a) {
-		// TODO Auto-generated method stub
+	public Reponse update(Reponse a) {
 		return em.merge(a);
 	}
 
