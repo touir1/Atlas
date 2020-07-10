@@ -13,10 +13,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import org.apache.log4j.Logger;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Question;
 import tn.esprit.interfaces.IQuestionService;
 
 @Path("question")
+@Api(value = "QuestionRESTService", description = "Question service")
 public class QuestionController {
 private final static Logger logger = Logger.getLogger(QuestionController.class);
 	
@@ -25,6 +29,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the questions")
 	public Response getAll(){
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
@@ -38,6 +43,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
+	@ApiOperation(value = "get a question by id")
 	public Response getOne(@PathParam("id") long id) {
 		try {
 			Question entity = service.get(id);
@@ -53,6 +59,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "adds a question to the database")
 	public Response add(Question entity) {
 		try {
 			if(service.add(entity))
@@ -67,6 +74,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "updates a question")
 	public Response update(Question entity) {
 		try {
 			service.update(entity);
@@ -81,6 +89,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	
 	@DELETE
 	@Path("{id}")
+	@ApiOperation(value = "deletes a question from the database")
 	public Response delete(@PathParam("id") long id) {
 		try {
 			service.remove(new Question(id));

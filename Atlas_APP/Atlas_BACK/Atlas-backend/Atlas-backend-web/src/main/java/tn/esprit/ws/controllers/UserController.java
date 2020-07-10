@@ -15,10 +15,13 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IUserService;
 
 @Path("user")
+@Api(value = "UserRESTService", description = "User service")
 public class UserController {
 	
 	private final static Logger logger = Logger.getLogger(UserController.class);
@@ -28,6 +31,7 @@ public class UserController {
 	
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the users")
 	public Response getAll(){
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
@@ -41,6 +45,7 @@ public class UserController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
+	@ApiOperation(value = "get a user by it's id")
 	public Response getOne(@PathParam("id") long id) {
 		try {
 			User user = service.get(id);
@@ -56,6 +61,7 @@ public class UserController {
 	
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "add a user to the database")
 	public Response add(User entity) {
 		try {
 			if(service.add(entity))
@@ -70,6 +76,7 @@ public class UserController {
 	
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "updates a user")
 	public Response update(User entity) {
 		try {
 			service.update(entity);
@@ -84,6 +91,7 @@ public class UserController {
 	
 	@DELETE
 	@Path("{id}")
+	@ApiOperation(value = "deletes a user from the database")
 	public Response delete(@PathParam("id") long id) {
 		try {
 			service.remove(new User(id));

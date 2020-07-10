@@ -15,19 +15,24 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Evaluation;
 import tn.esprit.entity.Question;
 import tn.esprit.entity.Reponse;
 import tn.esprit.interfaces.IReponseService;
 
 @Path("reponse")
+@Api(value = "ReponseRESTService", description = "Reponse service")
 public class ReponseController {
 	private final static Logger logger = Logger.getLogger(ReponseController.class);
+
 	@EJB
 	private IReponseService service;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the reponses")
 	public Response getAll() {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
@@ -40,9 +45,10 @@ public class ReponseController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{idEvaluation}/{idQuestion}")
-	public Response getOne(@PathParam("idEvaluation") long idEvaluation,@PathParam("idQuestion") long idQuestion) {
+	@ApiOperation(value = "gets a reponse by id")
+	public Response getOne(@PathParam("idEvaluation") long idEvaluation, @PathParam("idQuestion") long idQuestion) {
 		try {
-			Reponse reponse = service.get(idEvaluation,idQuestion);
+			Reponse reponse = service.get(idEvaluation, idQuestion);
 			if (reponse != null)
 				return Response.status(Status.OK).entity(reponse).build();
 			return Response.status(Status.NOT_FOUND).build();
@@ -54,6 +60,7 @@ public class ReponseController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "adds a reponse to the database")
 	public Response add(Reponse entity) {
 		try {
 			if (service.add(entity))
@@ -67,6 +74,7 @@ public class ReponseController {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "updates a reponse")
 	public Response update(Reponse entity) {
 		try {
 			service.update(entity);
@@ -80,7 +88,8 @@ public class ReponseController {
 
 	@DELETE
 	@Path("{idEvaluation}/{idQuestion}")
-	public Response delete(@PathParam("idEvaluation") long idEvaluation,@PathParam("idQuestion") long idQuestion) {
+	@ApiOperation(value = "deletes a reponse from the database")
+	public Response delete(@PathParam("idEvaluation") long idEvaluation, @PathParam("idQuestion") long idQuestion) {
 		try {
 			service.remove(new Reponse(new Evaluation(idEvaluation), new Question(idQuestion)));
 			return Response.status(Status.ACCEPTED).build();
@@ -89,6 +98,5 @@ public class ReponseController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-
 
 }

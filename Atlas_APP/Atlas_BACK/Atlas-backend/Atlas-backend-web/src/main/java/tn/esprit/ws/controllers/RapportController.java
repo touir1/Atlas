@@ -15,22 +15,25 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.log4j.Logger;
 
-
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Rapport;
 
 import tn.esprit.entity.Rubrique;
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IRapportService;
 
-
 @Path("rapport")
+@Api(value = "RapportRESTService", description = "Rapport service")
 public class RapportController {
 	private final static Logger logger = Logger.getLogger(ReponseController.class);
+
 	@EJB
 	private IRapportService service;
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the rapports")
 	public Response getAll() {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
@@ -43,9 +46,10 @@ public class RapportController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{idUser}/{idRubrique}")
-	public Response getOne(@PathParam("idUser") long idUser,@PathParam("idRubrique") long idRubrique) {
+	@ApiOperation(value = "get a rapport by id")
+	public Response getOne(@PathParam("idUser") long idUser, @PathParam("idRubrique") long idRubrique) {
 		try {
-			Rapport reponse = service.get(idUser,idRubrique);
+			Rapport reponse = service.get(idUser, idRubrique);
 			if (reponse != null)
 				return Response.status(Status.OK).entity(reponse).build();
 			return Response.status(Status.NOT_FOUND).build();
@@ -57,6 +61,7 @@ public class RapportController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "adds a rapport to the database")
 	public Response add(Rapport entity) {
 		try {
 			if (service.add(entity))
@@ -70,6 +75,7 @@ public class RapportController {
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "updates a rapport")
 	public Response update(Rapport entity) {
 		try {
 			service.update(entity);
@@ -83,7 +89,8 @@ public class RapportController {
 
 	@DELETE
 	@Path("{idUser}/{idRubrique}")
-	public Response delete(@PathParam("idUser") long idUser,@PathParam("idRubrique") long idRubrique) {
+	@ApiOperation(value = "deletes a rapport from the database")
+	public Response delete(@PathParam("idUser") long idUser, @PathParam("idRubrique") long idRubrique) {
 		try {
 			service.remove(new Rapport(new User(idUser), new Rubrique(idRubrique)));
 			return Response.status(Status.ACCEPTED).build();
