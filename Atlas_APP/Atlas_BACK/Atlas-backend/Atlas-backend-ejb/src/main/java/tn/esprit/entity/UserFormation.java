@@ -3,6 +3,7 @@ package tn.esprit.entity;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
@@ -13,10 +14,11 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 @Table(name = "User_Formation")
 public class UserFormation implements Serializable {
-
+	@Column(nullable = false)
 	private String status;
 	private String description;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateDemande;
 
 	@Id

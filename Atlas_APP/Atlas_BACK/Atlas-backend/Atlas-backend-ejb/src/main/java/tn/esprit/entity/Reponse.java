@@ -11,7 +11,7 @@ public class Reponse implements Serializable {
 
 	private Float note;
 	private String reponseText;
-	private String teponseNumeric;
+	private String reponseNumeric;
 	private Float noteSuperior;
 	private String commentaire;
 
@@ -28,11 +28,11 @@ public class Reponse implements Serializable {
 		this.question = question;
 	}
 
-	public Reponse(Float note, String reponseText, String teponseNumeric, Float noteSuperior, String commentaire) {
+	public Reponse(Float note, String reponseText, String reponseNumeric, Float noteSuperior, String commentaire) {
 		super();
 		this.note = note;
 		this.reponseText = reponseText;
-		this.teponseNumeric = teponseNumeric;
+		this.reponseNumeric = reponseNumeric;
 		this.noteSuperior = noteSuperior;
 		this.commentaire = commentaire;
 	}
@@ -57,12 +57,12 @@ public class Reponse implements Serializable {
 		this.reponseText = reponseText;
 	}
 
-	public String getTeponseNumeric() {
-		return teponseNumeric;
+	public String getReponseNumeric() {
+		return reponseNumeric;
 	}
 
-	public void setTeponseNumeric(String teponseNumeric) {
-		this.teponseNumeric = teponseNumeric;
+	public void setReponseNumeric(String reponseNumeric) {
+		this.reponseNumeric = reponseNumeric;
 	}
 
 	public Float getNoteSuperior() {

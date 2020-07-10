@@ -14,14 +14,19 @@ public class User implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String nom;
+	@Column(nullable = false)
 	private String prenom;
+	@Column(nullable = false)
 	private String email;
+	@Column(nullable = false)
 	private String poste;
 	private String image;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dateNaissance;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateContrat;
 
 	@JsonIgnore

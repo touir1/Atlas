@@ -3,6 +3,7 @@ package tn.esprit.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,12 +17,18 @@ public class Rapport implements Serializable {
 
 	private Boolean valider;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateCreation;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateImputation;
+	@Column(nullable = false)
 	private Integer semaine;
+	@Column(nullable = false)
 	private Integer mois;
+	@Column(nullable = false)
 	private Integer joursSemaine;
+	@Column(nullable = false)
 	private Float duree;
 
 	@Id

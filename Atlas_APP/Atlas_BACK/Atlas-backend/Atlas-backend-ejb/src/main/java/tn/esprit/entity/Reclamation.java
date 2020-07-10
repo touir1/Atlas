@@ -9,9 +9,13 @@ public class Reclamation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String libelle;
+	@Column(nullable = false)
 	private String type;
+	@Column(nullable = false)
 	private String niveau;
+	@Column(nullable = false)
 	private String status;
 
 	@ManyToOne

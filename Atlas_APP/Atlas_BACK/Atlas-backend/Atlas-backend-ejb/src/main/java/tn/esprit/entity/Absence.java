@@ -13,11 +13,16 @@ public class Absence implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateDebutConge;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateFinConge;
+	@Column(nullable = false)
 	private Float heures;
+	@Column(nullable = false)
 	private String status;
+	@Column(nullable = false)
 	private String type;
 
 	@ManyToOne

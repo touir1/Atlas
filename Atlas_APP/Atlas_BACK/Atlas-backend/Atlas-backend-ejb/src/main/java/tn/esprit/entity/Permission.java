@@ -12,8 +12,11 @@ public class Permission implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String ecran;
+	@Column(nullable = false)
 	private String action;
+	@Column(nullable = false)
 	private String application;
 
 	@JsonIgnore

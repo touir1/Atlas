@@ -3,6 +3,7 @@ package tn.esprit.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,8 +19,10 @@ public class Facturation implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+	@Column(nullable = false)
 	private Date dateFacturation;
 	private String libelle;
+	@Column(nullable = false)
 	private Float montantTotale;
 	private String document;
 

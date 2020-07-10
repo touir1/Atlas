@@ -2,6 +2,7 @@ package tn.esprit.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,6 +16,7 @@ public class Choix implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String ordre;
+	@Column(nullable = false)
 	private String libelle;
 
 	@ManyToOne

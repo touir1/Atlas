@@ -10,10 +10,14 @@ public class Frais implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(nullable = false)
 	private String type;
+	@Column(nullable = false)
 	private String status;
 	private String description;
+	@Column(nullable = false)
 	private String justificatif;
+	@Column(nullable = false)
 	private Boolean remboursable;
 
 	@ManyToOne
