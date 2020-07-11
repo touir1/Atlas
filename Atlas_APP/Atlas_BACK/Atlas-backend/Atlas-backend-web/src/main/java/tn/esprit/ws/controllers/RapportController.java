@@ -99,4 +99,17 @@ public class RapportController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	@PUT
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("{idUser}/{idRubrique}")
+	@ApiOperation(value = "Approve rapport")
+	public Response validerRapport(@PathParam("idUser") long idUser, @PathParam("idRubrique") long idRubrique) {
+		try {
+			 service.validerRapport(idUser, idRubrique);
+			 return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to approve a rapport", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 }

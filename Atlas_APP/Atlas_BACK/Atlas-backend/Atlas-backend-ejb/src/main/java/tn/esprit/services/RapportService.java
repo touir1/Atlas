@@ -63,4 +63,16 @@ public class RapportService implements IRapportService {
 		return em.merge(a);
 	}
 
+	@Override
+	public Boolean validerRapport(long idUser, long idRubrique) {
+		// TODO Auto-generated method stub
+		Rapport abs = em.createQuery("select r from Rapport r where r.user.id = :user"
+				+ " and r.rubrique.id = :rubrique",Rapport.class)
+				.setParameter("user", idUser)
+				.setParameter("rubrique", idRubrique)
+				.getSingleResult();
+		abs.setValider(true);
+		return true;
+	}
+
 }
