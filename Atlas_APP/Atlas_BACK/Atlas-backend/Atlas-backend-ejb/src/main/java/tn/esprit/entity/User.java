@@ -38,6 +38,10 @@ public class User implements Serializable {
 	private List<Projet> projetsCreated;
 	
 	@JsonIgnore
+	@OneToMany(mappedBy = "createdBy")
+	private List<Evaluation> evaluationCreated;
+	
+	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Evaluation> evaluations;
 

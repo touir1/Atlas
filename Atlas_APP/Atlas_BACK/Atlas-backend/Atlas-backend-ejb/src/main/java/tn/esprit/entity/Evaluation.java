@@ -19,13 +19,15 @@ public class Evaluation implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false)
-	private String createdBy;
+//	
 	@Column(nullable = false)
 	private String status;
 
 	@ManyToOne
 	private User user;
+	
+	@ManyToOne
+	private User createdBy;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "evaluation")
@@ -36,14 +38,18 @@ public class Evaluation implements Serializable {
 		this.id = id;
 	}
 
-	public Evaluation(Long id, String createdBy, String status) {
+	
+
+	public Evaluation(Long id, String status, User user) {
 		super();
 		this.id = id;
-		this.createdBy = createdBy;
 		this.status = status;
+		this.user = user;
 	}
 
-	public Evaluation(String createdBy, String status) {
+
+
+	public Evaluation(User createdBy, String status) {
 		super();
 		this.createdBy = createdBy;
 		this.status = status;
@@ -61,11 +67,13 @@ public class Evaluation implements Serializable {
 		this.id = id;
 	}
 
-	public String getCreatedBy() {
+	
+
+	public User getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(String createdBy) {
+	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
 
