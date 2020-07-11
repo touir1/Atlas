@@ -39,6 +39,32 @@ public class AbsenceController {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the absences of users under a manager by status")
+	@Path("byStatusForManager/{idManager}/{status}")
+	public Response getListByStatusForManager(@PathParam("status") String status, @PathParam("idManager")  long idManager) {
+		try {
+			return Response.status(Status.OK).entity(service.getListByStatusForManager(status, idManager)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of absences", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the absences of users by status")
+	@Path("byStatusForUser/{idUser}/{status}")
+	public Response getListByStatusForUser(@PathParam("status") String status, @PathParam("idUser")  long idUser) {
+		try {
+			return Response.status(Status.OK).entity(service.getListByStatusForUser(status, idUser)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of absences", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)

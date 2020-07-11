@@ -57,4 +57,22 @@ public class AbsenceService  implements IAbsenceService{
 		return em.merge(a);
 	}
 
+	@Override
+	public List<Absence> getListByStatusForManager(String status, long idManager) {
+		return em.createQuery("select a from Absence a where a.status = :status"
+				+ " and a.user.chef.id = :manager",Absence.class)
+				.setParameter("status", status)
+				.setParameter("manager", idManager)
+				.getResultList();
+	}
+
+	@Override
+	public List<Absence> getListByStatusForUser(String status, long idUser) {
+		return em.createQuery("select a from Absence a where a.status = :status"
+				+ " and a.user.id = :user",Absence.class)
+				.setParameter("status", status)
+				.setParameter("user", idUser)
+				.getResultList();
+	}
+
 }
