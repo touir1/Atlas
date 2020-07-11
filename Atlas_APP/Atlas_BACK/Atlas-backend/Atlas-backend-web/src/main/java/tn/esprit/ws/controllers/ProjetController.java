@@ -95,4 +95,43 @@ public class ProjetController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of project by manager")
+	@Path("byManager/{idManager}")
+	public Response getListProjectByManager(@PathParam("idManager")  long idUser) {
+		try {
+			return Response.status(Status.OK).entity(service.getProjectByManager(idUser)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of project by manager", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of members by project")
+	@Path("Members/{idProject}")
+	public Response getListMembersByProject(@PathParam("idProject")  long idProject) {
+		try {
+			return Response.status(Status.OK).entity(service.getMembreByProject(idProject)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of members by project", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	@PUT
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Affecter user to project")
+	@Path("Affecter/{idProject}/{idMembre}")
+	public Response AffecterMemeber(@PathParam("idProject")Long idProject,@PathParam("idMembre") Long idMembre) {
+		try {
+			service.affecterUserToProject(idProject, idMembre);
+			return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to update a projet", e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+
+	}
 }
