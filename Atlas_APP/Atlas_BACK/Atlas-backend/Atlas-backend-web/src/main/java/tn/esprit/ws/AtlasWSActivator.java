@@ -20,7 +20,7 @@ public class AtlasWSActivator extends Application {
 		super();
 
 		initSwagger();
-		
+
 	}
 
 	public void initSwagger() {
@@ -31,12 +31,13 @@ public class AtlasWSActivator extends Application {
 		beanConfig.setBasePath("/Atlas-backend-web/atlas/api");
 		beanConfig.setResourcePackage(UserController.class.getPackage().getName());
 		beanConfig.setScan(true);
-		
+
 	}
+
 	@NameBinding
 	@Target({ ElementType.TYPE, ElementType.METHOD })
 	@Retention(value = RetentionPolicy.RUNTIME)
 	public @interface Secured {
 	}
-	
+
 }

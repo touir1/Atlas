@@ -12,6 +12,7 @@ using Atlas_frontend.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Atlas_frontend.Utils.CustomIdentity;
 
 namespace Atlas_frontend
 {
@@ -32,7 +33,9 @@ namespace Atlas_frontend
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserManager<CustomUserManager>()
+                .AddSignInManager<CustomSignInManager>();
                 
             services.AddControllersWithViews();
             services.AddRazorPages();

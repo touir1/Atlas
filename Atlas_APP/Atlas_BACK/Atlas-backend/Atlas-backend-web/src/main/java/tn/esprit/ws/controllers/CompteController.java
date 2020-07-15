@@ -33,8 +33,8 @@ import tn.esprit.interfaces.ICompteService;
 @Path("compte")
 @Api(value = "CompteRESTService", description = "Compte service")
 public class CompteController {
-	private static final SecureRandom secureRandom = new SecureRandom(); //threadsafe
-	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder(); 
+	private static final SecureRandom secureRandom = new SecureRandom(); // threadsafe
+	private static final Base64.Encoder base64Encoder = Base64.getUrlEncoder();
 	private final static Logger logger = Logger.getLogger(CompteController.class);
 
 	@EJB
@@ -68,19 +68,18 @@ public class CompteController {
 		}
 	}
 
-	/*@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "adds a compte to the database")
-	public Response add(Compte entity) {
-		try {
-			if (service.add(entity))
-				return Response.status(Status.CREATED).build();
-			return Response.status(Status.BAD_REQUEST).build();
-		} catch (Exception e) {
-			logger.error("failed while trying to save a compte", e);
-			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
-		}
-	}:*/
+	/*
+	 * @POST
+	 * 
+	 * @Consumes(MediaType.APPLICATION_JSON)
+	 * 
+	 * @ApiOperation(value = "adds a compte to the database") public Response
+	 * add(Compte entity) { try { if (service.add(entity)) return
+	 * Response.status(Status.CREATED).build(); return
+	 * Response.status(Status.BAD_REQUEST).build(); } catch (Exception e) {
+	 * logger.error("failed while trying to save a compte", e); return
+	 * Response.status(Status.INTERNAL_SERVER_ERROR).build(); } }:
+	 */
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -108,47 +107,44 @@ public class CompteController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-	
-	 @POST
-	    @Produces(MediaType.APPLICATION_JSON)
-	    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	    public Response authenticateUser(@FormParam("username") String username, 
-	                                     @FormParam("password") String password, @Context HttpServletRequest req) {
-		 try {
-			 	HttpSession session = req.getSession();
-			 	
-	            // Authenticate the user using the credentials provided
-	            Compte compte=authenticate(username, password);
 
-	            // Issue a token for the user
-	            String token = issueToken(username);
-	           compte.setToken(token);
-	            session.setAttribute("user", compte);
-	          
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password,
+			@Context HttpServletRequest req) {
+		try {
+			HttpSession session = req.getSession();
 
+			// Authenticate the user using the credentials provided
+			Compte compte = authenticate(username, password);
 
-	            // Return the token on the response
-	            return Response.ok(compte).build();
+			// Issue a token for the user
+			String token = issueToken(username);
+			compte.setToken(token);
+			session.setAttribute("user", compte);
 
-	        } catch (Exception e) {
-	            return Response.status(Response.Status.FORBIDDEN).build();
-	        }      
-	    }
+			// Return the token on the response
+			return Response.ok(compte).build();
 
-	    private Compte authenticate(String username, String password) throws Exception {
-	    	// Authenticate against a database, LDAP, file or whatever
-	        // Throw an Exception if the credentials are invalid
-	    	Compte cp = new Compte();
-	    	cp.setUsername(username);
-			return cp;
-	    }
+		} catch (Exception e) {
+			return Response.status(Response.Status.FORBIDDEN).build();
+		}
+	}
 
-	    private String issueToken(String username) {
-	    	byte[] randomBytes = new byte[24];
-	        secureRandom.nextBytes(randomBytes);
-	        return base64Encoder.encodeToString(randomBytes) + Base64.getEncoder().encodeToString(username.getBytes());
-	    	
-	    }
-	
+	private Compte authenticate(String username, String password) throws Exception {
+		// Authenticate against a database, LDAP, file or whatever
+		// Throw an Exception if the credentials are invalid
+		Compte cp = new Compte();
+		cp.setUsername(username);
+		return cp;
+	}
+
+	private String issueToken(String username) {
+		byte[] randomBytes = new byte[24];
+		secureRandom.nextBytes(randomBytes);
+		return base64Encoder.encodeToString(randomBytes) + Base64.getEncoder().encodeToString(username.getBytes());
+
+	}
 
 }
