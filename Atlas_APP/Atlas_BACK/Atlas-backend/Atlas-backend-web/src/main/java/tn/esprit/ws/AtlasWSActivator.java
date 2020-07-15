@@ -1,6 +1,12 @@
 package tn.esprit.ws;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
 import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.NameBinding;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.Context;
 
@@ -14,6 +20,7 @@ public class AtlasWSActivator extends Application {
 		super();
 
 		initSwagger();
+		
 	}
 
 	public void initSwagger() {
@@ -24,5 +31,12 @@ public class AtlasWSActivator extends Application {
 		beanConfig.setBasePath("/Atlas-backend-web/atlas/api");
 		beanConfig.setResourcePackage(UserController.class.getPackage().getName());
 		beanConfig.setScan(true);
+		
 	}
+	@NameBinding
+	@Target({ ElementType.TYPE, ElementType.METHOD })
+	@Retention(value = RetentionPolicy.RUNTIME)
+	public @interface Secured {
+	}
+	
 }

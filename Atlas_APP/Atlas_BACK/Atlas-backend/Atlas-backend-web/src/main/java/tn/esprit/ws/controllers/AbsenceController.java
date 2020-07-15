@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Absence;
 import tn.esprit.interfaces.IAbsenceService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("absence")
 @Api(value = "AbsenceRESTService", description = "Absence service")
@@ -30,6 +31,7 @@ public class AbsenceController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Secured
 	@ApiOperation(value = "get the list of all the absences")
 	public Response getAll() {
 		try {

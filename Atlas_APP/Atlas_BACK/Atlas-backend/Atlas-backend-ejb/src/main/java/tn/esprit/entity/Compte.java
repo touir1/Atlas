@@ -11,12 +11,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Compte implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@JsonIgnore
 	private Long id;
 	@Column(nullable = false)
 	private String username;
 	@Column(nullable = false)
+	@JsonIgnore
 	private String password;
-
+	private String token;
 	@JsonIgnore
 	@ManyToMany(mappedBy = "comptes")
 	private List<Role> roles;
@@ -84,6 +86,14 @@ public class Compte implements Serializable {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
 	}
 
 }
