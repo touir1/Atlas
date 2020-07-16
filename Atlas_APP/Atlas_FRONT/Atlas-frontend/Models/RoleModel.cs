@@ -7,10 +7,10 @@ namespace Atlas_frontend.Models
 {
     public class RoleModel
     {
-        public long id { get; set; }
-        public String libelle { get; set; }
-        public List<PermissionModel> permissions { get; set; }
-        public List<CompteModel> comptes { get; set; }
+        public long Id { get; set; }
+        public String Libelle { get; set; }
+        public List<PermissionModel> Permissions { get; set; }
+        public List<CompteModel> Comptes { get; set; }
 
 
 

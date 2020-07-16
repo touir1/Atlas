@@ -7,15 +7,15 @@ namespace Atlas_frontend.Models
 {
     public class UserModel
     {
-        public long id { get; set; }
-        public String nom { get; set; }
-        public String prenom { get; set; }
-        public String email { get; set; }
-        public String poste { get; set; }
-        public String image { get; set; }
-        public DateTime dateNaissance { get; set; }
-        public DateTime dateContrat { get; set; }
-        public List<CompteModel> comptes { get; set; }
+        public long Id { get; set; }
+        public String Nom { get; set; }
+        public String Prenom { get; set; }
+        public String Email { get; set; }
+        public String Poste { get; set; }
+        public String Image { get; set; }
+        public DateTime DateNaissance { get; set; }
+        public DateTime DateContrat { get; set; }
+        public List<CompteModel> Comptes { get; set; }
 
     }
 }

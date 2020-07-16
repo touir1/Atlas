@@ -7,10 +7,10 @@ namespace Atlas_frontend.Models
 {
     public class PermissionModel
     {
-        public long id { get; set; }
-        public String ecran { get; set; }
-        public String action { get; set; }
-        public String application{ get; set; }
-        public List<RoleModel> roles { get; set; }
+        public long Id { get; set; }
+        public String Ecran { get; set; }
+        public String Action { get; set; }
+        public String Application{ get; set; }
+        public List<RoleModel> Roles { get; set; }
     }
 }

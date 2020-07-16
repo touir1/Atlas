@@ -7,11 +7,11 @@ namespace Atlas_frontend.Models
 {
     public class CompteModel
     {
-        public long id { get;set }
-        public string username { get; set; }
-        public string password { get; set; }
-        public List<Role> roles { get; set; }
-        public UserModel user { get; set; }
+        public long Id { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public List<RoleModel> Roles { get; set; }
+        public UserModel User { get; set; }
 
 
     }
