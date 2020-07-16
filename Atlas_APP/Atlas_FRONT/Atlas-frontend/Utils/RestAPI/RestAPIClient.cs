@@ -22,18 +22,14 @@ namespace Atlas_frontend.Utils.RestAPI
         {
             _basePath = basePath;
             client = new HttpClient();
-            /*
-            client.BaseAddress = new Uri(basePath);
-            client.DefaultRequestHeaders.Accept.Clear();
-            client.DefaultRequestHeaders.Accept.Add(
-                new MediaTypeWithQualityHeaderValue("application/json"));
-            */
         }
 
         public async Task<RestApiResponse<TResultEntity>> DeleteAsync<TEntity, TResultEntity>(ISession session, string path) where TEntity : class
         {
             HttpRequestMessage request = CreateHttpRequestMessage(session,path, HttpMethod.Delete);
+            
             HttpResponseMessage response = await client.SendAsync(request);
+            
             return new RestApiResponse<TResultEntity>
             {
                 Result = await response.Content.ReadAsAsync<TResultEntity>(),
@@ -44,16 +40,10 @@ namespace Atlas_frontend.Utils.RestAPI
 
         public async Task<RestApiResponse<TEntity>> GetAsync<TEntity>(ISession session, string path) where TEntity : class
         {
-            //TEntity entity = null;
             HttpRequestMessage request = CreateHttpRequestMessage(session, path, HttpMethod.Get);
+            
             HttpResponseMessage response = await client.SendAsync(request);
-            /*
-            if (response.IsSuccessStatusCode)
-            {
-                entity = await response.Content.ReadAsAsync<TEntity>();
-            }
-            return entity;
-            */
+            
             return new RestApiResponse<TEntity>
             {
                 Result = await response.Content.ReadAsAsync<TEntity>(),
@@ -66,11 +56,9 @@ namespace Atlas_frontend.Utils.RestAPI
         {
             HttpRequestMessage request = CreateHttpRequestMessage(session, path, HttpMethod.Post);
             AddEntityAsJson(ref request, entity);
+            
             HttpResponseMessage response = await client.SendAsync(request);
-            //response.EnsureSuccessStatusCode();
-
-            // return URI of the created resource.
-            //return response.IsSuccessStatusCode;
+            
             return new RestApiResponse<TResultEntity>
             {
                 Result = await response.Content.ReadAsAsync<TResultEntity>(),
@@ -83,12 +71,9 @@ namespace Atlas_frontend.Utils.RestAPI
         {
             HttpRequestMessage request = CreateHttpRequestMessage(session, path, HttpMethod.Put);
             AddEntityAsJson(ref request, entity);
+            
             HttpResponseMessage response = await client.SendAsync(request);
-            //response.EnsureSuccessStatusCode();
-
-            // Deserialize the updated product from the response body.
-            //entity = await response.Content.ReadAsAsync<TEntity>();
-            //return entity;
+            
             return new RestApiResponse<TResultEntity>
             {
                 Result = await response.Content.ReadAsAsync<TResultEntity>(),
@@ -103,6 +88,7 @@ namespace Atlas_frontend.Utils.RestAPI
             request.Headers.Accept.Clear();
             request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", session.GetString(RestAPIClient.TokenKey));
+            
             return request;
         }
 
