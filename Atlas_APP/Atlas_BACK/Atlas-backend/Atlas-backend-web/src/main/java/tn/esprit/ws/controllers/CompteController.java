@@ -68,18 +68,19 @@ public class CompteController {
 		}
 	}
 
-	/*
-	 * @POST
-	 * 
-	 * @Consumes(MediaType.APPLICATION_JSON)
-	 * 
-	 * @ApiOperation(value = "adds a compte to the database") public Response
-	 * add(Compte entity) { try { if (service.add(entity)) return
-	 * Response.status(Status.CREATED).build(); return
-	 * Response.status(Status.BAD_REQUEST).build(); } catch (Exception e) {
-	 * logger.error("failed while trying to save a compte", e); return
-	 * Response.status(Status.INTERNAL_SERVER_ERROR).build(); } }:
-	 */
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "adds a compte to the database")
+	public Response add(Compte entity) {
+		try {
+			if (service.add(entity))
+				return Response.status(Status.CREATED).build();
+			return Response.status(Status.BAD_REQUEST).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to save a compte", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 	@PUT
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -110,22 +111,22 @@ public class CompteController {
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
-	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password,
-			@Context HttpServletRequest req) {
+	@Path("login")
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response authenticateUser(Compte compte,@Context HttpServletRequest req) {
 		try {
 			HttpSession session = req.getSession();
 
 			// Authenticate the user using the credentials provided
-			Compte compte = authenticate(username, password);
+			Compte cpt = authenticate(compte.getUsername(), compte.getPassword());
 
 			// Issue a token for the user
-			String token = issueToken(username);
-			compte.setToken(token);
-			session.setAttribute("user", compte);
+			String token = issueToken(compte.getUsername());
+			cpt.setToken(token);
+			session.setAttribute("user", cpt);
 
 			// Return the token on the response
-			return Response.ok(compte).build();
+			return Response.ok(cpt).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.FORBIDDEN).build();
