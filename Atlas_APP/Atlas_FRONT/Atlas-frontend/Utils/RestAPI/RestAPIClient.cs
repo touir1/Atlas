@@ -1,60 +1,115 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Atlas_frontend.Utils.RestAPI
 {
     public class RestAPIClient : IRestAPIClient
     {
+        public static readonly String TokenKey = "_token";
+
         private HttpClient client;
+        private String _basePath;
         
         public RestAPIClient(string basePath)
         {
+            _basePath = basePath;
             client = new HttpClient();
+            /*
             client.BaseAddress = new Uri(basePath);
             client.DefaultRequestHeaders.Accept.Clear();
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+            */
         }
 
-        public async Task<bool> DeleteAsync<TEntity>(string path) where TEntity : class
+        public async Task<RestApiResponse<TResultEntity>> DeleteAsync<TEntity, TResultEntity>(ISession session, string path) where TEntity : class
         {
-            HttpResponseMessage response = await client.DeleteAsync(path);
-            return response.IsSuccessStatusCode;
+            HttpRequestMessage request = CreateHttpRequestMessage(session,path, HttpMethod.Delete);
+            HttpResponseMessage response = await client.SendAsync(request);
+            return new RestApiResponse<TResultEntity>
+            {
+                Result = await response.Content.ReadAsAsync<TResultEntity>(),
+                IsSuccess = response.IsSuccessStatusCode,
+                StatusCode = response.StatusCode
+            };
         }
 
-        public async Task<TEntity> GetAsync<TEntity>(string path) where TEntity : class
+        public async Task<RestApiResponse<TEntity>> GetAsync<TEntity>(ISession session, string path) where TEntity : class
         {
-            TEntity entity = null;
-            HttpResponseMessage response = await client.GetAsync(path);
+            //TEntity entity = null;
+            HttpRequestMessage request = CreateHttpRequestMessage(session, path, HttpMethod.Get);
+            HttpResponseMessage response = await client.SendAsync(request);
+            /*
             if (response.IsSuccessStatusCode)
             {
                 entity = await response.Content.ReadAsAsync<TEntity>();
             }
             return entity;
+            */
+            return new RestApiResponse<TEntity>
+            {
+                Result = await response.Content.ReadAsAsync<TEntity>(),
+                IsSuccess = response.IsSuccessStatusCode,
+                StatusCode = response.StatusCode
+            };
         }
 
-        public async Task<bool> PostAsync<TEntity>(string path, TEntity entity) where TEntity : class
+        public async Task<RestApiResponse<TResultEntity>> PostAsync<TEntity, TResultEntity>(ISession session, string path, TEntity entity) where TEntity : class
         {
-            HttpResponseMessage response = await client.PostAsJsonAsync(path, entity);
-            response.EnsureSuccessStatusCode();
+            HttpRequestMessage request = CreateHttpRequestMessage(session, path, HttpMethod.Post);
+            AddEntityAsJson(ref request, entity);
+            HttpResponseMessage response = await client.SendAsync(request);
+            //response.EnsureSuccessStatusCode();
 
             // return URI of the created resource.
-            return response.IsSuccessStatusCode;
+            //return response.IsSuccessStatusCode;
+            return new RestApiResponse<TResultEntity>
+            {
+                Result = await response.Content.ReadAsAsync<TResultEntity>(),
+                IsSuccess = response.IsSuccessStatusCode,
+                StatusCode = response.StatusCode
+            };
         }
 
-        public async Task<TEntity> PutAsync<TEntity>(string path, TEntity entity) where TEntity : class
+        public async Task<RestApiResponse<TResultEntity>> PutAsync<TEntity, TResultEntity>(ISession session, string path, TEntity entity) where TEntity : class
         {
-            HttpResponseMessage response = await client.PutAsJsonAsync(path, entity);
-            response.EnsureSuccessStatusCode();
+            HttpRequestMessage request = CreateHttpRequestMessage(session, path, HttpMethod.Put);
+            AddEntityAsJson(ref request, entity);
+            HttpResponseMessage response = await client.SendAsync(request);
+            //response.EnsureSuccessStatusCode();
 
             // Deserialize the updated product from the response body.
-            entity = await response.Content.ReadAsAsync<TEntity>();
-            return entity;
+            //entity = await response.Content.ReadAsAsync<TEntity>();
+            //return entity;
+            return new RestApiResponse<TResultEntity>
+            {
+                Result = await response.Content.ReadAsAsync<TResultEntity>(),
+                IsSuccess = response.IsSuccessStatusCode,
+                StatusCode = response.StatusCode
+            };
+        }
+
+        private HttpRequestMessage CreateHttpRequestMessage(ISession session, string path, HttpMethod method)
+        {
+            HttpRequestMessage request = new HttpRequestMessage(method, new Uri(_basePath + path));
+            request.Headers.Accept.Clear();
+            request.Headers.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", session.GetString(RestAPIClient.TokenKey));
+            return request;
+        }
+
+        private void AddEntityAsJson(ref HttpRequestMessage request, object entity)
+        {
+            String json = JsonConvert.SerializeObject(entity);
+            request.Content = new StringContent(json, Encoding.UTF8, "application/json");
         }
     }
 }

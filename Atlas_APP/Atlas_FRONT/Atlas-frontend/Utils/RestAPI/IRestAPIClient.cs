@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Atlas_frontend.Models;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,9 +9,13 @@ namespace Atlas_frontend.Utils.RestAPI
 {
     public interface IRestAPIClient
     {
-        public Task<TEntity> GetAsync<TEntity>(string path) where TEntity : class;
-        public Task<Boolean> PostAsync<TEntity>(string path, TEntity entity) where TEntity : class;
-        public Task<TEntity> PutAsync<TEntity>(string path, TEntity entity) where TEntity : class;
-        public Task<Boolean> DeleteAsync<TEntity>(string path) where TEntity : class;
+        public Task<RestApiResponse<TEntity>> GetAsync<TEntity>(ISession session, string path) 
+            where TEntity : class;
+        public Task<RestApiResponse<TResultEntity>> PostAsync<TEntity,TResultEntity>(ISession session, string path, TEntity entity) 
+            where TEntity : class;
+        public Task<RestApiResponse<TResultEntity>> PutAsync<TEntity, TResultEntity>(ISession session, string path, TEntity entity) 
+            where TEntity : class;
+        public Task<RestApiResponse<TResultEntity>> DeleteAsync<TEntity, TResultEntity>(ISession session, string path) 
+            where TEntity : class;
     }
 }
