@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Atlas_frontend.Utils.RestAPI;
 
 namespace Atlas_frontend
 {
@@ -29,6 +30,8 @@ namespace Atlas_frontend
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvcCore();
+
+            DependencyInjection(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,6 +63,11 @@ namespace Atlas_frontend
                     pattern: "{controller=Login}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        public void DependencyInjection(IServiceCollection services)
+        {
+            services.AddSingleton<IRestAPIClient>(s => new RestAPIClient("http://127.0.0.1:9080/Atlas-backend-web/atlas/api"));
         }
     }
 }
