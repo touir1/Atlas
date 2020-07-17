@@ -16,24 +16,26 @@ namespace Atlas_frontend.Services.Implementation
             _client = restAPIClient;
         }
 
-        public void AddAsync(CompteModel entity)
+        public async void AddAsync(CompteModel entity)
         {
-            throw new NotImplementedException();
+           await _client.PostAsync<CompteModel, Boolean>(null,"compte", entity);
         }
 
-        public void DeleteAsync(CompteModel entity)
+        public async void DeleteAsync(CompteModel entity)
         {
-            throw new NotImplementedException();
+            await _client.DeleteAsync<CompteModel, Boolean>(null, $"compte/{entity.Id}");
         }
 
-        public Task<CompteModel> GetAsync(long? id, long? secondId = null)
+        public async Task<CompteModel> GetAsync(long? id, long? secondId = null)
         {
-            throw new NotImplementedException();
+            RestApiResponse<CompteModel> result = await _client.GetAsync<CompteModel>(null, $"compte/{id}");
+            return result.Result;
         }
 
-        public Task<List<CompteModel>> GetListAsync()
+        public async Task<List<CompteModel>> GetListAsync()
         {
-            throw new NotImplementedException();
+            RestApiResponse<List<CompteModel>> result = await _client.GetAsync<List<CompteModel>>(null, "compte");
+            return result.Result;
         }
 
         public async Task<CompteModel> LoginAsync(ISession session, string username, string password)
@@ -49,9 +51,9 @@ namespace Atlas_frontend.Services.Implementation
             return cpt.Result;
         }
 
-        public void UpdateAsync(CompteModel entity)
+        public async void UpdateAsync(CompteModel entity)
         {
-            throw new NotImplementedException();
+            RestApiResponse<CompteModel> result = await _client.PutAsync<CompteModel, CompteModel>(null, "compte", entity);
         }
     }
 }
