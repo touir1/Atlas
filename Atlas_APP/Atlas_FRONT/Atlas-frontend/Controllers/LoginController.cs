@@ -28,17 +28,17 @@ namespace Atlas_frontend.Controllers
         [HttpPost]
         public async Task<IActionResult> IndexAsync([Bind("Username","Password")] CompteModel compte)
         {
-            // try {
+           try {
 
             CompteModel loggedIn = await _compteService.LoginAsync(HttpContext.Session, compte.Username, compte.Password);  
 
             //RestApiResponse<List<FormationModel>> s = await _restApiClient.GetAsync<List<FormationModel>>(HttpContext.Session, "formation");
 
             return RedirectToAction("Index", "Home");
-            //}
-           // catch(Exception e) {
-             //   return View();
-           // }
+           }
+           catch(Exception e) {
+               return View();
+           }
            
           
         }
