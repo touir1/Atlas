@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Atlas_frontend.Models;
+using Atlas_frontend.Services;
 using Atlas_frontend.Utils.RestAPI;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,10 @@ namespace Atlas_frontend.Controllers
 {
     public class LoginController : Controller
     {
-        private IRestAPIClient _restApiClient;
-        public LoginController(IRestAPIClient restAPIClient)
+        private ICompteService _compteService;
+        public LoginController(ICompteService compteService)
         {
-            _restApiClient = restAPIClient;
+            _compteService = compteService;
         }
         // GET: /<controller>/
         public IActionResult Index()
@@ -25,33 +26,20 @@ namespace Atlas_frontend.Controllers
         }
         //POST: /<controller>
         [HttpPost]
-        public async Task<IActionResult> SignInAsync([Bind("Username","Password")] CompteModel compte)
+        public async Task<IActionResult> IndexAsync([Bind("Username","Password")] CompteModel compte)
         {
-            // after login we get the token
-            string token = "fake_token";
-            HttpContext.Session.SetString(RestAPIClient.TokenKey, token);
+            // try {
 
-            RestApiResponse<Boolean> r = await _restApiClient.PostAsync<FormationModel,Boolean>(HttpContext.Session,"formation", new FormationModel
-            {
-                Libelle = "aaaaaaaaaaa"
-            });
+            CompteModel loggedIn = await _compteService.LoginAsync(HttpContext.Session, compte.Username, compte.Password);  
 
-            RestApiResponse<List<FormationModel>> s = await _restApiClient.GetAsync<List<FormationModel>>(HttpContext.Session, "formation");
+            //RestApiResponse<List<FormationModel>> s = await _restApiClient.GetAsync<List<FormationModel>>(HttpContext.Session, "formation");
 
-
-            RestApiResponse<Boolean> f = await _restApiClient.PutAsync<FormationModel, Boolean>(HttpContext.Session, "formation", new FormationModel
-            { 
-                Id = 1 ,
-                Libelle = "bbbb"
-            });
-
-
-            RestApiResponse<FormationModel> w = await _restApiClient.GetAsync<FormationModel>(HttpContext.Session, $"formation/{s.Result[0].Id}");
-
-            RestApiResponse<Boolean> z = await _restApiClient.DeleteAsync<FormationModel, Boolean>(HttpContext.Session, $"formation/{s.Result[0].Id}");
+            return RedirectToAction("Index", "Home");
+            //}
+           // catch(Exception e) {
+             //   return View();
+           // }
            
-
-            return RedirectToAction("Index","Home");
           
         }
     }

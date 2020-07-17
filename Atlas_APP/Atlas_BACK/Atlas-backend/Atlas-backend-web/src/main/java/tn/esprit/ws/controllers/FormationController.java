@@ -19,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Formation;
 import tn.esprit.interfaces.IFormationService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("formation")
 @Api(value = "FormationRESTService", description = "Formation service")
@@ -30,6 +31,7 @@ public class FormationController {
 
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@Secured
 	@ApiOperation(value = "get the list of all the formations")
 	public Response getAll() {
 		try {
@@ -43,6 +45,7 @@ public class FormationController {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
+	@Secured
 	@ApiOperation(value = "get a formation by id")
 	public Response getOne(@PathParam("id") long id) {
 		try {
@@ -58,6 +61,7 @@ public class FormationController {
 
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
+	@Secured
 	@ApiOperation(value = "adds a formation to the database")
 	public Response add(Formation entity) {
 		try {
@@ -71,6 +75,7 @@ public class FormationController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a formation")
 	public Response update(Formation entity) {
@@ -85,6 +90,7 @@ public class FormationController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a formation")
 	public Response delete(@PathParam("id") long id) {

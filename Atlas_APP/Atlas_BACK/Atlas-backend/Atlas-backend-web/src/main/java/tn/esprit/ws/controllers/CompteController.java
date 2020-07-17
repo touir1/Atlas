@@ -73,6 +73,7 @@ public class CompteController {
 	@ApiOperation(value = "adds a compte to the database")
 	public Response add(Compte entity) {
 		try {
+			entity.setPassword("123456");
 			if (service.add(entity))
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
@@ -119,14 +120,17 @@ public class CompteController {
 
 			// Authenticate the user using the credentials provided
 			Compte cpt = authenticate(compte.getUsername(), compte.getPassword());
+			if(cpt != null) {
+				// Issue a token for the user
+				String token = issueToken(compte.getUsername());
+				cpt.setToken(token);
+				session.setAttribute("user", cpt);
+				// Return the token on the response
+				return Response.ok(cpt).build();
+			} else {
+				return Response.status(Response.Status.BAD_REQUEST).build();
+			}
 
-			// Issue a token for the user
-			String token = issueToken(compte.getUsername());
-			cpt.setToken(token);
-			session.setAttribute("user", cpt);
-
-			// Return the token on the response
-			return Response.ok(cpt).build();
 
 		} catch (Exception e) {
 			return Response.status(Response.Status.FORBIDDEN).build();
@@ -136,8 +140,7 @@ public class CompteController {
 	private Compte authenticate(String username, String password) throws Exception {
 		// Authenticate against a database, LDAP, file or whatever
 		// Throw an Exception if the credentials are invalid
-		Compte cp = new Compte();
-		cp.setUsername(username);
+		Compte cp = service.login(username, password);
 		return cp;
 	}
 

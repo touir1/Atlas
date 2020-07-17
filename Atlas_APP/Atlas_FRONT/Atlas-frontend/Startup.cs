@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Atlas_frontend.Utils.RestAPI;
+using Atlas_frontend.Services;
+using Atlas_frontend.Services.Implementation;
 
 namespace Atlas_frontend
 {
@@ -79,6 +81,7 @@ namespace Atlas_frontend
         public void DependencyInjection(IServiceCollection services)
         {
             services.AddSingleton<IRestAPIClient>(s => new RestAPIClient("http://127.0.0.1:9080/Atlas-backend-web/atlas/api/"));
+            services.AddSingleton<ICompteService, CompteService>();
         }
     }
 }

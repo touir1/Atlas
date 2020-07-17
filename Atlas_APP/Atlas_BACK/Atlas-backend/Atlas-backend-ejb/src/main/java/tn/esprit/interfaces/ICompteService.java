@@ -6,5 +6,6 @@ import tn.esprit.entity.Compte;
 
 @Remote
 public interface ICompteService extends IBaseService<Compte> {
+	public Compte login(String username,String pwd);
 
 }
