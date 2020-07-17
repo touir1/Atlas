@@ -12,6 +12,8 @@ namespace Atlas_frontend.Models
         public long? Id { get; set; }
         [JsonProperty("libelle")]
         public String Libelle { get; set; }
+        [JsonProperty("userFormations")]
+        public List<UserFormationModel> UserFormations { get; set; }
 
     }
 }

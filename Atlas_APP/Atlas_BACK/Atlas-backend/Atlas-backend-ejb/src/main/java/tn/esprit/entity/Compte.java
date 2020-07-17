@@ -17,6 +17,7 @@ public class Compte implements Serializable {
 	private String username;
 	@Column(nullable = false)
 	private String password;
+	@Transient
 	private String token;
 	@JsonIgnore
 	@ManyToMany(mappedBy = "comptes")
