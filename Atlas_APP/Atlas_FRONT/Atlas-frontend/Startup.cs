@@ -81,7 +81,24 @@ namespace Atlas_frontend
         public void DependencyInjection(IServiceCollection services)
         {
             services.AddSingleton<IRestAPIClient>(s => new RestAPIClient("http://127.0.0.1:9080/Atlas-backend-web/atlas/api/"));
+            services.AddSingleton<IAbsenceService, AbsenceService>();
+            services.AddSingleton<IChoixService, ChoixService>();
             services.AddSingleton<ICompteService, CompteService>();
+            services.AddSingleton<IEvaluationService, EvaluationService>();
+            services.AddSingleton<IFacturationService, FacturationService>();
+            services.AddSingleton<IFormationService, FormationService>();
+            services.AddSingleton<IFraisService, FraisService>();
+            services.AddSingleton<IMissionService, MissionService>();
+            services.AddSingleton<IPermissionService, PermissionService>();
+            services.AddSingleton<IProjetService, ProjetService>();
+            services.AddSingleton<IQuestionService, QuestionService>();
+            services.AddSingleton<IRapportService, RapportService>();
+            services.AddSingleton<IReclamationService, ReclamationService>();
+            services.AddSingleton<IReponseService, ReponseService>();
+            services.AddSingleton<IRoleService, RoleService>();
+            services.AddSingleton<IRubriqueService, RubriqueService>();
+            services.AddSingleton<ISujetService, SujetService>();
+            services.AddSingleton<IUserFormationService, UserFormationService>();
         }
     }
 }
