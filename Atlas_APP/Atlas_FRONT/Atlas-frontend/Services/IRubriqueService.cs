@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IRubriqueService: IBaseEntityService<RubriqueModel>
+    public interface IRubriqueService: IBaseEntityService<RubriqueModel>
     {
     }
 }

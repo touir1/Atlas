@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IPermissionService: IBaseEntityService<PermissionModel>
+    public interface IPermissionService: IBaseEntityService<PermissionModel>
     {
     }
 }

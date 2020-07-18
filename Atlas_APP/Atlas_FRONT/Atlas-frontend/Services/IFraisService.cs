@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IFraisService : IBaseEntityService<FraisModel>
+    public interface IFraisService : IBaseEntityService<FraisModel>
     {
     }
 }

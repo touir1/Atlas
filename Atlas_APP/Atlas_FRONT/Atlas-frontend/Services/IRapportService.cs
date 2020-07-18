@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IRapportService: IBaseEntityService<RapportModel>
+    public interface IRapportService: IBaseEntityService<RapportModel>
     {
     }
 }

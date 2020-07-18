@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IEvaluationService : IBaseEntityService<EvaluationModel>
+    public interface IEvaluationService : IBaseEntityService<EvaluationModel>
     {
     }
 }

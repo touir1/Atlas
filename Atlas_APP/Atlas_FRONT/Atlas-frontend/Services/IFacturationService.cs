@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IFacturationService : IBaseEntityService<FacturationModel>
+    public interface IFacturationService : IBaseEntityService<FacturationModel>
     {
     }
 }

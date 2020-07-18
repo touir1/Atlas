@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IUserFormationService: IBaseEntityService<UserFormationModel>
+    public interface IUserFormationService: IBaseEntityService<UserFormationModel>
     {
     }
 }

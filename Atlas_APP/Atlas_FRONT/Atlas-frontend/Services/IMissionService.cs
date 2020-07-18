@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IMissionService: IBaseEntityService<MissionModel>
+    public interface IMissionService: IBaseEntityService<MissionModel>
     {
     }
 }

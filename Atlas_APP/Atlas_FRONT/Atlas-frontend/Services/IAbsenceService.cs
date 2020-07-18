@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IAbsenceService : IBaseEntityService<AbsenceModel>
+    public interface IAbsenceService : IBaseEntityService<AbsenceModel>
     {
     }
 }

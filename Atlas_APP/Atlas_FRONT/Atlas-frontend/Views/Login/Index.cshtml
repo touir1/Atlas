@@ -267,6 +267,10 @@
           width:60%;
         }
 
+        .error {
+            color: red;
+        }
+
     </style>
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
@@ -280,10 +284,13 @@
       
 
         <!-- Login Form -->
-        <form action="/Login/Index" method="post" >
+        <form method="post">
+            @if(ViewBag.Error != null){
+                <br /><span class="error">@ViewBag.Error</span><br /><br />
+            }
             <input type="text" id="Username" class="fadeIn second" name="Username" placeholder="Username">
             <input type="password" id="Password" class="fadeIn third" name="Password" placeholder="Password">
-            <input type="submit" class="fadeIn fourth" value="Log In">
+            <input type="submit" class="fadeIn fourth" value="Log In" asp-action="SignIn">
         </form>
 
         <!-- Remind Passowrd -->

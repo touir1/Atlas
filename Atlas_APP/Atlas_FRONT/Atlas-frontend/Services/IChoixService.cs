@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IChoixService : IBaseEntityService<ChoixModel>
+    public interface IChoixService : IBaseEntityService<ChoixModel>
     {
     }
 }

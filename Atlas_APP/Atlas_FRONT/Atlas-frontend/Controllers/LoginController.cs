@@ -26,18 +26,19 @@ namespace Atlas_frontend.Controllers
         }
         //POST: /<controller>
         [HttpPost]
-        public async Task<IActionResult> IndexAsync([Bind("Username","Password")] CompteModel compte)
+        public async Task<IActionResult> SignInAsync([Bind("Username","Password")] CompteModel compte)
         {
            try {
+                CompteModel loggedIn = await _compteService.LoginAsync(HttpContext.Session, compte.Username, compte.Password);  
 
-            CompteModel loggedIn = await _compteService.LoginAsync(HttpContext.Session, compte.Username, compte.Password);  
+                //RestApiResponse<List<FormationModel>> s = await _restApiClient.GetAsync<List<FormationModel>>(HttpContext.Session, "formation");
 
-            //RestApiResponse<List<FormationModel>> s = await _restApiClient.GetAsync<List<FormationModel>>(HttpContext.Session, "formation");
-
-            return RedirectToAction("Index", "Home");
+                return RedirectToAction("Index", "Home");
            }
-           catch(Exception e) {
-               return View();
+           catch(Exception) {
+                ViewBag.Error = "Username or password are incorrect, please login";
+                //return null;
+                return View();
            }
            
           

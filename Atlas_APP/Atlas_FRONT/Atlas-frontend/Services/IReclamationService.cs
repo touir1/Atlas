@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IReclamationService: IBaseEntityService<ReclamationModel>
+    public interface IReclamationService: IBaseEntityService<ReclamationModel>
     {
     }
 }
