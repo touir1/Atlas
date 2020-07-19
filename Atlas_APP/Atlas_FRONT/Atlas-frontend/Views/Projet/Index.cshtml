@@ -15,24 +15,24 @@
     </div>
     <div class="card-body">
         <h5 class="card-title">Ajouter un nouveau projet</h5>
-        <form>
+        <form method="post">
             <div class="form-group">
                 <label for="inputTitre">Titre</label>
-                <input type="text" class="form-control" id="inputTitre" placeholder="Titre projet">
+                <input type="text" class="form-control" id="inputTitre" name="Titre" placeholder="Titre projet">
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="DateCreation">Date debut</label>
-                    <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="DateCreation" placeholder="Date debut projet">
+                    <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" name="DateCreation" id="DateCreation" placeholder="Date debut projet">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="DateCloture">Date fin</label>
-                    <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" id="DateCloture" placeholder="Date fin projet">
+                    <input type="date" max="3000-12-31" min="1000-01-01" class="form-control" name="DateCloture" id="DateCloture" placeholder="Date fin projet">
                 </div>
             </div>
             <div class="form-group">
                 <label for="lstMembre">Liste des membre de projet</label>
-                <select id="choices-multiple-remove-button" placeholder="Selectionner les memebres de projet " multiple>
+                <select id="choices-multiple-remove-button" placeholder="Selectionner les memebres de projet " multiple name="Membres">
                     <option value="HTML">HTML</option>
                     <option value="Jquery">Jquery</option>
                     <option value="CSS">CSS</option>
@@ -49,7 +49,7 @@
                 </select>
 
             </div>
-            <button type="submit" class="btn btn-primary">Ajouter</button>
+            <button type="submit" class="btn btn-primary" asp-action="AddProject">Ajouter</button>
         </form>
 
     </div>
