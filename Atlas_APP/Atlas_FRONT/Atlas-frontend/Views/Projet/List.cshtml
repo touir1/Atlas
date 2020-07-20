@@ -4,6 +4,11 @@
 @{
 }
 
+<style>
+    .hiddenElement {
+        display: none;
+    }
+</style>
 <div class="card">
     <div class="card-header">
         Projet
@@ -53,34 +58,34 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <div>
                     <div class="form-group">
                         <label for="inputTitre">titre Rubrique</label>
-                        <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Titre rubrique">
+                        <input type="text" class="form-control" id="titreRubrique" name="titreRubrique" placeholder="Titre rubrique">
                     </div>
                     <div class="form-group">
                         <label for="inputEstimation">Estimation</label>
-                        <input type="number" class="form-control" id="inputEstimation" name="estimation" placeholder="Estimation">
+                        <input type="number" class="form-control" id="estimation" name="estimation" placeholder="Estimation">
                     </div>
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    <button onclick="addRubrique()" class="btn btn-primary">Ajouter</button>
 
-                </form>
+                </div>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Titre</th>
-                            <th scope="col">Estimation</th> 
+                            <th scope="col">Estimation</th>
                             <th scope="col">Action</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-
-                            <td>Dev Back</td>
-                            <td>50</td>
+                    <tbody class="tabbody">
+                        <tr class="TabRbrique hiddenElement">
+                            <td class="id hiddenElement"></td>
+                            <td class="Tabtitre">Dev Back</td>
+                            <td class="TabEstimation">50</td>
                             <td>
-                                <button type="button" class="btn btn-primary">Modifier</button>
-                                <button type="button" class="btn btn-danger">Supprimer</button>
+                                <button type="button" class="btn btn-primary" onclick="ModifierRubrique(this)">Modifier</button>
+                                <button type="button" class="btn btn-danger" onclick="SupprimerRubrique(this)">Supprimer</button>
 
                             </td>
                         </tr>
@@ -88,8 +93,72 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="PostRubrique">Enregistrer</button>
             </div>
         </div>
     </div>
 </div>
+@section Scripts {
+    <script>
+        //var tab = [];
+        function addRubrique(e) {
+            var el = { titre: document.getElementById('titreRubrique').value, estimation: document.getElementById('estimation').value };
+            //tab.push(el);
+            //console.table(tab);
+            var tabTbody = document.getElementsByClassName('tabbody')[0];
+            var newRow = document.getElementsByClassName('TabRbrique')[0].cloneNode(true);
+            newRow.classList.remove("hiddenElement");
+            newRow.children[1].innerText = el.titre;
+            newRow.children[2].innerText = el.estimation;
+            tabTbody.appendChild(newRow);
+        }
+        function ModifierRubrique(em) {
+            var parent = em.parentElement.parentElement;
+            document.getElementById('titreRubrique').value = parent.children[1].innerText;
+            document.getElementById('estimation').value = parent.children[2].innerText;
+            var parent2 = em.parentElement;
+            parent2.parentElement.remove(parent2);
+
+        }
+        function SupprimerRubrique(em) {
+            var parent = em.parentElement;
+            parent.parentElement.remove(parent);
+        }
+
+        $("#PostRubrique").on("click", function (e) {
+            e.preventDefault();
+            var columns = [
+                "id",
+                "titre",
+                "estimation"
+            ];
+            var data = $(".tabbody tr").map(function (i) {
+
+                if (!$(this).hasClass("hiddenElement")) {
+                    var row = {};
+                    $(this).find("td").each(function (i) {
+                        if (i < 3) {
+                            var rowName = columns[i];
+                            row[rowName] = $(this).text();
+                        }
+                        
+                    });
+                    return row;
+                }
+
+            }).get();
+            console.log(data);
+            $.post("/Projet/AddRbrique", {
+                rubriques : data
+            }, function (e) {
+                console.log(e);
+            }, function (e) {
+                    console.log(e);
+            });
+
+
+        });
+    </script>
+
+}

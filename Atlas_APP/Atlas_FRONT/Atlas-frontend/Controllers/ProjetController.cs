@@ -54,5 +54,23 @@ namespace Atlas_frontend.Controllers
 
             
         }
+        //POST: /<controller>
+        [HttpPost]
+        public Boolean AddRbrique(List<RubriqueModel> rubriques)
+        {
+            try
+            {
+                return true;
+            }
+            catch (Exception e)
+            {
+                //return null;
+                return false;
+            }
+
+
+
+        }
     }
+
 }
