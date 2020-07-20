@@ -19,12 +19,12 @@ public class ReponseService implements IReponseService {
 	EntityManager em;
 
 	@Override
-	public boolean add(Reponse a) {
+	public Reponse add(Reponse a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

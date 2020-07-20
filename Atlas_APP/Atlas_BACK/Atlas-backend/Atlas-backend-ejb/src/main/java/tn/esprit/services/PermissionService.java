@@ -17,12 +17,12 @@ public class PermissionService  implements IPermissionService{
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public boolean add(Permission a) {
+	public Permission add(Permission a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

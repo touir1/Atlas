@@ -20,12 +20,12 @@ public class SujetService implements ISujetService {
 	EntityManager em;
 
 	@Override
-	public boolean add(Sujet a) {
+	public Sujet add(Sujet a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

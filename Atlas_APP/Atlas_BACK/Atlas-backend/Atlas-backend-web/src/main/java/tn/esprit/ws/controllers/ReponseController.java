@@ -63,7 +63,8 @@ public class ReponseController {
 	@ApiOperation(value = "adds a reponse to the database")
 	public Response add(Reponse entity) {
 		try {
-			if (service.add(entity))
+			entity = service.add(entity);
+			if(entity != null)
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {

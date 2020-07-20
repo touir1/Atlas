@@ -41,12 +41,12 @@ namespace Atlas_frontend.Controllers
         // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(UserModel model)
+        public async Task<ActionResult> CreateAsync(UserModel model)
         {
             try
             {
                 // TODO: Add insert logic here
-                _userService.AddAsync(HttpContext.Session, model);
+                await _userService.AddAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
             }
             catch

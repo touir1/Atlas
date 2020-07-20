@@ -17,12 +17,12 @@ public class RapportService implements IRapportService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public boolean add(Rapport a) {
+	public Rapport add(Rapport a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

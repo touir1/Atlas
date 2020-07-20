@@ -18,12 +18,12 @@ public class FacturationService implements IFacturationService {
 	EntityManager em;
 
 	@Override
-	public boolean add(Facturation a) {
+	public Facturation add(Facturation a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 	}
 

@@ -20,12 +20,12 @@ public class FormationService implements IFormationService{
 	EntityManager em;
 
 	@Override
-	public boolean add(Formation a) {
+	public Formation add(Formation a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

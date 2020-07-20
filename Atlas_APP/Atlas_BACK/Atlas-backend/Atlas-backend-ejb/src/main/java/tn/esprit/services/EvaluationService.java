@@ -18,12 +18,12 @@ public class EvaluationService implements IEvaluationService{
 	EntityManager em;
 	
 	@Override
-	public boolean add(Evaluation a) {
+	public Evaluation add(Evaluation a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

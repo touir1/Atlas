@@ -36,11 +36,11 @@ public class User implements Serializable {
 	@JsonIgnore
 	@OneToMany(mappedBy = "createdBy")
 	private List<Projet> projetsCreated;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "createdBy")
 	private List<Evaluation> evaluationCreated;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user")
 	private List<Evaluation> evaluations;
@@ -248,6 +248,14 @@ public class User implements Serializable {
 
 	public void setProjetsCreated(List<Projet> projetsCreated) {
 		this.projetsCreated = projetsCreated;
+	}
+
+	public List<Evaluation> getEvaluationCreated() {
+		return evaluationCreated;
+	}
+
+	public void setEvaluationCreated(List<Evaluation> evaluationCreated) {
+		this.evaluationCreated = evaluationCreated;
 	}
 
 }

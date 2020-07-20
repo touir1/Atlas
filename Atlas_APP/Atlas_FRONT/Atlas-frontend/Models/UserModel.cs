@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Atlas_frontend.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,10 +22,12 @@ namespace Atlas_frontend.Models
         [JsonProperty("image")]
         public String Image { get; set; }
         [JsonProperty("dateNaissance")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateNaissance { get; set; }
         [JsonProperty("dateContrat")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateContrat { get; set; }
-        [JsonProperty("compte")]
+        [JsonProperty("comptes")]
         public List<CompteModel> Comptes { get; set; }
         [JsonProperty("projetsCreated")]
         public List<ProjetModel> ProjetsCreated { get; set; }
@@ -38,12 +41,12 @@ namespace Atlas_frontend.Models
         public List<FraisModel> Frais { get; set; }
         [JsonProperty("absences")]
         public List<AbsenceModel> Absences { get; set; }
-        [JsonProperty("reclamation")]
-        public List<ReclamationModel> Reclamation { get; set; }
-        [JsonProperty("userFormation")]
-        public List<UserFormationModel> UserFormation { get; set; }
-        [JsonProperty("rapport")]
-        public List<RapportModel> Rapport { get; set; }
+        [JsonProperty("reclamations")]
+        public List<ReclamationModel> Reclamations { get; set; }
+        [JsonProperty("userFormations")]
+        public List<UserFormationModel> UserFormations { get; set; }
+        [JsonProperty("rapports")]
+        public List<RapportModel> Rapports { get; set; }
 
 
 

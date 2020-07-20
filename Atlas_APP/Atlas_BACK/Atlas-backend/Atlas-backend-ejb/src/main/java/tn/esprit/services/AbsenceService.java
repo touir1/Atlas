@@ -18,12 +18,12 @@ public class AbsenceService  implements IAbsenceService{
 	EntityManager em;
 
 	@Override
-	public boolean add(Absence a) {
+	public Absence add(Absence a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 		
 	}

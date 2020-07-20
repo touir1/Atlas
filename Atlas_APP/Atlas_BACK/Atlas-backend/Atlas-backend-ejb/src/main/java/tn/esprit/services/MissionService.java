@@ -18,12 +18,12 @@ public class MissionService implements IMissionService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public boolean add(Mission a) {
+	public Mission add(Mission a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

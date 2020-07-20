@@ -18,12 +18,12 @@ public class RubriqueService implements IRubriqueService {
 	EntityManager em;
 
 	@Override
-	public boolean add(Rubrique a) {
+	public Rubrique add(Rubrique a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 		
 	}

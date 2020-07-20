@@ -22,13 +22,13 @@ public class UserService implements IUserService {
 	private EntityManager em;
 
 	@Override
-	public boolean add(User a) {
+	public User add(User a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch (Exception e) {
 			logger.error("error while trying to add a user", e);
-			return false;
+			return null;
 		}
 	}
 

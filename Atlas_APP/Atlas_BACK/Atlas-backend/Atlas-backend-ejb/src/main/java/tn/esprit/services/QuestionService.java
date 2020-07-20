@@ -18,12 +18,12 @@ public class QuestionService  implements IQuestionService{
 	EntityManager em;
 
 	@Override
-	public boolean add(Question a) {
+	public Question add(Question a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

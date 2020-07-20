@@ -18,12 +18,12 @@ public class UserFormationService implements IUserFormation{
 	EntityManager em;
 
 	@Override
-	public boolean add(UserFormation a) {
+	public UserFormation add(UserFormation a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

@@ -18,12 +18,12 @@ public class ChoixService implements IChoixService {
 	EntityManager em;
 
 	@Override
-	public boolean add(Choix a) {
+	public Choix add(Choix a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

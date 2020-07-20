@@ -19,12 +19,12 @@ public class ProjetService implements IProjetService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public boolean add(Projet a) {
+	public Projet add(Projet a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

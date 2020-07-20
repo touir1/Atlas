@@ -18,12 +18,12 @@ public class FraisService implements IFraisService {
 	EntityManager em;
 	
 	@Override
-	public boolean add(Frais a) {
+	public Frais add(Frais a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

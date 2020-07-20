@@ -17,12 +17,12 @@ public class ReclamationService implements IReclamationService {
 	@PersistenceContext(unitName="primary")
 	EntityManager em;
 	@Override
-	public boolean add(Reclamation a) {
+	public Reclamation add(Reclamation a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

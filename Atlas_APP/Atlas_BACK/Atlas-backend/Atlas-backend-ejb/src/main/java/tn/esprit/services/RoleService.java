@@ -17,12 +17,12 @@ public class RoleService implements IRoleService{
 	EntityManager em;
 
 	@Override
-	public boolean add(Role a) {
+	public Role add(Role a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch(Exception e) {
-			return false;
+			return null;
 		}
 	}
 

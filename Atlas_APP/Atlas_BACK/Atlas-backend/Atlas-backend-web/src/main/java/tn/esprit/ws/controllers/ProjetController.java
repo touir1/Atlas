@@ -60,7 +60,8 @@ public class ProjetController {
 	@ApiOperation(value = "adds a projet to the database")
 	public Response add(Projet entity) {
 		try {
-			if (service.add(entity))
+			entity = service.add(entity);
+			if(entity != null)
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {

@@ -60,7 +60,8 @@ public class SujetController {
 	@ApiOperation(value = "adds a sujet to the database")
 	public Response add(Sujet entity) {
 		try {
-			if (service.add(entity))
+			entity = service.add(entity);
+			if(entity != null)
 				return Response.status(Status.CREATED).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {

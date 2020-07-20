@@ -19,12 +19,12 @@ public class CompteService implements ICompteService {
 	EntityManager em;
 
 	@Override
-	public boolean add(Compte a) {
+	public Compte add(Compte a) {
 		try {
 			em.persist(a);
-			return true;
+			return a;
 		} catch (Exception e) {
-			return false;
+			return null;
 		}
 	}
 
