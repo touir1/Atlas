@@ -15,10 +15,10 @@ import tn.esprit.interfaces.IUserService;
 @Stateless
 @LocalBean
 public class UserService implements IUserService {
-	
+
 	private final static Logger logger = Logger.getLogger(UserService.class);
-	
-	@PersistenceContext(unitName="primary")
+
+	@PersistenceContext(unitName = "primary")
 	private EntityManager em;
 
 	@Override
@@ -26,8 +26,8 @@ public class UserService implements IUserService {
 		try {
 			em.persist(a);
 			return true;
-		} catch(Exception e) {
-			logger.error("error while trying to add a user",e);
+		} catch (Exception e) {
+			logger.error("error while trying to add a user", e);
 			return false;
 		}
 	}
@@ -35,12 +35,13 @@ public class UserService implements IUserService {
 	@Override
 	public boolean remove(User u) {
 		try {
-			if(u == null) return false;
+			if (u == null)
+				return false;
 			em.remove(em.find(User.class, u.getId()));
 			return true;
-		}catch(Exception e) {
-			logger.error("error while trying to remove a user",e);
-			return false;	
+		} catch (Exception e) {
+			logger.error("error while trying to remove a user", e);
+			return false;
 		}
 	}
 
@@ -52,13 +53,18 @@ public class UserService implements IUserService {
 
 	@Override
 	public List<User> getAll() {
-		return em.createQuery("from User",User.class)
-				.getResultList();
+		return em.createQuery("from User", User.class).getResultList();
 	}
 
 	@Override
 	public User update(User a) {
 		return em.merge(a);
+	}
+
+	@Override
+	public List<User> getUsersByManager(long idManager) {
+		return em.createQuery("select u from User u where u.chef.id = :idManager", User.class)
+				.setParameter("idManager", idManager).getResultList();
 	}
 
 }

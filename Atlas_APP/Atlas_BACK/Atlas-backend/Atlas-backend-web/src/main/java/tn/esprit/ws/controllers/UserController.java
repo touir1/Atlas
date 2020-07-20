@@ -1,5 +1,7 @@
 package tn.esprit.ws.controllers;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -99,6 +101,19 @@ public class UserController {
 		}
 		catch(Exception e) {
 			logger.error("failed while trying to delete a user",e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+	}
+	
+	@GET
+	@Path("getUsersByManager/{idManager}")
+	public Response getUsersByManager(@PathParam("idManager") long idManager) {
+		try {
+			List<User> users = service.getUsersByManager(idManager);
+			return Response.status(Status.OK).entity(users).build();
+		}
+		catch(Exception e) {
+			logger.error("failed while trying to get list of users by manager",e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
