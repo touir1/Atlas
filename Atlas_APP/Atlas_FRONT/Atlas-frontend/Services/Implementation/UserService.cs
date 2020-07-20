@@ -16,12 +16,8 @@ namespace Atlas_frontend.Services.Implementation
 
         public async Task<List<UserModel>> GetListUserByManagerAsync(ISession session, long idManager)
         {
-            
-          
-                RestApiResponse<List<UserModel>> result = null;
-                result = await _client.GetAsync<List<UserModel>>(session, $"user/getUsersByManager/{idManager}");
-                return result.Result;
-           
+            var result = await _client.GetAsync<List<UserModel>>(session, $"user/getUsersByManager/{idManager}");
+            return result.Result;
         }
     }
 }

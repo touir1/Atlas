@@ -53,7 +53,39 @@
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                <form>
+                    <div class="form-group">
+                        <label for="inputTitre">titre Rubrique</label>
+                        <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Titre rubrique">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputEstimation">Estimation</label>
+                        <input type="number" class="form-control" id="inputEstimation" name="estimation" placeholder="Estimation">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+
+                </form>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Titre</th>
+                            <th scope="col">Estimation</th> 
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td>Dev Back</td>
+                            <td>50</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Modifier</button>
+                                <button type="button" class="btn btn-danger">Supprimer</button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
