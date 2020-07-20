@@ -1,0 +1,139 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<div class="card">
+    <div class="card-header">
+        Sujet
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Liste des sujets</h5>
+        <a class="btn btn-success" asp-action="Index" style="margin-left: 88%;">Ajouter sujet</a>
+        <br /><br />
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Question</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+
+                    <td>projet1</td>
+                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Ajouter question</button></td>
+                    <td>
+                        <button type="button" class="btn btn-primary">Modifier</button>
+                        <button type="button" class="btn btn-secondary">Supprimer</button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter question</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="inputTitre">Question</label>
+                        <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Votre question">
+                    </div>
+                    <div>
+                        <nav id="navbar-example2" class="navbar navbar-light bg-light">
+                            <a class="navbar-brand" href="#">Type de réponse</a>
+                            <ul class="nav nav-pills">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Type de réponse</a>
+
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#three" onclick="hola(0)">Text</a>
+                                        <div role="separator" class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#one" onclick="hola(1)">CheckBox</a>
+                                        <a class="dropdown-item" href="#two" onclick="hola(1)">RadioBox</a>
+                                    </div>
+                                  
+
+                                </li>
+                            </ul>
+                        </nav>
+                        <br />
+                        <div id="show">
+                            <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Nombre de valeurs">
+                        </div>
+                    </div>
+                    <br />
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+
+                </form>
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Question</th>
+                            <th scope="col">Type de réponse</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+
+                            <td>Dev Back</td>
+                            <td>50</td>
+                            <td>
+                                <button type="button" class="btn btn-primary">Modifier</button>
+                                <button type="button" class="btn btn-danger">Supprimer</button>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script language="javascript">
+    var x = 0;
+
+    function hola(x) {
+        if (x == 0) {
+            document.getElementById("show").style.visibility = "hidden";
+
+        }
+        if (x == 1) {
+            document.getElementById("show").style.visibility = "visible";
+
+        }
+
+    }
+
+</script>
+
+
+
+
+<script src="Scripts/jquery-2.1.4.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#focus").click(function () {
+            $("select#selectId").find(":selected").focus();
+        });
+    });
+</script>
+
+

@@ -1,0 +1,89 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="card">
+    <div class="card-header">
+        Sujet
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Ajouter un nouveau sujet</h5>
+        <form method="post">
+            <div class="form-group">
+                <label for="inputTitre">Titre</label>
+                <input type="text" class="form-control" id="inputTitre" name="Titre" placeholder="Titre sujet">
+            </div>
+
+            <div class="form-group">
+                <label for="inputTitre">Note : </label>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1" onclick="hola(1)" checked="checked">
+                    <label class="form-check-label" for="inlineRadio1" >Oui</label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"  onclick="hola(0)">
+                    <label class="form-check-label" for="inlineRadio2">Non</label>
+                </div>
+
+            </div>
+
+            <div class="form-group" id="show">
+                <label for="inputTitre">Coefficient</label>
+                <input type="text" class="form-control" id="inputcoefficient" name="coefficient" placeholder="Coefficient du sujet">
+            </div>
+
+
+
+            <button type="submit" class="btn btn-primary" asp-action="AddSujet">Ajouter</button>
+        </form>
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount: 5,
+            searchResultLimit: 5,
+            renderChoiceLimit: 5
+        });
+
+
+    });
+</script>
+<script language="javascript">
+    var x = 0;
+
+    function hola(x) {
+        if (x == 0) {
+            document.getElementById("show").style.visibility = "hidden";
+            
+        }
+        if (x == 1) {
+            document.getElementById("show").style.visibility = "visible";
+            
+        }
+        
+    }
+</script>
+     <script src="Scripts/jquery-2.1.4.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#focus").click(function () {
+                    $("select#selectId").find(":selected").focus();
+                });
+            });
+        </script>

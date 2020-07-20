@@ -5,7 +5,6 @@
 @{
     bool connected = CompteService.IsConnected(HttpContextAccessor.HttpContext.Session);
 }
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -37,7 +36,9 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Projet" asp-action="List">Projets</a>
                             </li>
-                            
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Sujet" asp-action="List">Sujets</a>
+                            </li>
                         }
 
                     </ul>
