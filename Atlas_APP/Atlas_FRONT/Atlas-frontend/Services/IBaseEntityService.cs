@@ -10,8 +10,8 @@ namespace Atlas_frontend.Services
     {
         public Task<List<TEntity>> GetListAsync(ISession session);
         public Task<TEntity> GetAsync(ISession session, long? id, long? secondId = null);
-        public void DeleteAsync(ISession session, long? id, long? secondId = null);
-        public void UpdateAsync(ISession session, TEntity entity);
-        public void AddAsync(ISession session, TEntity entity);
+        public Task DeleteAsync(ISession session, long? id, long? secondId = null);
+        public Task UpdateAsync(ISession session, TEntity entity);
+        public Task<TEntity> AddAsync(ISession session, TEntity entity);
     }
 }

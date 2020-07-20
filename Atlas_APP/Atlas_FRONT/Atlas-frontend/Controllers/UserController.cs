@@ -25,8 +25,10 @@ namespace Atlas_frontend.Controllers
         }
 
         // GET: User/Details/5
-        public ActionResult Details(int id)
+        public async Task<ActionResult> Details(long id)
         {
+            UserModel user = await _userService.GetAsync(HttpContext.Session, id);
+            ViewData.Model = user;
             return View();
         }
 
@@ -39,12 +41,12 @@ namespace Atlas_frontend.Controllers
         // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(UserModel model)
         {
             try
             {
                 // TODO: Add insert logic here
-
+                _userService.AddAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -54,20 +56,23 @@ namespace Atlas_frontend.Controllers
         }
 
         // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
+            UserModel user = await _userService.GetAsync(HttpContext.Session, id);
+            ViewData.Model = user;
             return View();
         }
 
         // POST: User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> EditAsync(int id, UserModel model)
         {
             try
             {
                 // TODO: Add update logic here
-
+                model.Id = id;
+                await _userService.UpdateAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -77,20 +82,21 @@ namespace Atlas_frontend.Controllers
         }
 
         // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        public async Task<ActionResult> DeleteAsync(int id)
         {
+            UserModel user = await _userService.GetAsync(HttpContext.Session, id);
+            ViewData.Model = user;
             return View();
         }
 
         // POST: User/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> DeleteAsync(int id, IFormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                await _userService.DeleteAsync(HttpContext.Session, id);
                 return RedirectToAction(nameof(Index));
             }
             catch
