@@ -107,6 +107,8 @@ public class UserController {
 	
 	@GET
 	@Path("getUsersByManager/{idManager}")
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get users by their manager")
 	public Response getUsersByManager(@PathParam("idManager") long idManager) {
 		try {
 			List<User> users = service.getUsersByManager(idManager);
