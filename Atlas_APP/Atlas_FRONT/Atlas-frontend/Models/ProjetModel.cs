@@ -9,13 +9,13 @@ namespace Atlas_frontend.Models
     public class ProjetModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("titre")]
         public String Titre { get; set; }
         [JsonProperty("dateCreation")]
-        public DateTime DateCreation { get; set; }
+        public DateTime? DateCreation { get; set; }
         [JsonProperty("dateCloture")]
-        public DateTime DateCloture { get; set; }
+        public DateTime? DateCloture { get; set; }
         [JsonProperty("createdBy")]
         public UserModel createdBy { get; set; }
         [JsonProperty("membres")]

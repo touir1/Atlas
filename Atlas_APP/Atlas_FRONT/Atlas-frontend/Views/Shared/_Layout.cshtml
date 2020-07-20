@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject Atlas_frontend.Services.ICompteService CompteService
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    bool connected = CompteService.IsConnected(HttpContextAccessor.HttpContext.Session);
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -18,19 +24,33 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Projet" asp-action="Index">Projets</a>
-                        </li>
+                        @if (connected)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Projet" asp-action="Index">Projets</a>
+                            </li>
+                            
+                        }
+
                     </ul>
                 </div>
-            </div>
-        </nav>
+                @if (connected) { 
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="Identity" asp-controller="Login" asp-action="SignOut">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                }
+                </div>
+</nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

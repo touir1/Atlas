@@ -9,14 +9,14 @@ namespace Atlas_frontend.Models
     public class FacturationModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("dateFacturation")]
-        public DateTime DateFacturation { get; set; }
+        public DateTime? DateFacturation { get; set; }
         [JsonProperty("libelle")]
         public String Libelle { get; set; }
         
         [JsonProperty("montantTotale")]
-        public float MontantTotale { get; set; }
+        public float? MontantTotale { get; set; }
         [JsonProperty("document")]
         public String Document { get; set; }
         [JsonProperty("mission")]

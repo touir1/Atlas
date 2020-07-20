@@ -19,12 +19,12 @@ namespace Atlas_frontend.Services.Implementation
             _baseServiceUrl = baseServiceUrl;
         }
 
-        public async void AddAsync(ISession session, TEntity entity)
+        public virtual async void AddAsync(ISession session, TEntity entity)
         {
             await _client.PostAsync<TEntity, Boolean>(session, _baseServiceUrl, entity);
         }
 
-        public async void DeleteAsync(ISession session, long? id, long? secondId = null)
+        public virtual async void DeleteAsync(ISession session, long? id, long? secondId = null)
         {
             if(secondId != null)
             {
@@ -36,7 +36,7 @@ namespace Atlas_frontend.Services.Implementation
             }
         }
 
-        public async Task<TEntity> GetAsync(ISession session, long? id, long? secondId = null)
+        public virtual async Task<TEntity> GetAsync(ISession session, long? id, long? secondId = null)
         {
             RestApiResponse<TEntity> result = null;
             if(secondId == null)
@@ -50,13 +50,13 @@ namespace Atlas_frontend.Services.Implementation
             return result.Result;
         }
 
-        public async Task<List<TEntity>> GetListAsync(ISession session)
+        public virtual async Task<List<TEntity>> GetListAsync(ISession session)
         {
             RestApiResponse<List<TEntity>> result = await _client.GetAsync<List<TEntity>>(session, _baseServiceUrl);
             return result.Result;
         }
 
-        public async void UpdateAsync(ISession session, TEntity entity)
+        public virtual async void UpdateAsync(ISession session, TEntity entity)
         {
             RestApiResponse<TEntity> result = await _client.PutAsync<TEntity, TEntity>(session, _baseServiceUrl, entity);
         }

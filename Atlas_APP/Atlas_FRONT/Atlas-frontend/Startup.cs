@@ -14,6 +14,8 @@ using Microsoft.Extensions.Hosting;
 using Atlas_frontend.Utils.RestAPI;
 using Atlas_frontend.Services;
 using Atlas_frontend.Services.Implementation;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Atlas_frontend
 {
@@ -41,6 +43,8 @@ namespace Atlas_frontend
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddMvcCore();
+
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             DependencyInjection(services);
         }
@@ -73,7 +77,7 @@ namespace Atlas_frontend
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
         }

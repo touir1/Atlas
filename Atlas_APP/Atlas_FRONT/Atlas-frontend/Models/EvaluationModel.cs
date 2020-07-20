@@ -10,7 +10,7 @@ namespace Atlas_frontend.Models
     {
 
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
 
         [JsonProperty("status")]
         public String Status { get; set; }

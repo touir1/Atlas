@@ -9,11 +9,11 @@ namespace Atlas_frontend.Models
     public class RubriqueModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("titre")]
         public String Titre { get; set; }
         [JsonProperty("estimation")]
-        public float Estimation { get; set; }
+        public float? Estimation { get; set; }
         [JsonProperty("projet")]
         public ProjetModel Projet { get; set; }
         [JsonProperty("rapports")]

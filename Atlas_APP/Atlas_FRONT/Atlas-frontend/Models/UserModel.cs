@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class UserModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("nom")]
         public String Nom { get; set; }
         [JsonProperty("prenom")]
@@ -21,9 +21,9 @@ namespace Atlas_frontend.Models
         [JsonProperty("image")]
         public String Image { get; set; }
         [JsonProperty("dateNaissance")]
-        public DateTime DateNaissance { get; set; }
+        public DateTime? DateNaissance { get; set; }
         [JsonProperty("dateContrat")]
-        public DateTime DateContrat { get; set; }
+        public DateTime? DateContrat { get; set; }
         [JsonProperty("compte")]
         public List<CompteModel> Comptes { get; set; }
         [JsonProperty("projetsCreated")]

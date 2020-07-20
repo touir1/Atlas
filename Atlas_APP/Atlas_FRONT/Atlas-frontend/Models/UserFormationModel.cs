@@ -13,7 +13,7 @@ namespace Atlas_frontend.Models
         [JsonProperty("description")]
         public String Description { get; set; }
         [JsonProperty("dateDemande")]
-        public DateTime DateDemande { get; set; }
+        public DateTime? DateDemande { get; set; }
         [JsonProperty("formation")]
         public FormationModel Formation { get; set; }
         [JsonProperty("user")]

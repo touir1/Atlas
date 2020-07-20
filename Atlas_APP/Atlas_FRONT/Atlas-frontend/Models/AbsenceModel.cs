@@ -9,13 +9,13 @@ namespace Atlas_frontend.Models
     public class AbsenceModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("dateDebutConge")]
-        public DateTime DateDebutConge { get; set; }
+        public DateTime? DateDebutConge { get; set; }
         [JsonProperty("dateFinConge")]
-        public DateTime DateFinConge { get; set; }
+        public DateTime? DateFinConge { get; set; }
         [JsonProperty("heures")]
-        public float Heures { get; set; }
+        public float? Heures { get; set; }
         [JsonProperty("status")]
         public String Status { get; set; }
         [JsonProperty("type")]

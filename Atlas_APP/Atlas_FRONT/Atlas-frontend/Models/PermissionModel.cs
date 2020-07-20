@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class PermissionModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("ecran")]
         public String Ecran { get; set; }
         [JsonProperty("action")]

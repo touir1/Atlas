@@ -109,6 +109,20 @@ public class CompteController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	@POST
+	@Path("logout")
+	@ApiOperation(value = "logout a compte")
+	public Response logout(@Context HttpServletRequest request) {
+		try {
+			HttpSession session = request.getSession();
+			session.removeAttribute("user");
+			return Response.status(Response.Status.ACCEPTED).build();
+		}
+		catch(Exception e) {
+			return Response.status(Response.Status.BAD_REQUEST).build();
+		}
+	}
 
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)

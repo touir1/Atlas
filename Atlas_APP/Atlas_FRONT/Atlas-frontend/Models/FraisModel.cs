@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class FraisModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("type")]
         public String Type { get; set; }
         [JsonProperty("status")]
@@ -19,7 +19,7 @@ namespace Atlas_frontend.Models
         [JsonProperty("justificatif")]
         public String Justificatif { get; set; }
         [JsonProperty("remboursable")]
-        public Boolean Remboursable { get; set; }
+        public Boolean? Remboursable { get; set; }
         [JsonProperty("user")]
          public UserModel User { get; set; }
         [JsonProperty("mission")]

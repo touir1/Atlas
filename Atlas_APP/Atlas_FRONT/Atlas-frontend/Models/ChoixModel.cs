@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class ChoixModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("ordre")]
         public String Ordre { get; set; }
         [JsonProperty("libelle")]

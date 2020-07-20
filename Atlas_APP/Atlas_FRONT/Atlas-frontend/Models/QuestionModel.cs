@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class QuestionModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("type")]
         public String Type { get; set; }
         [JsonProperty("libelle")]

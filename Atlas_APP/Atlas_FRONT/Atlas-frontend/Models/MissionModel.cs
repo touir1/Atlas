@@ -9,11 +9,11 @@ namespace Atlas_frontend.Models
     public class MissionModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("type")]
         public String Type { get; set; }
         [JsonProperty("date")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
         [JsonProperty("duree")]
         public float Duree { get; set; }
         [JsonProperty("lieu")]

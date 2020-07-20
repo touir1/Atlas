@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class RoleModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("libelle")]
         public String Libelle { get; set; }
         [JsonProperty("permissions")]

@@ -9,19 +9,19 @@ namespace Atlas_frontend.Models
     public class RapportModel
     {
         [JsonProperty("valider")]
-        public Boolean Valider { get; set; }
+        public Boolean? Valider { get; set; }
         [JsonProperty("dateCreation")]
-        public DateTime DateCreation { get; set; }
+        public DateTime? DateCreation { get; set; }
         [JsonProperty("dateImputation")]
-        public DateTime DateImputation { get; set; }
+        public DateTime? DateImputation { get; set; }
         [JsonProperty("semaine")]
-        public int Semaine { get; set; }
+        public int? Semaine { get; set; }
         [JsonProperty("mois")]
-        public int Mois { get; set; }
+        public int? Mois { get; set; }
         [JsonProperty("joursSemaine")]
-        public int JoursSemaine { get; set; }
+        public int? JoursSemaine { get; set; }
         [JsonProperty("duree")]
-        public float Duree { get; set; }
+        public float? Duree { get; set; }
         [JsonProperty("user")]
         public UserModel User { get; set; }
         [JsonProperty("rubrique")]

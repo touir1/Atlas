@@ -10,5 +10,8 @@ namespace Atlas_frontend.Services
     public interface ICompteService : IBaseEntityService<CompteModel>
     {
         public Task<CompteModel> LoginAsync(ISession session, string username, string password);
+        public Task<Boolean> LogoutAsync(ISession session);
+        public CompteModel GetConnectedCompte(ISession session);
+        public Boolean IsConnected(ISession session);
     }
 }

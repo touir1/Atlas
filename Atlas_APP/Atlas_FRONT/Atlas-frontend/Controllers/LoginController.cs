@@ -26,7 +26,7 @@ namespace Atlas_frontend.Controllers
         }
         //POST: /<controller>
         [HttpPost]
-        public async Task<IActionResult> SignInAsync([Bind("Username","Password")] CompteModel compte)
+        public async Task<IActionResult> IndexAsync([Bind("Username","Password")] CompteModel compte)
         {
            try {
                 CompteModel loggedIn = await _compteService.LoginAsync(HttpContext.Session, compte.Username, compte.Password);  
@@ -42,6 +42,19 @@ namespace Atlas_frontend.Controllers
            }
            
           
+        }
+
+        public async Task<IActionResult> SignOutAsync()
+        {
+            try
+            {
+                await _compteService.LogoutAsync(HttpContext.Session);
+                return RedirectToAction("Index", "Login");
+            }
+            catch (Exception)
+            {
+                return View();
+            }
         }
     }
 }

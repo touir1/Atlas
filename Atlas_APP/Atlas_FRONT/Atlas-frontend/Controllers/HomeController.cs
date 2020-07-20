@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Atlas_frontend.Models;
+using Atlas_frontend.Utils.Attributes;
+using Atlas_frontend.Models.Enums;
 
 namespace Atlas_frontend.Controllers
 {
@@ -18,6 +20,7 @@ namespace Atlas_frontend.Controllers
             _logger = logger;
         }
 
+        [Authorize(new[] { RankEnum.User })]
         public IActionResult Index()
         {
             return View();

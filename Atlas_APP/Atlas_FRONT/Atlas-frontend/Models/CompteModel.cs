@@ -9,7 +9,7 @@ namespace Atlas_frontend.Models
     public class CompteModel
     {
         [JsonProperty("id")]
-        public long Id { get; set; }
+        public long? Id { get; set; }
         [JsonProperty("username")]
         public string Username { get; set; }
         [JsonProperty("password")]
