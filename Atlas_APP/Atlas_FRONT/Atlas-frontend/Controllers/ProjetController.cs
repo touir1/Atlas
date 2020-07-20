@@ -22,6 +22,12 @@ namespace Atlas_frontend.Controllers
             //GET LIST OF USER By manager 
             return View();
         }
+        // GET: /<controller>/
+        public IActionResult List()
+        {
+            //GET LIST OF USER By manager 
+            return View();
+        }
         //POST: /<controller>
         [HttpPost]
         public  IActionResult AddProject([Bind("Titre", "DateCreation","DateCloture","Membres")] ProjetModel projet)
