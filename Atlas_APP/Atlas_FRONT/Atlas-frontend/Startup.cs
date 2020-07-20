@@ -103,6 +103,7 @@ namespace Atlas_frontend
             services.AddSingleton<IRubriqueService, RubriqueService>();
             services.AddSingleton<ISujetService, SujetService>();
             services.AddSingleton<IUserFormationService, UserFormationService>();
+            services.AddSingleton<IUserService, UserService>();
         }
     }
 }

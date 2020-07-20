@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Atlas_frontend.Services
 {
-    interface IUserService : IBaseEntityService<UserModel>
+    public interface IUserService : IBaseEntityService<UserModel>
     {
         public Task<List<UserModel>> GetListUserByManagerAsync(ISession session, long idManager);
 
