@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<Atlas_frontend.Models.UserModel>
 
 @{
-    ViewData["Title"] = "Liste des users";
+    ViewData["Title"] = "Users list";
 }
 
-<h1>List</h1>
+<h1>Liste d'utilisateurs</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Création d'un nouveau utilisateur</a>
 </p>
 <table class="table">
     <thead>
@@ -67,9 +67,9 @@
                 @Html.DisplayFor(modelItem => item.DateContrat)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new {  id=item.Id }) |
+                @Html.ActionLink("Modifier", "Edit", new {  id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+                @Html.ActionLink("Supprimer", "Delete", new {  id=item.Id })
             </td>
         </tr>
 }

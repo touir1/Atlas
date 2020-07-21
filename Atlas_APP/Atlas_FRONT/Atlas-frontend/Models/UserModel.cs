@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -11,19 +12,30 @@ namespace Atlas_frontend.Models
     {
         [JsonProperty("id")]
         public long? Id { get; set; }
+        [Required]
         [JsonProperty("nom")]
         public String Nom { get; set; }
+        [Required]
         [JsonProperty("prenom")]
+        [Display(Name = "Prénom")]
         public String Prenom { get; set; }
+        [Required]
+        [EmailAddress]
         [JsonProperty("email")]
         public String Email { get; set; }
+        [Required]
         [JsonProperty("poste")]
         public String Poste { get; set; }
         [JsonProperty("image")]
         public String Image { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Date de naissance")]
         [JsonProperty("dateNaissance")]
         [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateNaissance { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date de signature du contrat")]
         [JsonProperty("dateContrat")]
         [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateContrat { get; set; }

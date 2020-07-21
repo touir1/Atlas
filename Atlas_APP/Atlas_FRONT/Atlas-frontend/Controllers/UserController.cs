@@ -45,6 +45,10 @@ namespace Atlas_frontend.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
                 // TODO: Add insert logic here
                 await _userService.AddAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
@@ -70,6 +74,10 @@ namespace Atlas_frontend.Controllers
         {
             try
             {
+                if (!ModelState.IsValid)
+                {
+                    return View();
+                }
                 // TODO: Add update logic here
                 model.Id = id;
                 await _userService.UpdateAsync(HttpContext.Session, model);

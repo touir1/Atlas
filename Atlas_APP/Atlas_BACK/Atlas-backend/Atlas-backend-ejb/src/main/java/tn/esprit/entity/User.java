@@ -2,7 +2,9 @@ package tn.esprit.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javax.persistence.*;
 
@@ -71,6 +73,10 @@ public class User implements Serializable {
 
 	@ManyToOne
 	private User chef;
+
+	@JsonIgnore
+	@OneToMany(mappedBy = "chef")
+	private List<User> membresEquipe;
 
 	public User(Long id) {
 		super();
@@ -256,6 +262,99 @@ public class User implements Serializable {
 
 	public void setEvaluationCreated(List<Evaluation> evaluationCreated) {
 		this.evaluationCreated = evaluationCreated;
+	}
+
+	public List<User> getMembresEquipe() {
+		return membresEquipe;
+	}
+
+	public void setMembresEquipe(List<User> membresEquipe) {
+		this.membresEquipe = membresEquipe;
+	}
+
+	@PreRemove
+	public void removeRelations() {
+		if (membresEquipe != null) {
+			for (User user : membresEquipe) {
+				user.setChef(null);
+			}
+		}
+		if (comptes != null) {
+			for (Compte compte : comptes) {
+				compte.setUser(null);
+			}
+		}
+		if (projetsCreated != null) {
+			for (Projet projet : projetsCreated) {
+				projet.setCreatedBy(null);
+			}
+		}
+		if (evaluationCreated != null) {
+			for (Evaluation evaluation : evaluationCreated) {
+				evaluation.setCreatedBy(null);
+			}
+		}
+		if (evaluations != null) {
+			for (Evaluation evaluation : evaluations) {
+				evaluation.setUser(null);
+			}
+		}
+		if (projets != null) {
+			for (Projet projet : projets) {
+				projet.getMembres().remove(this);
+			}
+		}
+		if (frais != null) {
+			for (Frais frais : frais) {
+				frais.setUser(null);
+			}
+		}
+		if (absences != null) {
+			for (Absence absence : absences) {
+				absence.setUser(null);
+			}
+		}
+		if (reclamations != null) {
+			for (Reclamation reclamation : reclamations) {
+				reclamation.setUser(null);
+			}
+		}
+		if (userFormations != null) {
+			for (UserFormation userFormation : userFormations) {
+				userFormation.setUser(null);
+			}
+		}
+		if (rapports != null) {
+			for (Rapport rapport : rapports) {
+				rapport.setUser(null);
+			}
+		}
+
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }
