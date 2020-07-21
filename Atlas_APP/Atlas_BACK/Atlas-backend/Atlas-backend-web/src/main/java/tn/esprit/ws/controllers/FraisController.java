@@ -19,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Frais;
 import tn.esprit.interfaces.IFraisService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("frais")
 @Api(value = "FraisRESTService", description = "Frais service")
@@ -30,6 +31,7 @@ public class FraisController {
 	private IFraisService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the frais")
 	public Response getAll() {
@@ -42,6 +44,7 @@ public class FraisController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a frais by id")
@@ -58,13 +61,14 @@ public class FraisController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a frais to the database")
 	public Response add(Frais entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a frais", e);
@@ -73,6 +77,7 @@ public class FraisController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a frais")
 	public Response update(Frais entity) {
@@ -87,6 +92,7 @@ public class FraisController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a frais from the database")
 	public Response delete(@PathParam("id") long id) {

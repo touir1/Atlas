@@ -19,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Choix;
 import tn.esprit.interfaces.IChoixService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("choix")
 @Api(value = "ChoixRESTService", description = "Choix service")
@@ -30,6 +31,7 @@ public class ChoixController {
 	private IChoixService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the choix")
 	public Response getAll() {
@@ -42,6 +44,7 @@ public class ChoixController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a choix by id")
@@ -58,13 +61,14 @@ public class ChoixController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a choix to the database")
 	public Response add(Choix entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a choix", e);
@@ -73,6 +77,7 @@ public class ChoixController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a choix")
 	public Response update(Choix entity) {
@@ -87,6 +92,7 @@ public class ChoixController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a choix from the database")
 	public Response delete(@PathParam("id") long id) {

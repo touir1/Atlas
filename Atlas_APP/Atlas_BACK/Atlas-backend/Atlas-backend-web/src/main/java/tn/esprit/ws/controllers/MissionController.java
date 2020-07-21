@@ -19,6 +19,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Mission;
 import tn.esprit.interfaces.IMissionService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("mission")
 @Api(value = "MissionRESTService", description = "Mission service")
@@ -30,6 +31,7 @@ public class MissionController {
 	private IMissionService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the missions")
 	public Response getAll() {
@@ -42,6 +44,7 @@ public class MissionController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a mission by id")
@@ -58,13 +61,14 @@ public class MissionController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a mission to the database")
 	public Response add(Mission entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a mission", e);
@@ -73,6 +77,7 @@ public class MissionController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a mission")
 	public Response update(Mission entity) {
@@ -87,6 +92,7 @@ public class MissionController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a mission from the database")
 	public Response delete(@PathParam("id") long id) {

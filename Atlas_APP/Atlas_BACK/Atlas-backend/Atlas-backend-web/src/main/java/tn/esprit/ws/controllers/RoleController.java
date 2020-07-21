@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Role;
 import tn.esprit.interfaces.IRoleService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("role")
 @Api(value = "RoleRESTService", description = "Role service")
@@ -29,6 +30,7 @@ public class RoleController {
 	private IRoleService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the roles")
 	public Response getAll() {
@@ -41,6 +43,7 @@ public class RoleController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "gets a role by id")
@@ -57,13 +60,14 @@ public class RoleController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a role to the database")
 	public Response add(Role entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a role", e);
@@ -72,6 +76,7 @@ public class RoleController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a role")
 	public Response update(Role entity) {
@@ -86,6 +91,7 @@ public class RoleController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a role from the database")
 	public Response delete(@PathParam("id") long id) {

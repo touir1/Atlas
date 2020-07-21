@@ -43,6 +43,7 @@ public class AbsenceController {
 	}
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the absences of users under a manager by status")
 	@Path("byStatusForManager/{idManager}/{status}")
@@ -56,6 +57,7 @@ public class AbsenceController {
 	}
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the absences of users by status")
 	@Path("byStatusForUser/{idUser}/{status}")
@@ -69,6 +71,7 @@ public class AbsenceController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get the absence by id")
@@ -85,13 +88,14 @@ public class AbsenceController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds an absence to the database")
 	public Response add(Absence entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a absence", e);
@@ -100,6 +104,7 @@ public class AbsenceController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates an absence")
 	public Response update(Absence entity) {
@@ -114,6 +119,7 @@ public class AbsenceController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "removes an absence from the database")
 	public Response delete(@PathParam("id") long id) {

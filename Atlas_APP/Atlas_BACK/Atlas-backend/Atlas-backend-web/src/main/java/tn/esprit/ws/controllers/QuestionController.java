@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Question;
 import tn.esprit.interfaces.IQuestionService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("question")
 @Api(value = "QuestionRESTService", description = "Question service")
@@ -28,6 +29,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	private IQuestionService service;
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the questions")
 	public Response getAll(){
@@ -41,6 +43,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	}
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a question by id")
@@ -58,13 +61,14 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	}
 	
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a question to the database")
 	public Response add(Question entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		catch(Exception e) {
@@ -74,6 +78,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	}
 	
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a question")
 	public Response update(Question entity) {
@@ -89,6 +94,7 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 	}
 	
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a question from the database")
 	public Response delete(@PathParam("id") long id) {

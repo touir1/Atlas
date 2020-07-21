@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Sujet;
 import tn.esprit.interfaces.ISujetService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("sujet")
 @Api(value = "SujetRESTService", description = "Sujet service")
@@ -28,6 +29,7 @@ public class SujetController {
 	private ISujetService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the sujets")
 	public Response getAll() {
@@ -40,6 +42,7 @@ public class SujetController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "gets a sujet by id")
@@ -56,13 +59,14 @@ public class SujetController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a sujet to the database")
 	public Response add(Sujet entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a sujet", e);
@@ -71,6 +75,7 @@ public class SujetController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a sujet")
 	public Response update(Sujet entity) {
@@ -85,6 +90,7 @@ public class SujetController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a sujet from the database")
 	public Response delete(@PathParam("id") long id) {

@@ -21,6 +21,7 @@ import tn.esprit.entity.Formation;
 import tn.esprit.entity.User;
 import tn.esprit.entity.UserFormation;
 import tn.esprit.interfaces.IUserFormation;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("userFormation")
 @Api(value = "UserFormationRESTService", description = "UserFormation service")
@@ -31,6 +32,7 @@ public class UserFormationController {
 	private IUserFormation service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the userFormations")
 	public Response getAll() {
@@ -43,6 +45,7 @@ public class UserFormationController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{iduser}/{idformation}")
 	@ApiOperation(value = "gets a userFormation by id")
@@ -59,13 +62,14 @@ public class UserFormationController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a userFormation to the database")
 	public Response add(UserFormation entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a userFormation", e);
@@ -74,6 +78,7 @@ public class UserFormationController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a userFormation")
 	public Response update(UserFormation entity) {
@@ -88,6 +93,7 @@ public class UserFormationController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{iduser}/{idformation}")
 	@ApiOperation(value = "deletes a userFormation from the database")
 	public Response delete(@PathParam("iduser") long iduser, @PathParam("idformation") long idformation) {

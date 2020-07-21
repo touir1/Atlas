@@ -21,6 +21,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IUserService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("user")
 @Api(value = "UserRESTService", description = "User service")
@@ -32,6 +33,7 @@ public class UserController {
 	private IUserService service;
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the users")
 	public Response getAll(){
@@ -45,6 +47,7 @@ public class UserController {
 	}
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a user by it's id")
@@ -62,6 +65,7 @@ public class UserController {
 	}
 	
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "add a user to the database")
@@ -69,7 +73,7 @@ public class UserController {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 		catch(Exception e) {
@@ -79,6 +83,7 @@ public class UserController {
 	}
 	
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a user")
 	public Response update(User entity) {
@@ -94,6 +99,7 @@ public class UserController {
 	}
 	
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a user from the database")
 	public Response delete(@PathParam("id") long id) {
@@ -108,6 +114,7 @@ public class UserController {
 	}
 	
 	@GET
+	@Secured
 	@Path("getUsersByManager/{idManager}")
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get users by their manager")

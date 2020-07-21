@@ -29,6 +29,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Compte;
 import tn.esprit.interfaces.ICompteService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("compte")
 @Api(value = "CompteRESTService", description = "Compte service")
@@ -41,6 +42,7 @@ public class CompteController {
 	private ICompteService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the comptes")
 	public Response getAll() {
@@ -53,6 +55,7 @@ public class CompteController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a compte by id")
@@ -69,6 +72,7 @@ public class CompteController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a compte to the database")
 	public Response add(Compte entity) {
@@ -76,7 +80,7 @@ public class CompteController {
 			entity.setPassword("123456");
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a compte", e);
@@ -85,6 +89,7 @@ public class CompteController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a compte")
 	public Response update(Compte entity) {
@@ -99,6 +104,7 @@ public class CompteController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a compte from the database")
 	public Response delete(@PathParam("id") long id) {
@@ -112,6 +118,7 @@ public class CompteController {
 	}
 	
 	@POST
+	@Secured
 	@Path("logout")
 	@ApiOperation(value = "logout a compte")
 	public Response logout(@Context HttpServletRequest request) {

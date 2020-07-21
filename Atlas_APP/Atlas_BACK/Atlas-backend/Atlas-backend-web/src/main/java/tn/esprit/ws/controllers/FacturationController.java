@@ -20,6 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Facturation;
 
 import tn.esprit.interfaces.IFacturationService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("facturation")
 @Api(value = "FacturationRESTService", description = "Facturation service")
@@ -31,6 +32,7 @@ public class FacturationController {
 	private IFacturationService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the facturations")
 	public Response getAll() {
@@ -43,6 +45,7 @@ public class FacturationController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a facturation by id")
@@ -59,13 +62,14 @@ public class FacturationController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a facturation to the database")
 	public Response add(Facturation entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a facturation", e);
@@ -74,6 +78,7 @@ public class FacturationController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a facturation")
 	public Response update(Facturation entity) {
@@ -88,6 +93,7 @@ public class FacturationController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a facturation from the database")
 	public Response delete(@PathParam("id") long id) {

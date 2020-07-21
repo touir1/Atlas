@@ -22,6 +22,7 @@ import tn.esprit.entity.Rapport;
 import tn.esprit.entity.Rubrique;
 import tn.esprit.entity.User;
 import tn.esprit.interfaces.IRapportService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("rapport")
 @Api(value = "RapportRESTService", description = "Rapport service")
@@ -32,6 +33,7 @@ public class RapportController {
 	private IRapportService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the rapports")
 	public Response getAll() {
@@ -44,6 +46,7 @@ public class RapportController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{idUser}/{idRubrique}")
 	@ApiOperation(value = "get a rapport by id")
@@ -60,13 +63,14 @@ public class RapportController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a rapport to the database")
 	public Response add(Rapport entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a rapport", e);
@@ -75,6 +79,7 @@ public class RapportController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a rapport")
 	public Response update(Rapport entity) {
@@ -89,6 +94,7 @@ public class RapportController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{idUser}/{idRubrique}")
 	@ApiOperation(value = "deletes a rapport from the database")
 	public Response delete(@PathParam("idUser") long idUser, @PathParam("idRubrique") long idRubrique) {
@@ -100,7 +106,9 @@ public class RapportController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
 	@PUT
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{idUser}/{idRubrique}")
 	@ApiOperation(value = "Approve rapport")

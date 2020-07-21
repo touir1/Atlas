@@ -21,6 +21,7 @@ import tn.esprit.entity.Evaluation;
 import tn.esprit.entity.Question;
 import tn.esprit.entity.Reponse;
 import tn.esprit.interfaces.IReponseService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("reponse")
 @Api(value = "ReponseRESTService", description = "Reponse service")
@@ -31,6 +32,7 @@ public class ReponseController {
 	private IReponseService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the reponses")
 	public Response getAll() {
@@ -43,6 +45,7 @@ public class ReponseController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{idEvaluation}/{idQuestion}")
 	@ApiOperation(value = "gets a reponse by id")
@@ -59,13 +62,14 @@ public class ReponseController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a reponse to the database")
 	public Response add(Reponse entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
-				return Response.status(Status.CREATED).build();
+				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to save a reponse", e);
@@ -74,6 +78,7 @@ public class ReponseController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a reponse")
 	public Response update(Reponse entity) {
@@ -88,6 +93,7 @@ public class ReponseController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{idEvaluation}/{idQuestion}")
 	@ApiOperation(value = "deletes a reponse from the database")
 	public Response delete(@PathParam("idEvaluation") long idEvaluation, @PathParam("idQuestion") long idQuestion) {

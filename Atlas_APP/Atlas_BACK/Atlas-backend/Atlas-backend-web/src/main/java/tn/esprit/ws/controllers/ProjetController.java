@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Projet;
 import tn.esprit.interfaces.IProjetService;
+import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("projet")
 @Api(value = "ProjetRESTService", description = "Projet service")
@@ -28,6 +29,7 @@ public class ProjetController {
 	private IProjetService service;
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of all the projets")
 	public Response getAll() {
@@ -40,6 +42,7 @@ public class ProjetController {
 	}
 
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
 	@ApiOperation(value = "get a projet by id")
@@ -56,6 +59,7 @@ public class ProjetController {
 	}
 
 	@POST
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "adds a projet to the database")
 	public Response add(Projet entity) {
@@ -71,6 +75,7 @@ public class ProjetController {
 	}
 
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a projet")
 	public Response update(Projet entity) {
@@ -85,6 +90,7 @@ public class ProjetController {
 	}
 
 	@DELETE
+	@Secured
 	@Path("{id}")
 	@ApiOperation(value = "deletes a projet from the database")
 	public Response delete(@PathParam("id") long id) {
@@ -96,7 +102,9 @@ public class ProjetController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of project by manager")
 	@Path("byManager/{idManager}")
@@ -110,6 +118,7 @@ public class ProjetController {
 	}
 	
 	@GET
+	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of members by project")
 	@Path("Members/{idProject}")
@@ -121,7 +130,9 @@ public class ProjetController {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+	
 	@PUT
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "Affecter user to project")
 	@Path("Affecter/{idProject}/{idMembre}")
