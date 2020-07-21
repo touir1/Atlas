@@ -1,20 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Atlas_frontend.Models;
 using Atlas_frontend.Services;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+
 
 namespace Atlas_frontend.Controllers
 {
     public class UserController : Controller
     {
         private IUserService _userService;
-        public UserController(IUserService userService)
+        private IWebHostEnvironment _webHostEnvironment;
+
+        public UserController(IUserService userService, IWebHostEnvironment hostEnvironment)
         {
             _userService = userService;
+            _webHostEnvironment = hostEnvironment;
         }
         // GET: User
         public async Task<ActionResult> Index()
@@ -49,6 +55,9 @@ namespace Atlas_frontend.Controllers
                 {
                     return View();
                 }
+                string uniqueFileName = UploadedFile(model);
+                model.Image = uniqueFileName;
+
                 // TODO: Add insert logic here
                 await _userService.AddAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
@@ -79,6 +88,8 @@ namespace Atlas_frontend.Controllers
                     return View();
                 }
                 // TODO: Add update logic here
+                string uniqueFileName = UploadedFile(model);
+                model.Image = uniqueFileName;
                 model.Id = id;
                 await _userService.UpdateAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
@@ -111,6 +122,23 @@ namespace Atlas_frontend.Controllers
             {
                 return View();
             }
+        }
+
+        private string UploadedFile(UserModel model)
+        {
+            string uniqueFileName = null;
+
+            if (model.ProfileImage != null)
+            {
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images/profiles");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.ProfileImage.FileName;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.ProfileImage.CopyTo(fileStream);
+                }
+            }
+            return uniqueFileName;
         }
     }
 }

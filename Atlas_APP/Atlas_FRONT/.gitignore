@@ -77,3 +77,7 @@ _[Ss]cripts
 # Visual studio #
 #################
 .vs/
+########
+# Misc #
+########
+/**/wwwroot/images/profiles/*

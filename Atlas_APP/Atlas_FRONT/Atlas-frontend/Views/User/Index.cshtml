@@ -58,7 +58,15 @@
                 @Html.DisplayFor(modelItem => item.Poste)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Image)
+                @*
+        @Html.DisplayFor(modelItem => item.Image)
+                *@
+                @if(item.Image != null && !"".Equals(item.Image.Trim())) { 
+                    <img src="~/images/profiles/@item.Image"
+                         class="rounded-circle"
+                         height="40" width="40"
+                         asp-append-version="true" />
+                }
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DateNaissance)

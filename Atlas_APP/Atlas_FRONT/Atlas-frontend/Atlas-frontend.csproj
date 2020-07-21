@@ -21,6 +21,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Compte\" />
+    <Folder Include="wwwroot\images\profiles\" />
   </ItemGroup>
 
 </Project>

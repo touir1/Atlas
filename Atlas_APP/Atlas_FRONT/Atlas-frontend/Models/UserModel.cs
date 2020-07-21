@@ -1,4 +1,6 @@
 ﻿using Atlas_frontend.Utils;
+using Atlas_frontend.Utils.Validators;
+using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -60,7 +62,9 @@ namespace Atlas_frontend.Models
         [JsonProperty("rapports")]
         public List<RapportModel> Rapports { get; set; }
 
-
-
+        [JsonIgnore]
+        [Display(Name = "Image de profil")]
+        [CustomImageFileValidator(ErrorMessage ="Le format d'image est invalide")]
+        public IFormFile ProfileImage { get; set; }
     }
 }
