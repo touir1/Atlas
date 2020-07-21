@@ -2,6 +2,7 @@
 using Atlas_frontend.Services;
 using Atlas_frontend.Utils.RestAPI;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,19 +33,28 @@ namespace Atlas_frontend.Controllers
             return View();
         }
         // GET: /<controller>/
-        public IActionResult List()
+        public async Task <IActionResult> List()
         {
             //GET LIST OF USER By manager 
+            CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+            List<ProjetModel> result = await _projetService.GetListProjectByManager(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
+            ViewBag.lstmanager = result ?? new List<ProjetModel>();
             return View();
         }
         //POST: /<controller>
         [HttpPost]
-        public  IActionResult AddProject([Bind("Titre", "DateCreation","DateCloture")] ProjetModel projet, List<long> membres)
+        public  async Task<IActionResult> AddProject([Bind("Titre", "DateCreation","DateCloture")] ProjetModel projet, List<long> membres)
         {
             try
             {
-                 _projetService.AddAsync(HttpContext.Session, projet);
-                return View();
+                CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+                projet.createdBy = compte.User;
+                ProjetModel prj = await _projetService.AddAsync(HttpContext.Session, projet);
+                foreach(long item in membres)
+                {
+                    await _projetService.AffecterUserToProjetAsync(HttpContext.Session, prj.Id, item);
+                }
+                return RedirectToAction("List", "Projet");
             } catch(Exception e)
             {
                 //return null;

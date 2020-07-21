@@ -9,7 +9,8 @@ namespace Atlas_frontend.Services
 {
     public interface IProjetService: IBaseEntityService<ProjetModel>
     {
-        public Task AffecterUserToProjetAsync(ISession session, long idProjet,long idUser);
+        public Task AffecterUserToProjetAsync(ISession session, long? idProjet,long? idUser);
+        public Task<List<ProjetModel>> GetListProjectByManager(ISession session, long? idManager);
 
     }
 }

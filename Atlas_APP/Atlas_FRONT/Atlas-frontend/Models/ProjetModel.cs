@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Atlas_frontend.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,10 @@ namespace Atlas_frontend.Models
         [JsonProperty("titre")]
         public String Titre { get; set; }
         [JsonProperty("dateCreation")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateCreation { get; set; }
         [JsonProperty("dateCloture")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateCloture { get; set; }
         [JsonProperty("createdBy")]
         public UserModel createdBy { get; set; }
