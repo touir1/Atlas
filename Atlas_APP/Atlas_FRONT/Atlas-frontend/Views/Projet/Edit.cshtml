@@ -6,7 +6,7 @@
 
 }
 @{
-    List<UserModel> users = ViewBag.lstUserAffected;
+
     List<UserModel> usersBymanager = ViewBag.lstUser;
 }
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -45,10 +45,7 @@
             <div class="form-group">
                 <label for="lstMembre">Liste des membre de projet</label>
                 <select id="choices-multiple-remove-button" placeholder="Selectionner les memebres de projet " multiple name="membres">
-                    @foreach (UserModel membre in usersBymanager)
-                    {
-                        <option value="@membre.Id">@membre.Nom @membre.Prenom </option>
-                    }
+                   
 
 
                 </select>
@@ -70,7 +67,7 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 <script>
-    var x = @Html.Raw(JsonConvert.SerializeObject(users))
+   var x = @Html.Raw(JsonConvert.SerializeObject(usersBymanager))
         console.log(x)
         $(document).ready(function () {
 

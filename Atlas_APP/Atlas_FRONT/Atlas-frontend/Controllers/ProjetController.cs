@@ -55,9 +55,8 @@ namespace Atlas_frontend.Controllers
                 }).Concat(lstUserByProjet).ToList();
             //for(int i = 0; i < listUserTolal.Count();i++) { }
 
-            ViewBag.lstUser = lstUser ?? new List<UserModel>();
+            ViewBag.lstUser = listUserTolal ?? new List<UserModel>();
             ViewData.Model = projet;
-            ViewBag.lstUserAffected = lstUserByProjet ?? new List<UserModel>();
             return View();
         }
         public async Task<IActionResult> List()
