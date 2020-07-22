@@ -66,5 +66,14 @@ namespace Atlas_frontend.Models
         [Display(Name = "Image de profil")]
         [CustomImageFileValidator(ErrorMessage ="Le format d'image est invalide")]
         public IFormFile ProfileImage { get; set; }
+        public Boolean Selected { get; set; }
+
+        public override bool Equals(object obj)
+        {
+            return obj is UserModel model &&
+                   Id == model.Id;
+        }
+
+
     }
 }

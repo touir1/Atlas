@@ -36,12 +36,28 @@ namespace Atlas_frontend.Controllers
         public async Task<IActionResult> Edit(long id)
         {
             ProjetModel projet = await _projetService.GetAsync(HttpContext.Session, id);
-            List<UserModel> lstUser = await _projetService.GetListUserByProjectAsync(HttpContext.Session, projet.Id.GetValueOrDefault(0));
+            List<UserModel> lstUserByProjet = await _projetService.GetListUserByProjectAsync(HttpContext.Session, projet.Id.GetValueOrDefault(0));
             CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
-            List<UserModel> result = await _userService.GetListUserByManagerAsync(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
-            ViewBag.lstUser = result ?? new List<UserModel>();
+            List<UserModel> lstUser = await _userService.GetListUserByManagerAsync(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
+            lstUserByProjet = lstUserByProjet.Select(s => new UserModel() { 
+                Id = s.Id,
+                Nom = s.Nom,
+                Prenom = s.Prenom,
+                Selected = true
+            }).ToList();
+            List<UserModel> listUserTolal =
+                lstUser.Where(w => lstUserByProjet == null || !lstUserByProjet.Contains(w))
+                .Select(s => new UserModel() { 
+                    Id = s.Id,
+                    Nom = s.Nom,
+                    Prenom = s.Prenom,
+                    Selected = false
+                }).Concat(lstUserByProjet).ToList();
+            //for(int i = 0; i < listUserTolal.Count();i++) { }
+
+            ViewBag.lstUser = lstUser ?? new List<UserModel>();
             ViewData.Model = projet;
-            ViewBag.lstUserAffected = lstUser ?? new List<UserModel>();
+            ViewBag.lstUserAffected = lstUserByProjet ?? new List<UserModel>();
             return View();
         }
         public async Task<IActionResult> List()
