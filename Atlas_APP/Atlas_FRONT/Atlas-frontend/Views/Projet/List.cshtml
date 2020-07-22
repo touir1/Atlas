@@ -40,7 +40,8 @@
                         <td>0/255</td>
                         <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Rubrique</button></td>
                         <td>
-                            <button type="button" class="btn btn-primary">Modifier</button>
+                            
+                            @Html.ActionLink("Modifier", "Edit", new { id = membre.Id }, new { @class = "btn btn-primary" }) |
                             <button type="button" class="btn btn-secondary">Cloturer</button>
 
                         </td>

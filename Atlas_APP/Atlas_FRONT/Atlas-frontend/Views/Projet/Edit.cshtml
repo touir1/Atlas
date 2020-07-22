@@ -1,5 +1,101 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using Newtonsoft.Json
+@model Atlas_frontend.Models.ProjetModel
+
 @{
+    ViewData["Title"] = "Edit";
+
+}
+@{
+    List<UserModel> users = ViewBag.lstUserAffected;
+    List<UserModel> usersBymanager = ViewBag.lstUser;
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="card">
+    <div class="card-header">
+        Projet
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Modifier projet</h5>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:none">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titre" class="control-label"></label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCreation" class="control-label"></label>
+                <input asp-for="DateCreation" class="form-control" />
+                <span asp-validation-for="DateCreation" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateCloture" class="control-label"></label>
+                <input asp-for="DateCloture" class="form-control" />
+                <span asp-validation-for="DateCloture" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="lstMembre">Liste des membre de projet</label>
+                <select id="choices-multiple-remove-button" placeholder="Selectionner les memebres de projet " multiple name="membres">
+                    @foreach (UserModel membre in usersBymanager)
+                    {
+                        <option value="@membre.Id">@membre.Nom @membre.Prenom </option>
+                    }
+
+
+                </select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" asp-action="Edit" class="btn btn-primary" />
+            </div>
+
+        </form>
+       
+            <a class="btn btn-link"  asp-action="List">Back to List</a>
+        
+    </div>
+    
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    var x = @Html.Raw(JsonConvert.SerializeObject(users))
+        console.log(x)
+        $(document).ready(function () {
+
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount: 5,
+                searchResultLimit: 5,
+                renderChoiceLimit: 5,
+                duplicateItemsAllowed: false,
+            })
+            const items= []
+            x.forEach((Element) => {
+                items.push({ value: Element.id, label: Element.nom +" "+Element.prenom, selected: true })
+            });
+            console.log(items)
+                   
+            multipleCancelButton.setChoices(
+                items,
+                'value',
+                'label',
+                false,);
+
+
+
+
+        });
+</script>
 }

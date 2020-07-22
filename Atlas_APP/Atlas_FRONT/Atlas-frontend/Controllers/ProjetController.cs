@@ -32,8 +32,19 @@ namespace Atlas_frontend.Controllers
           //GET LIST OF USER By manager 
             return View();
         }
-        // GET: /<controller>/
-        public async Task <IActionResult> List()
+        // GET: User/Edit/5
+        public async Task<IActionResult> Edit(long id)
+        {
+            ProjetModel projet = await _projetService.GetAsync(HttpContext.Session, id);
+            List<UserModel> lstUser = await _projetService.GetListUserByProjectAsync(HttpContext.Session, projet.Id.GetValueOrDefault(0));
+            CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+            List<UserModel> result = await _userService.GetListUserByManagerAsync(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
+            ViewBag.lstUser = result ?? new List<UserModel>();
+            ViewData.Model = projet;
+            ViewBag.lstUserAffected = lstUser ?? new List<UserModel>();
+            return View();
+        }
+        public async Task<IActionResult> List()
         {
             //GET LIST OF USER By manager 
             CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
@@ -63,6 +74,33 @@ namespace Atlas_frontend.Controllers
               
 
             
+        }
+        // POST: Projet/Edit/5
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(long id,ProjetModel projet, List<long> membres)
+        {
+            try
+            {   
+                projet.Id = id;
+                CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+                projet.createdBy = compte.User;
+                await _projetService.UpdateAsync(HttpContext.Session, projet);
+                await _projetService.RemoveAllUserFromProjetAsync(HttpContext.Session, projet.Id);
+                foreach (long item in membres)
+                {
+                    await _projetService.AffecterUserToProjetAsync(HttpContext.Session, projet.Id, item);
+                }
+
+                return RedirectToAction("List", "Projet");
+            }
+            catch (Exception e)
+            {
+                //return null;
+                return View();
+            }
+
+
+
         }
         //POST: /<controller>
         [HttpPost]
