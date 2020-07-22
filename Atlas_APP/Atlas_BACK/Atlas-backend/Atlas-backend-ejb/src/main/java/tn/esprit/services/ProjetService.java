@@ -81,4 +81,20 @@ public class ProjetService implements IProjetService {
 		return true;
 	}
 
+	@Override
+	public Boolean removeAllUserFromProjet(long idProjet) {
+		// TODO Auto-generated method stub
+		Projet p = em.find(Projet.class, idProjet);
+		p.getMembres().clear();
+		return true;
+	}
+
+	@Override
+	public Boolean CloturerProjet(long idProjet) {
+		// TODO Auto-generated method stub
+		Projet p = em.find(Projet.class, idProjet);
+		p.setCloturer(true);
+		return true;
+	}
+
 }

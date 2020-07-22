@@ -27,6 +27,8 @@ namespace Atlas_frontend.Models
         public List<MissionModel> Missions { get; set; }
         [JsonProperty("rubriques")]
         public List<RubriqueModel> Rubriques { get; set; }
+        [JsonProperty("cloturer")]
+        public bool Cloturer { get; set; }
 
     }
 }

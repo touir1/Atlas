@@ -146,4 +146,34 @@ public class ProjetController {
 		}
 
 	}
+	@PUT
+	@Secured
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "remove all user to project")
+	@Path("removeUsers/{idProject}")
+	public Response RemoveAllUserFromProjet(@PathParam("idProject")Long idProject) {
+		try {
+			service.removeAllUserFromProjet(idProject);
+			return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to update a projet", e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+
+	}
+	@PUT
+	@Secured
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "disable project")
+	@Path("cloturer/{idProject}")
+	public Response CloturerProjet(@PathParam("idProject")Long idProject) {
+		try {
+			service.CloturerProjet(idProject);
+			return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to update a projet", e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+
+	}
 }

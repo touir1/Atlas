@@ -12,5 +12,7 @@ public interface IProjetService extends IBaseService<Projet> {
 	public List<Projet> getProjectByManager(long idManager);
 	public List<User> getMembreByProject(long idProject);
 	public Boolean affecterUserToProject(long idProject, long idUser);
+	public Boolean removeAllUserFromProjet(long idProjet);
+	public Boolean CloturerProjet(long idProjet);
 
 }

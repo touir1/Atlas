@@ -32,20 +32,28 @@
             <tbody>
                 @foreach (ProjetModel membre in projets)
                 {
-                    <tr>
+                <tr>
 
-                        <td>@membre.Titre</td>
-                        <td>@membre.DateCreation</td>
-                        <td>@membre.DateCloture</td>
-                        <td>0/255</td>
-                        <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Rubrique</button></td>
+                    <td>@membre.Titre</td>
+                    <td>@membre.DateCreation</td>
+                    <td>@membre.DateCloture</td>
+                    <td>0/255</td>
+                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Rubrique</button></td>
+                    @if (!membre.Cloturer)
+                    {
                         <td>
-                            
+
                             @Html.ActionLink("Modifier", "Edit", new { id = membre.Id }, new { @class = "btn btn-primary" }) |
-                            <button type="button" class="btn btn-secondary">Cloturer</button>
+                            @Html.ActionLink("Cloturer", "Cloturer", new { id = membre.Id }, new { @class = "btn btn-secondary" })
+
 
                         </td>
-                    </tr>
+                    }else
+                    {
+                        <td></td>
+                    }
+
+                </tr>
         
                 }
 

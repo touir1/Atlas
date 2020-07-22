@@ -19,7 +19,10 @@ namespace Atlas_frontend.Services.Implementation
             var result = await _client.PutAsync<Object, Object>(session, $"projet/Affecter/{idProjet}/{idUser}", null);
         }
 
-       
+        public async Task CloturerProjet(ISession session, long? idProjet)
+        {
+            var result = await _client.PutAsync<Object, Object>(session, $"projet/cloturer/{idProjet}", null);
+        }
 
         public async Task<List<ProjetModel>> GetListProjectByManager(ISession session, long? idManager)
         {

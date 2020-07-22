@@ -27,7 +27,7 @@ public class Projet implements Serializable {
 	private Date dateCreation;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date dateCloture;
-	
+	private boolean cloturer;
 	@ManyToOne
 	private User createdBy;
 	
@@ -130,6 +130,15 @@ public class Projet implements Serializable {
 	public void setCreatedBy(User createdBy) {
 		this.createdBy = createdBy;
 	}
+
+	public Boolean getCloturer() {
+		return cloturer;
+	}
+
+	public void setCloturer(Boolean cloturer) {
+		this.cloturer = cloturer;
+	}
+	
 	
 
 }
