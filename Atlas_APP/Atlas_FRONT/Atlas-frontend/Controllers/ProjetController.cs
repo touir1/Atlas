@@ -15,7 +15,7 @@ namespace Atlas_frontend.Controllers
         private IProjetService _projetService;
         private IUserService _userService;
         private ICompteService _compteService;
-        pivate IRubrique _projetService;
+        private IRubriqueService _rubriqueService;
         public ProjetController(IProjetService projetService, IUserService userService, ICompteService compteService)
         {
             _projetService = projetService;
