@@ -15,6 +15,7 @@ namespace Atlas_frontend.Controllers
         private IProjetService _projetService;
         private IUserService _userService;
         private ICompteService _compteService;
+        pivate IRubrique _projetService;
         public ProjetController(IProjetService projetService, IUserService userService, ICompteService compteService)
         {
             _projetService = projetService;
@@ -123,16 +124,19 @@ namespace Atlas_frontend.Controllers
         }
         //POST: /<controller>
         [HttpPost]
-        public Boolean AddRbrique(List<RubriqueModel> rubriques)
+        public ActionResult AddRbrique(List<RubriqueModel> rubriques, ProjetModel projet)
         {
             try
             {
-                return true;
+
+                return Json(new { someValue = "ok" });
             }
             catch (Exception e)
             {
                 //return null;
-                return false;
+                return Json(new { someValue = "ko" });
+
+
             }
 
 

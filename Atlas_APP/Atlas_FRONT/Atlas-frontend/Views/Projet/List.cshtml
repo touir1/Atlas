@@ -38,7 +38,7 @@
                     <td>@membre.DateCreation</td>
                     <td>@membre.DateCloture</td>
                     <td>0/255</td>
-                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Rubrique</button></td>
+                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info" data-projet='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(membre))'>Rubrique</button></td>
                     @if (!membre.Cloturer)
                     {
                         <td>
@@ -140,6 +140,15 @@
             var parent = em.parentElement;
             parent.parentElement.remove(parent);
         }
+        
+
+        var projet;
+
+        $('#exampleModal').on('show.bs.modal', function (e) {
+           var  p = $(e.relatedTarget).data('projet');
+            console.log(p);
+            projet = p;
+        })
 
         $("#PostRubrique").on("click", function (e) {
             e.preventDefault();
@@ -164,15 +173,23 @@
 
             }).get();
             console.log(data);
-            $.post("/Projet/AddRbrique", {
-                rubriques: data
-            }, function (e) {
-                console.log(e);
-            }, function (e) {
-                console.log(e);
-            });
+            /*$.post("/Projet/AddRbrique", { rubriques: data }, function (data) {
+                //do whatever with the response
+                alert("aaaaaaaaaaaaaaa");;
 
-
+            });*/
+            $.ajax({
+                type: "post",
+                url: "/Projet/AddRbrique",
+                dataType: "json",
+                data: { rubriques: data, projet: projet },
+                success: function (data, status, xhr) {
+                    window.location.href = "@Url.Action("List","Projet")";
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            })
         });
     </script>
 
