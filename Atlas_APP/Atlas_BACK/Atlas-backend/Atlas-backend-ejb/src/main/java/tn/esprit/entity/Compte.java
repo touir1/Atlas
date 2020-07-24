@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Compte implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@JsonIgnore
 	private Long id;
 	@Column(nullable = false)
 	private String username;

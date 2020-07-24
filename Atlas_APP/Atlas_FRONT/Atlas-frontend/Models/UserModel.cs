@@ -1,4 +1,5 @@
 ﻿using Atlas_frontend.Utils;
+using Atlas_frontend.Utils.Extensions;
 using Atlas_frontend.Utils.Validators;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace Atlas_frontend.Models
         public DateTime? DateNaissance { get; set; }
         [Required]
         [DataType(DataType.Date)]
-        [Display(Name = "Date de signature du contrat")]
+        [Display(Name = "Date de contrat")]
         [JsonProperty("dateContrat")]
         [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateContrat { get; set; }
@@ -68,6 +69,11 @@ namespace Atlas_frontend.Models
         public IFormFile ProfileImage { get; set; }
         [JsonIgnore]
         public Boolean Selected { get; set; }
+        [JsonIgnore]
+        public string FullName
+        {
+            get { return Nom.ToUpper() + " " + Prenom.Capitalize(); }
+        }
 
         public override bool Equals(object obj)
         {
