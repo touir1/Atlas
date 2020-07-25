@@ -1,0 +1,69 @@
+﻿
+@{
+    ViewData["Title"] = "index";
+    var WeekOfYear = ViewBag.WeekOfYear;
+    var DayOfweek = ViewBag.DayOfweek;
+    var monthOfYear = ViewBag.monthOfYear;
+    var year = ViewBag.year;
+    var fdow = ViewBag.fdow;
+    var start = ViewBag.start;
+
+
+
+}
+<p>@WeekOfYear</p>
+<p>@DayOfweek</p>
+<p>@monthOfYear</p>
+<p>@year</p>
+<p>@fdow</p>
+<p>@start</p>
+<p>@start</p>
+<form>
+    <select class="form-control" id="StudentGender" name="StudentGender">
+        <option>Projet</option>
+        <option>Male</option>
+        <option>Female</option>
+    </select>
+    <br />
+    <select class="form-control" id="StudentGender" name="StudentGender">
+        <option>Rubrique</option>
+        <option>Male</option>
+        <option>Female</option>
+    </select>
+    <br />
+    <button class="btn btn-primary">Ajouter</button>
+</form>
+<h2>
+    Semaine @WeekOfYear
+</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Projet</th>
+            <th scope="col">Rubrique</th>
+            <th scope="col">Lundi</th>
+            <th scope="col">Mardi</th>
+            <th scope="col">Mercredi</th>
+            <th scope="col">Jeudi</th>
+            <th scope="col">Vendredi</th>
+        </tr>
+    </thead>
+    <tbody>
+     
+        <tr>
+            <td id="nameProjet">Test</td>
+            <td id="nameRubrique">Test</td>
+            <td><input type="number" id="DureeLundi" value="0" style="width: 100px;"/></td>
+            <td><input type="number" id="DureeMardi" value="0" style="width: 100px;"/></td>
+            <td><input type="number" id="DureeMercredi" value="0" style="width: 100px;"/></td>
+            <td><input type="number" id="DureeJeudi" value="0" style="width: 100px;"/></td>
+            <td><input type="number" id="DureeVendredi" value="0" style="width: 100px;" /></td>
+
+        </tr>
+
+    </table>
+
+
+
+
+

@@ -9,5 +9,5 @@ import tn.esprit.entity.Rapport;
 @Remote
 public interface IRapportService extends IDoubleBaseService<Rapport> {
 	public Boolean validerRapport(long idUser, long idRubrique);
-
+	public List<Rapport> getRapportByuser(int semaine,int mois,int annee, long idUser);
 }

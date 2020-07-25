@@ -16,12 +16,12 @@ namespace Atlas_frontend.Controllers
         private IUserService _userService;
         private ICompteService _compteService;
         private IRubriqueService _rubriqueService;
-        public ProjetController(IProjetService projetService, IUserService userService, ICompteService compteService)
+        public ProjetController(IProjetService projetService, IUserService userService, ICompteService compteService, IRubriqueService rubriqueService)
         {
             _projetService = projetService;
             _userService = userService;
             _compteService = compteService;
-          
+            _rubriqueService = rubriqueService;
         }
         // GET: /<controller>/
         public async Task<IActionResult> Index()
@@ -124,10 +124,19 @@ namespace Atlas_frontend.Controllers
         }
         //POST: /<controller>
         [HttpPost]
-        public ActionResult AddRbrique(List<RubriqueModel> rubriques, ProjetModel projet)
+        public async Task<ActionResult> AddRbrique(List<RubriqueModel> rubriques, ProjetModel projet)
         {
             try
             {
+                List<RubriqueModel> Lstrubriques = new List<RubriqueModel>();
+                Lstrubriques = rubriques;
+
+                foreach (RubriqueModel item in Lstrubriques)
+                {
+                    item.Projet = projet;
+
+                    RubriqueModel rubrique = await _rubriqueService.AddAsync(HttpContext.Session, item);
+                }
 
                 return Json(new { someValue = "ok" });
             }
@@ -141,7 +150,7 @@ namespace Atlas_frontend.Controllers
 
 
 
-        }
+            }
         //POST:cloturer Projet
         public async Task<ActionResult> Cloturer(long id)
         {

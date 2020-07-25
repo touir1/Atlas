@@ -75,4 +75,18 @@ public class RapportService implements IRapportService {
 		return true;
 	}
 
+	@Override
+	public List<Rapport> getRapportByuser(int semaine, int mois, int annee, long idUser) {
+		// TODO Auto-generated method stub
+		
+		List<Rapport> rapports = em.createQuery("select r from Rapport r where r.semaine = :semaine"
+				+ " and r.mois = :mois and r.annee = :annee and r.user.id = :user",Rapport.class)
+				.setParameter("semaine", semaine)
+				.setParameter("mois", mois)
+				.setParameter("annee", annee)
+				.setParameter("user", idUser)
+				.getResultList();
+		return rapports;
+	}
+
 }

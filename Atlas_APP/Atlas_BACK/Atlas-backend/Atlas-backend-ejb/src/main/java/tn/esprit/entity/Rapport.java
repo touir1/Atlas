@@ -27,6 +27,8 @@ public class Rapport implements Serializable {
 	@Column(nullable = false)
 	private Integer mois;
 	@Column(nullable = false)
+	private Integer annee;
+	@Column(nullable = false)
 	private Integer joursSemaine;
 	@Column(nullable = false)
 	private Float duree;
@@ -130,6 +132,14 @@ public class Rapport implements Serializable {
 
 	public void setRubrique(Rubrique rubrique) {
 		this.rubrique = rubrique;
+	}
+
+	public Integer getAnnee() {
+		return annee;
+	}
+
+	public void setAnnee(Integer annee) {
+		this.annee = annee;
 	}
 
 }

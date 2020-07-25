@@ -1,5 +1,7 @@
 package tn.esprit.ws.controllers;
 
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -56,6 +58,20 @@ public class RapportController {
 			if (reponse != null)
 				return Response.status(Status.OK).entity(reponse).build();
 			return Response.status(Status.NOT_FOUND).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get a rapport", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/RapportsBysemaineAndUser/{semaine}/{mois}/{annee}/{idUser}")
+	@ApiOperation(value = "get list rapport by user & semaine ")
+	public Response getRapportsBysemaineAndUser(@PathParam("semaine") int semaine, @PathParam("mois") int mois,@PathParam("annee") int annee,@PathParam("idUser") long idUser) {
+		try {
+			List<Rapport> reponses = service.getRapportByuser(semaine, mois, annee, idUser);
+			return Response.status(Status.OK).entity(reponses).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to get a rapport", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
