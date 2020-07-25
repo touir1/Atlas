@@ -7,4 +7,6 @@ import tn.esprit.entity.Sujet;
 @Remote
 public interface ISujetService extends IBaseService<Sujet> {
 
+
+
 }

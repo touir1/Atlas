@@ -17,7 +17,7 @@ namespace Atlas_frontend.Models
         [JsonProperty("sujet")]
         public SujetModel Sujet { get; set; }
         [JsonProperty("choix")]
-        public ChoixModel Choix { get; set; }
+        public List<ChoixModel> Choix { get; set; }
         [JsonProperty("reponses")]
         public List<ResponseModel> Reponses { get; set; }
     }
