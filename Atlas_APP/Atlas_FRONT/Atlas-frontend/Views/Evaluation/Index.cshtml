@@ -1,6 +1,8 @@
 ﻿@model Atlas_frontend.Models.EvaluationModel
 @{
     var list = ViewBag.lstsujets;
+    var users = ViewBag.lstUser;
+}
 }
 @{
     ViewData["Title"] = "Index";
@@ -26,7 +28,28 @@
 
 
             <br /><br />
-            
+            <div class="form-group">
+                <label for="lstMembre">Liste des membre de projet</label>
+                <select id="choices-multiple-remove-button"
+                        placeholder="Selectionner les memebres de projet " multiple
+                        name="membres">
+                    @foreach (UserModel membre in users)
+
+                    {
+                        <option value="@membre.Id">
+                            @membre.Nom
+                            @membre.Prenom
+                        </option>
+                    }
+
+
+                </select>
+
+            </div>
+
+            <div>
+                <a asp-action="Index">Back to List</a>
+            </div>
         </form>
     </div>
 </div>
