@@ -15,7 +15,7 @@ namespace Atlas_frontend.Models
         [JsonProperty("coeficient")]
         public int? Coeficient { get; set; }
         [JsonProperty("noter")]
-        public Boolean? Noter { get; set; }
+        public Boolean Noter { get; set; }
         [JsonProperty("questions")]
         public List<QuestionModel> Questions { get; set; }
     }

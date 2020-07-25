@@ -1,0 +1,37 @@
+﻿@model Atlas_frontend.Models.EvaluationModel
+@{
+    var list = ViewBag.lstsujets;
+}
+@{
+    ViewData["Title"] = "Index";
+
+
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<div class="card">
+    <div class="card-header">
+        Evaluation
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Ajouter une nouvelle évaluation :</h5>
+        <form method="post">
+            <div class="form-group">
+                <label for="inputTitre">Sélectionnez les sujets de l'évaluation</label>
+                <input type="text" class="form-control" id="Titre" name="Titre" placeholder="Titre sujet">
+            </div>
+
+
+            <br /><br />
+            
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

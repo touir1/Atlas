@@ -7,7 +7,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import tn.esprit.entity.Projet;
+import tn.esprit.entity.Question;
 import tn.esprit.entity.Sujet;
+import tn.esprit.entity.User;
 import tn.esprit.interfaces.ISujetService;
 
 
@@ -56,5 +59,7 @@ public class SujetService implements ISujetService {
 	public Sujet update(Sujet a) {
 		return em.merge(a);
 	}
+	
+
 
 }

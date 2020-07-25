@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "List";
+}
+
+<h1>List</h1>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Coefficient</th>
+            <th scope="col">Noter</th>
+            <th scope="col">Ajouter Question</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (SujetModel sujet in list)
+        {
+            <tr>
+                <td>@sujet.Titre</td>
+                <td>@sujet.Coeficient</td>
+                <td>@sujet.Noter</td>
+                <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info" data-sujet='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(sujet))'>Ajouter question</button></td>
+                <td>
+
+                    @Html.ActionLink("Modifier", "Edit", new { id = sujet.Id }, new { @class = "btn btn-primary" }) |
+                    @Html.ActionLink("Supprimer", "Delete", new { id = sujet.Id }, new { @class = "btn btn-danger" })
+
+
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

@@ -77,7 +77,7 @@ public class CompteController {
 	@ApiOperation(value = "adds a compte to the database")
 	public Response add(Compte entity) {
 		try {
-			entity.setPassword("123456");
+			//entity.setPassword("123456");
 			entity = service.add(entity);
 			if(entity != null)
 				return Response.status(Status.CREATED).entity(entity).build();

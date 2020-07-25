@@ -4,7 +4,9 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Atlas_frontend.Models;
+using Atlas_frontend.Models.Enums;
 using Atlas_frontend.Services;
+using Atlas_frontend.Utils.Attributes;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,7 @@ namespace Atlas_frontend.Controllers
             _webHostEnvironment = hostEnvironment;
         }
         // GET: User
+        [Authorize(new[] { RankEnum.Administrator })]
         public async Task<ActionResult> Index()
         {
             List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
@@ -39,6 +42,7 @@ namespace Atlas_frontend.Controllers
         }
 
         // GET: User/Create
+        [Authorize(new[] { RankEnum.Administrator })]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +51,7 @@ namespace Atlas_frontend.Controllers
         // POST: User/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(new[] { RankEnum.Administrator })]
         public async Task<ActionResult> CreateAsync(UserModel model)
         {
             try
@@ -69,6 +74,7 @@ namespace Atlas_frontend.Controllers
         }
 
         // GET: User/Edit/5
+        [Authorize(new[] { RankEnum.Administrator })]
         public async Task<ActionResult> Edit(int id)
         {
             UserModel user = await _userService.GetAsync(HttpContext.Session, id);
@@ -79,6 +85,7 @@ namespace Atlas_frontend.Controllers
         // POST: User/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(new[] { RankEnum.Administrator })]
         public async Task<ActionResult> EditAsync(int id, UserModel model)
         {
             try
@@ -101,6 +108,7 @@ namespace Atlas_frontend.Controllers
         }
 
         // GET: User/Delete/5
+        [Authorize(new[] { RankEnum.Administrator })]
         public async Task<ActionResult> DeleteAsync(int id)
         {
             UserModel user = await _userService.GetAsync(HttpContext.Session, id);
@@ -111,6 +119,7 @@ namespace Atlas_frontend.Controllers
         // POST: User/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(new[] { RankEnum.Administrator })]
         public async Task<ActionResult> DeleteAsync(int id, IFormCollection collection)
         {
             try

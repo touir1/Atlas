@@ -1,8 +1,18 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿
 @{
+    var list = ViewBag.lstsujets;
 }
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+    .hiddenElement {
+        display: none;
+    }
+</style>
 <div class="card">
     <div class="card-header">
         Sujet
@@ -15,21 +25,29 @@
             <thead class="thead-dark">
                 <tr>
                     <th scope="col">Titre</th>
-                    <th scope="col">Question</th>
+                    <th scope="col">Coefficient</th>
+                    <th scope="col">Noter</th>
+                    <th scope="col">Ajouter Question</th>
                     <th scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
+                @foreach (SujetModel sujet in list)
+                {
                 <tr>
-
-                    <td>projet1</td>
-                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Ajouter question</button></td>
+                    <td>@sujet.Titre</td>
+                    <td>@sujet.Coeficient</td>
+                    <td>@sujet.Noter</td>
+                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info" data-sujet='@Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(sujet))'>Ajouter question</button></td>
                     <td>
-                        <button type="button" class="btn btn-primary">Modifier</button>
-                        <button type="button" class="btn btn-secondary">Supprimer</button>
+
+                        @Html.ActionLink("Modifier", "Edit", new { id = sujet.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Supprimer", "Delete", new { id = sujet.Id }, new { @class = "btn btn-danger" })
+
 
                     </td>
                 </tr>
+                }
             </tbody>
         </table>
     </div>
@@ -37,7 +55,7 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog" role="document" style="max-width:900px!important">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Ajouter question</h5>
@@ -46,54 +64,63 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <div>
                     <div class="form-group">
                         <label for="inputTitre">Question</label>
                         <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Votre question">
                     </div>
                     <div>
-                        <nav id="navbar-example2" class="navbar navbar-light bg-light">
-                            <a class="navbar-brand" href="#">Type de réponse</a>
-                            <ul class="nav nav-pills">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Type de réponse</a>
 
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#three" onclick="hola(0)">Text</a>
-                                        <div role="separator" class="dropdown-divider"></div>
-                                        <a class="dropdown-item" href="#one" onclick="hola(1)">CheckBox</a>
-                                        <a class="dropdown-item" href="#two" onclick="hola(1)">RadioBox</a>
-                                    </div>
-                                  
+                        <div class="form-group">
+                            <label for="lstMembre">Liste des choix</label>
+                            <select id="choices-multiple-remove-button" placeholder="Selectionner choix de réponse">
 
-                                </li>
-                            </ul>
-                        </nav>
+
+                                <option value="1">Text</option>
+                                <option value="2" selected="selected">CheckBox</option>
+                                <option value="3">RadioBox</option>
+
+
+
+                            </select>
+
+                        </div>
+
+
+
                         <br />
-                        <div id="show">
-                            <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Nombre de valeurs">
+                        <div id="idelement">
+
+                            <input type="number" class="form-control" id="nbvaleur" name="nbvaleur" placeholder="Nombre de valeurs">
+                            <button type="button" onclick="RenderInputs()">Générer</button>
+                        </div>
+                        <div id="inputRender">
+                            <br />
                         </div>
                     </div>
                     <br />
-                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                    <button onclick="addquestion()" class="btn btn-primary">Ajouter</button>
 
-                </form>
+                </div>
                 <table class="table">
                     <thead class="thead-dark">
                         <tr>
                             <th scope="col">Question</th>
-                            <th scope="col">Type de réponse</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Choix</th>
                             <th scope="col">Action</th>
+
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-
-                            <td>Dev Back</td>
-                            <td>50</td>
+                    <tbody class="tabbody">
+                        <tr class="TabRbrique hiddenElement">
+                            <td class="id hiddenElement"></td>
+                            <td class="Tabtitre">Dev Back</td>
+                            <td class="TabEstimation">50</td>
+                            <td class="TabChoix"><p>aaa</p></td>
                             <td>
-                                <button type="button" class="btn btn-primary">Modifier</button>
-                                <button type="button" class="btn btn-danger">Supprimer</button>
+                                <button type="button" class="btn btn-primary" onclick="ModifierRubrique(this)">Modifier</button>
+                                <button type="button" class="btn btn-danger" onclick="SupprimerRubrique(this)">Supprimer</button>
 
                             </td>
                         </tr>
@@ -101,39 +128,177 @@
                 </table>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="PostSujet">Close</button>
             </div>
         </div>
     </div>
 </div>
 
 <script language="javascript">
-    var x = 0;
 
-    function hola(x) {
-        if (x == 0) {
-            document.getElementById("show").style.visibility = "hidden";
+    function RenderInputs() {
 
+        
+                    
+        var x = document.getElementById("nbvaleur").value;
+        var parent = document.getElementById("inputRender");
+        var br = document.createElement("br");
+        parent.innerHTML = '<br>';
+        for (var indice = 0; indice < x; indice++) {
+            parent.appendChild(br);
+            var input = document.createElement("input");
+            input.setAttribute('type', 'text');
+            input.setAttribute('class', 'form-control');
+            input.setAttribute('id', indice)
+            parent.appendChild(br);
+            parent.appendChild(input);            
+            
         }
-        if (x == 1) {
-            document.getElementById("show").style.visibility = "visible";
-
-        }
-
     }
-
 </script>
 
+@section Scripts {
+    <script>
+        
+        $(document).ready(function () {
+
+            var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+                removeItemButton: true,
+                maxItemCount: 5,
+                searchResultLimit: 5,
+                renderChoiceLimit: 5
+            });
 
 
-
-<script src="Scripts/jquery-2.1.4.js"></script>
-<script>
-    $(document).ready(function () {
-        $("#focus").click(function () {
-            $("select#selectId").find(":selected").focus();
         });
-    });
-</script>
+    </script>
+    <script>
+        document.getElementById('choices-multiple-remove-button').addEventListener('change', function() {
+            if (this.value == 1) {
+                document.getElementById("idelement").style.visibility = "hidden";
 
+            }
+            else {
+                document.getElementById("idelement").style.visibility = "visible";
+
+            }
+        });
+        var sujet;
+        $('#exampleModal').on('show.bs.modal', function (e) {
+            var s = $(e.relatedTarget).data('sujet');
+            sujet = s;
+        })
+
+        function addquestion(e) {
+            var el = { titre: document.getElementById('inputTitre').value, type: document.getElementById('choices-multiple-remove-button').value, valeur: document.getElementById('nbvaleur').value, choix:[] };
+
+            var parent = document.getElementById('inputRender');
+            for (var i = 0; i < parent.children.length; i++) {
+                if (parent.children[i].tagName == "INPUT") {
+                    el.choix.push(parent.children[i].value);
+                }
+
+
+            }
+                console.log(el);
+            //tab.push(el);
+            //console.table(tab);
+            var tabTbody = document.getElementsByClassName('tabbody')[0];
+            var newRow = document.getElementsByClassName('TabRbrique')[0].cloneNode(true);
+            newRow.classList.remove("hiddenElement");
+            newRow.children[1].innerText = el.titre;
+            if (el.type == 1) {
+                newRow.children[2].innerText = "Text";
+            } else if (el.type == 2)
+                newRow.children[2].innerText = "CheckBox";
+            else { newRow.children[2].innerText = "RadioBox"; }
+            tabCoix = [];
+            for (var indice = 0; indice < el.valeur; indice++) {
+                var choix = document.getElementById(indice);
+                tabCoix.push(choix.value);
+            }
+            newRow.children[3].innerHTML = "";
+            console.log()
+            for (var indice = 0; indice < tabCoix.length; indice++) {
+                var label = document.createElement("p");
+                label.setAttribute('id', "choix_" + indice + "_" + sujet.id);
+                label.innerHTML = tabCoix[indice]
+                newRow.children[3].appendChild(label);
+            }
+            tabTbody.appendChild(newRow);
+
+
+
+        }
+        function ModifierRubrique(em) {
+            var parent = em.parentElement.parentElement;
+
+            document.getElementById('inputTitre').value = parent.children[1].innerText;
+            document.getElementById('choices-multiple-remove-button').value = parent.children[2].innerText;
+
+            var parent2 = em.parentElement;
+            parent2.parentElement.remove(parent2);
+
+        }
+        function SupprimerRubrique(em) {
+            var parent = em.parentElement;
+            parent.parentElement.remove(parent);
+        }
+
+        $("#PostSujet").on("click", function (e) {
+            e.preventDefault();
+            var columns = [
+                "id",
+                "libelle",
+                "type",
+                "choix"
+
+            ];
+            var data = $(".tabbody tr").map(function (i) {
+
+                if (!$(this).hasClass("hiddenElement")) {
+                    var row = {};
+                    $(this).find("td").each(function (i) {
+
+                        if (i < 3) {
+                            var rowName = columns[i];
+                            row[rowName] = $(this).text();
+                        } else if (i == 3) {
+                            var rowName = columns[i];
+                            var list=[];
+                            $(this).find("p").each(function (e) {
+                                list.push($(this).text());
+                            });
+
+
+
+                            row[rowName] = list;
+
+
+                        }
+
+
+                    });
+return row;
+                }
+
+            }).get();
+            console.log(data);
+
+              $.ajax({
+                type: "post",
+                  url: "/Sujet/Addquestion",
+                dataType: "json",
+                  data: { questions: data, sujet: sujet },
+                success: function (data, status, xhr) {
+                    window.location.href = "@Url.Action("List","Sujet")";
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            })
+
+        });
+    </script>
+}
 
