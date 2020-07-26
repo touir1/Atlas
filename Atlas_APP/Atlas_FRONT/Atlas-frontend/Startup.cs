@@ -16,6 +16,7 @@ using Atlas_frontend.Services;
 using Atlas_frontend.Services.Implementation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using Atlas_frontend.Utils.Mail;
 
 namespace Atlas_frontend
 {
@@ -85,6 +86,7 @@ namespace Atlas_frontend
         public void DependencyInjection(IServiceCollection services)
         {
             services.AddSingleton<IRestAPIClient>(s => new RestAPIClient("http://127.0.0.1:9080/Atlas-backend-web/atlas/api/"));
+            services.AddSingleton<IMailService, MailService>();
             services.AddSingleton<IAbsenceService, AbsenceService>();
             services.AddSingleton<IChoixService, ChoixService>();
             services.AddSingleton<ICompteService, CompteService>();
@@ -104,6 +106,7 @@ namespace Atlas_frontend
             services.AddSingleton<ISujetService, SujetService>();
             services.AddSingleton<IUserFormationService, UserFormationService>();
             services.AddSingleton<IUserService, UserService>();
+            services.AddSingleton<IConfigurationService, ConfigurationService>();
         }
     }
 }
