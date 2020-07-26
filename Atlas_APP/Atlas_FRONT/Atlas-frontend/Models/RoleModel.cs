@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,6 +11,7 @@ namespace Atlas_frontend.Models
     {
         [JsonProperty("id")]
         public long? Id { get; set; }
+        [Required]
         [JsonProperty("libelle")]
         public String Libelle { get; set; }
         [JsonProperty("permissions")]

@@ -6,6 +6,7 @@ using Atlas_frontend.Models;
 using Atlas_frontend.Models.Enums;
 using Atlas_frontend.Services;
 using Atlas_frontend.Utils.Attributes;
+using Atlas_frontend.Utils.Mail;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor.Extensions;
@@ -17,12 +18,14 @@ namespace Atlas_frontend.Controllers
         private ICompteService _compteService;
         private IUserService _userService;
         private IRoleService _roleService;
+        private IMailService _mailService;
 
-        public CompteController(ICompteService compteService, IUserService userService, IRoleService roleService)
+        public CompteController(ICompteService compteService, IUserService userService, IRoleService roleService, IMailService mailService)
         {
             _compteService = compteService;
             _userService = userService;
             _roleService = roleService;
+            _mailService = mailService;
         }
 
         // GET: Compte
@@ -92,6 +95,14 @@ namespace Atlas_frontend.Controllers
 
                 compte.User = new UserModel { Id = idUser };
                 await _compteService.AddAsync(HttpContext.Session, compte);
+
+                UserModel user = await _userService.GetAsync(HttpContext.Session, idUser);
+                await _mailService.SendMailAsync(HttpContext.Session, user.Email, "[Atlast] Compte créé", "NewComptePassword.html", new Dictionary<string, string> {
+                    {"#_USER_FULLNAME_#",user.FullName},
+                    {"#_USERNAME_#",compte.Username},
+                    {"#_PASSWORD_#",compte.Password}
+                });
+
                 return RedirectToAction("Index");
             }
             catch
@@ -119,6 +130,7 @@ namespace Atlas_frontend.Controllers
         {
             try
             {
+                bool updatedPassword = false;
                 CompteModel databaseCompte = await _compteService.GetAsync(HttpContext.Session, id);
                 if (compte.Password == null || compte.Password.Trim().Length == 0)
                 {
@@ -146,11 +158,25 @@ namespace Atlas_frontend.Controllers
                 {
                     compte.Password = databaseCompte.Password;
                 }
+                else
+                {
+                    updatedPassword = true;
+                }
                 if(compte.User == null)
                 {
                     compte.User = databaseCompte.User;
                 }
                 await _compteService.UpdateAsync(HttpContext.Session, compte);
+               
+                if (updatedPassword)
+                {
+                    await _mailService.SendMailAsync(HttpContext.Session, compte.User.Email, "[Atlast] Mot de passe modifié", "CompteUpdatePassword.html", new Dictionary<string, string> {
+                        {"#_USER_FULLNAME_#",compte.User.FullName},
+                        {"#_USERNAME_#",compte.Username},
+                        {"#_PASSWORD_#",compte.Password}
+                    });
+                }
+               
                 return RedirectToAction("Index");
             }
             catch
