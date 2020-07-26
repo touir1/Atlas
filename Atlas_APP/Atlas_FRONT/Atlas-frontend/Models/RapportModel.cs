@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Atlas_frontend.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,18 @@ namespace Atlas_frontend.Models
         [JsonProperty("valider")]
         public Boolean? Valider { get; set; }
         [JsonProperty("dateCreation")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateCreation { get; set; }
         [JsonProperty("dateImputation")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? DateImputation { get; set; }
         [JsonProperty("semaine")]
         public int? Semaine { get; set; }
         [JsonProperty("mois")]
         public int? Mois { get; set; }
+        [JsonProperty("annee")]
+        public int? Annee { get; set; }
+
         [JsonProperty("joursSemaine")]
         public int? JoursSemaine { get; set; }
         [JsonProperty("duree")]

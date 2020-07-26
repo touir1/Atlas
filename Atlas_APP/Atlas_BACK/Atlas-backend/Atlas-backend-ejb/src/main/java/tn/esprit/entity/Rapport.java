@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Rapport implements Serializable {
 
-	private Boolean valider;
+	private boolean valider;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(nullable = false)
 	private Date dateCreation;

@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Rubrique;
+import tn.esprit.entity.User;
 import tn.esprit.interfaces.IRubriqueService;
 
 @Stateless
@@ -54,6 +55,14 @@ public class RubriqueService implements IRubriqueService {
 	@Override
 	public Rubrique update(Rubrique a) {
 		return em.merge(a);
+	}
+
+	@Override
+	public List<Rubrique> getRubriqueByProjet(long idProjet) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select r from Rubrique r where r.projet.id = :projet",Rubrique.class)
+				.setParameter("projet", idProjet)
+				.getResultList();
 	}
 
 }

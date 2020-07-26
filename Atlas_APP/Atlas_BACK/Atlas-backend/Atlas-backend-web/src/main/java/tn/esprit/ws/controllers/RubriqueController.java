@@ -103,4 +103,17 @@ public class RubriqueController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of rubriques by projet")
+	@Path("byProjet/{idProjet}")
+	public Response getRubriqueByProjet(@PathParam("idProjet") long idProjet) {
+		try {
+			return Response.status(Status.OK).entity(service.getRubriqueByProjet(idProjet)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of rubriques", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 }

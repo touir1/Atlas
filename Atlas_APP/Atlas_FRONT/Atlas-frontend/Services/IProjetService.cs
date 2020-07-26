@@ -16,6 +16,8 @@ namespace Atlas_frontend.Services
         public Task RemoveAllUserFromProjetAsync(ISession session, long? idProjet);
         public Task CloturerProjet(ISession session, long? idProjet);
 
+        public Task<List<ProjetModel>> GetListProjectByUser(ISession session, long? idUser);
+
 
     }
 }

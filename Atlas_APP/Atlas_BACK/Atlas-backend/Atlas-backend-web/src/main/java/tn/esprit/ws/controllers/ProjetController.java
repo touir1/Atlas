@@ -176,4 +176,17 @@ public class ProjetController {
 		}
 
 	}
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of project by user")
+	@Path("byUser/{idUser}")
+	public Response getListProjectByUser(@PathParam("idUser")  long idUser) {
+		try {
+			return Response.status(Status.OK).entity(service.getProjetByUser(idUser)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of project by manager", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 }

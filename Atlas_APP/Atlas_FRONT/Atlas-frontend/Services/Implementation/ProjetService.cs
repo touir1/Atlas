@@ -29,6 +29,13 @@ namespace Atlas_frontend.Services.Implementation
             RestApiResponse<List<ProjetModel>> result = await _client.GetAsync<List<ProjetModel>>(session, $"projet/byManager/{idManager}");
             return result.Result;
         }
+
+        public async Task<List<ProjetModel>> GetListProjectByUser(ISession session, long? idUser)
+        {
+            RestApiResponse<List<ProjetModel>> result = await _client.GetAsync<List<ProjetModel>>(session, $"projet/byUser/{idUser}");
+            return result.Result;
+        }
+
         public async Task<List<UserModel>> GetListUserByProjectAsync(ISession session, long idProjet)
         {
             var result = await _client.GetAsync<List<UserModel>>(session, $"projet/Members/{idProjet}");

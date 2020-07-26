@@ -8,9 +8,16 @@
     var fdow = ViewBag.fdow;
     var start = ViewBag.start;
 
+    List<ProjetModel> projets = ViewBag.projets;
+
 
 
 }
+<style>
+    .hiddenElement {
+        display: none;
+    }
+</style>
 <p>@WeekOfYear</p>
 <p>@DayOfweek</p>
 <p>@monthOfYear</p>
@@ -18,21 +25,26 @@
 <p>@fdow</p>
 <p>@start</p>
 <p>@start</p>
-<form>
-    <select class="form-control" id="StudentGender" name="StudentGender">
-        <option>Projet</option>
-        <option>Male</option>
-        <option>Female</option>
+<div>
+
+    <select class="form-control" id="Projet" name="StudentGender">
+
+        <option>Selectionnez un projet</option>
+        @foreach (ProjetModel membre in projets)
+        {
+            <option value="@Newtonsoft.Json.JsonConvert.SerializeObject(membre)">@membre.Titre</option>
+           
+        }
+
     </select>
     <br />
-    <select class="form-control" id="StudentGender" name="StudentGender">
-        <option>Rubrique</option>
-        <option>Male</option>
-        <option>Female</option>
+    <select class="form-control" id="Rubrique" name="StudentGender">
+        
     </select>
     <br />
-    <button class="btn btn-primary">Ajouter</button>
-</form>
+    <button onclick="addRapport()" class="btn btn-primary">Ajouter</button>
+    
+</div>
 <h2>
     Semaine @WeekOfYear
 </h2>
@@ -49,20 +61,222 @@
         </tr>
     </thead>
     <tbody>
-     
-        <tr>
+    <tbody class="tabbody">
+        <tr class="TabActivite hiddenElement">
             <td id="nameProjet">Test</td>
             <td id="nameRubrique">Test</td>
-            <td><input type="number" id="DureeLundi" value="0" style="width: 100px;"/></td>
-            <td><input type="number" id="DureeMardi" value="0" style="width: 100px;"/></td>
-            <td><input type="number" id="DureeMercredi" value="0" style="width: 100px;"/></td>
-            <td><input type="number" id="DureeJeudi" value="0" style="width: 100px;"/></td>
-            <td><input type="number" id="DureeVendredi" value="0" style="width: 100px;" /></td>
+            <td><input class="input_duree input_duree_lundi" type="number" name="DureeLundi" value="0" style="width: 100px;" /></td>
+            <td><input class="input_duree input_duree_mardi" type="number" name="DureeMardi" value="0" style="width: 100px;" /></td>
+            <td><input class="input_duree input_duree_mercredi" type="number" name="DureeMercredi" value="0" style="width: 100px;" /></td>
+            <td><input class="input_duree input_duree_jeudi" type="number" name="DureeJeudi" value="0" style="width: 100px;" /></td>
+            <td><input class="input_duree input_duree_vendredi" type="number" name="DureeVendredi" value="0" style="width: 100px;" /></td>
 
         </tr>
+    </tbody>
+</table>
+<table class="table">
+    <tr class="tabbody">
+        <td></td>
+        <td></td>
+        <td><input type="number" class="input_total" id="DureeLundiTotal" value="0" style="width: 100px;margin-left: 186px;background-color:yellow" disabled></td>
+        <td><input type="number" class="input_total" id="DureeMardiTotal" value="0" style="width: 100px;margin-left: -133px;background-color:yellow"disabled></td>
+        <td><input type="number" class="input_total" id="DureeMercrediTotal" value="0" style="width: 100px;margin-right: 0px;background-color:yellow"disabled></td>
+        <td><input type="number" class="input_total" id="DureeJeudiTotal" value="0" style="width: 100px;margin-left: -6px;background-color:yellow"disabled></td>
+        <td><input type="number" class="input_total" id="DureeVendrediTotal" value="0" style="width: 100px;margin-left: -46px;background-color:yellow"disabled></td>
+    </tr>
+</table>
+<button class="btn btn-dark" onclick="saveRubrique()">Valider</button>
+<div id="error">
 
-    </table>
+</div>
+@section Scripts {
+    <script>
 
+        var tab = [];
+        document.getElementById('Projet').addEventListener('change', function () {
+            var projet = JSON.parse(document.getElementById('Projet').value);
+            console.log(projet);
+              $.ajax({
+                type: "POST",
+                  url: "/Rapport/GetRubrique",
+                dataType: "json",
+                data: { projet: projet },
+                success: function (data, status, xhr) {
+                    console.log(data)
+                    var parent = document.getElementById("Rubrique");
+                    parent.children.innerText = "";
+                    parent.innerHTML = '';
+                    for (var i = 0; i < data.length; i++){
+                        var option = document.createElement("option");
+                        option.setAttribute('value', JSON.stringify(data[i]));
+                        option.setAttribute('class', 'form-control');
+                        option.innerText = data[i].titre;
+                        parent.appendChild(option);
+
+                    }
+                },
+                error: function () {
+                    alert("An error has occured!!!");
+                }
+            })
+        });
+        function addRapport(e) {
+
+          if (document.getElementById('Projet').value === "" || document.getElementById('Rubrique').value === "") {
+
+          } else {
+                var el = { id: "", projet: JSON.parse(document.getElementById('Projet').value), rubrique: JSON.parse(document.getElementById('Rubrique').value), semaine:@WeekOfYear, mois: @monthOfYear, annee: @year, LundiDuree: 0, MardiDuree: 0, MercrediDuree: 0, JeudiDuree: 0, VendrediDuree: 0, };
+            var exist = false;
+            var i = 0;
+            while ( i < tab.length && exist == false) {
+                if (tab[i].projet.id == el.projet.id && tab[i].rubrique.id == el.rubrique.id ) {
+                    exist = true;
+                    i++;
+
+                }
+                i++;
+            }
+            if (exist == false) {
+                tab.push(el);
+                console.table(tab);
+                var tabTbody = document.getElementsByClassName('tabbody')[0];
+                var newRow = document.getElementsByClassName('TabActivite')[0].cloneNode(true);
+                newRow.classList.remove("hiddenElement");
+                newRow.children[0].innerText = el.projet.titre;
+                newRow.children[0].value = JSON.stringify(el.projet);
+                newRow.children[1].innerText = el.rubrique.titre;
+                newRow.children[1].value = JSON.stringify(el.rubrique);
+                tabTbody.appendChild(newRow);
+                $(".input_duree").on('change', function (e) {
+                    e.preventDefault();
+                    updateTotal();
+                });
+            }
+
+            }
+
+       }
+        function updateTotal() {
+            var lundi = 0,
+                mardi = 0,
+                mercredi = 0,
+                jeudi = 0,
+                vendredi = 0;
+            $('.input_duree_lundi').each(function (e) {
+                lundi += parseInt($(this).val());
+            });
+            $('.input_duree_mardi').each(function (e) {
+                mardi += parseInt($(this).val());
+            });
+            $('.input_duree_mercredi').each(function (e) {
+                mercredi += parseInt($(this).val());
+            });
+            $('.input_duree_jeudi').each(function (e) {
+                jeudi += parseInt($(this).val());
+            });
+            $('.input_duree_vendredi').each(function (e) {
+                vendredi += parseInt($(this).val());
+            });
+            $('#DureeLundiTotal').val(lundi);
+            changeBackgroundColor($('#DureeLundiTotal'), lundi);
+            $('#DureeMardiTotal').val(mardi);
+            changeBackgroundColor($('#DureeMardiTotal'), mardi);
+            $('#DureeMercrediTotal').val(mercredi);
+            changeBackgroundColor($('#DureeMercrediTotal'), mercredi);
+            $('#DureeJeudiTotal').val(jeudi);
+            changeBackgroundColor($('#DureeJeudiTotal'), jeudi);
+            $('#DureeVendrediTotal').val(vendredi);
+            changeBackgroundColor($('#DureeVendrediTotal'), vendredi);
+
+        }
+        function changeBackgroundColor(element,val) {
+            if (val < 8) {
+                element.css('background-color', 'yellow');
+            }
+            else if (val == 8) {
+                element.css('background-color', 'lightgreen');
+            }
+            else {
+                element.css('background-color', 'red');
+            }
+        }
+        function saveRubrique() {
+            if (document.getElementById('DureeLundiTotal').value > 8 || document.getElementById('DureeMardiTotal').value > 8 || document.getElementById('DureeMercrediTotal').value > 8 || document.getElementById('DureeJeudiTotal').value > 8 || document.getElementById('DureeVendrediTotal').value > 8) {
+
+                parent = document.getElementById("error");
+                p = document.createElement("p");
+                p.innerHTML = "le total des heures imputé par jour ne doive pas être supérieur à 8"
+                parent.appendChild(p);
+            } else {
+                @*
+                <p>@WeekOfYear</p>
+<p>@DayOfweek</p>
+<p>@monthOfYear</p>
+<p>@year</p>
+<p>@fdow</p>
+<p>@start</p>
+<p>@start</p>
+                *@
+                var columns = [
+                    //"id",
+                    "projet",
+                    "rubrique",
+                    //"semaine",
+                    //"mois",
+                    //"annee",
+                    "LundiDuree",
+                    "MardiDuree",
+                    "MercrediDuree",
+                    "JeudiDuree",
+                    "VendrediDuree",
+
+                ];
+                var data = $(".tabbody tr").map(function (i) {
+
+                    if (!$(this).hasClass("hiddenElement")) {
+                        var row = {};
+                        $(this).find("td").each(function (i) {
+                            var element = $(this);
+                            if (i > 1) {
+                                $(this).find('input').each(function (j) {
+                                    row[columns[i]] = parseInt($(this).val());
+                                    row['semaine'] = @WeekOfYear;
+                                    row['mois'] = @monthOfYear;
+                                    row['annee'] = @year;
+                                        
+                                });
+                            }
+                            else {
+                                row[columns[i]] = JSON.parse(($(this).val()));
+                            }
+
+
+                        });
+                        return row;
+                    }
+
+                }).get();
+                console.log(data)
+                $.ajax({
+                    type: "POST",
+                    url: "/Rapport/PostRapport",
+                    dataType: "json",
+                    data: { customModel: data },
+                    success: function (data, status, xhr) {
+                        console.log(data)
+
+                    },
+                    error: function () {
+                        alert("An error has occured!!!");
+                    }
+                })
+
+            }
+
+        }
+    </script>
+
+}
 
 
 

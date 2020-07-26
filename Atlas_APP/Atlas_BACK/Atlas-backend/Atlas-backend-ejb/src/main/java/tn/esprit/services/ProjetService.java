@@ -97,4 +97,13 @@ public class ProjetService implements IProjetService {
 		return true;
 	}
 
+	@Override
+	public List<Projet> getProjetByUser(long idUser) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select p from Projet p join p.membres m where m.id=:user and p.cloturer= :c",Projet.class)
+				.setParameter("user", idUser)
+				.setParameter("c", false)
+				.getResultList();
+	}
+
 }
