@@ -77,7 +77,7 @@ public class FraisController {
 	}
 
 	@PUT
-	@Secured
+	//@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "updates a frais")
 	public Response update(Frais entity) {

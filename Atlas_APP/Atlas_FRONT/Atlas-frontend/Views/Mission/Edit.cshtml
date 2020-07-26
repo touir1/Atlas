@@ -1,0 +1,57 @@
+﻿@model Atlas_frontend.Models.MissionModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+    <div class="card">
+        <div class="card-header" style="text-align:center">
+            Missions
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Modifier une mission</h5>
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Type" class="control-label"></label>
+                    <input asp-for="Type" class="form-control" />
+                    <span asp-validation-for="Type" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Description" class="control-label"></label>
+                    <input asp-for="Description" class="form-control" />
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Date" class="control-label"></label>
+                    <input asp-for="Date" class="form-control" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Duree" class="control-label"></label>
+                    <input asp-for="Duree" class="form-control" />
+                    <span asp-validation-for="Duree" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Lieu" class="control-label"></label>
+                    <input asp-for="Lieu" class="form-control" />
+                    <span asp-validation-for="Lieu" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Projet" class="control-label"></label>
+                    @Html.DropDownList("projectId",
+                   new SelectList(ViewBag.listprojet, "Id", "Titre", Model.Projet.Id), new { @class = "form-control" })
+                </div>
+                <div class="form-group" style="text-align:center">
+                    <input type="submit" value="Modifier" class="btn btn-warning" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+<div>
+    <a  class="btn btn-link" asp-action="Index">Retour à la liste des missions</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

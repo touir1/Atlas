@@ -1,0 +1,88 @@
+﻿@model Atlas_frontend.Models.FraisModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        Frais
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Ajouter un nouveau frais</h5>
+ 
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Type" class="control-label"></label>
+                        <input asp-for="Type" class="form-control" />
+                        <span asp-validation-for="Type" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Status" class="control-label"></label>
+                        @Html.DropDownList("Status", new SelectList(new string[] { "En cours", "Validé", "Refusé" }), new { @class = "form-control" })
+                        <span asp-validation-for="Status" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description" class="control-label"></label>
+                        <input asp-for="Description" class="form-control" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" value="true" id="Remboursable" name="Remboursable" checked>
+                        <label class="form-check-label" for="exampleCheck1">Remboursable</label>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Frais" class="control-label"></label>
+                        <input asp-for="Frais" class="form-control" />
+                        <span asp-validation-for="Frais" class="text-danger"></span>
+
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Mission" class="control-label"></label>
+                        @Html.DropDownList("missionId",
+                       new SelectList(ViewBag.listmission, "Id", "Description"), "Selectionez une mission", new { @class = "form-control" })
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User" class="control-label"></label>
+                        @Html.DropDownList("userId",
+                       new SelectList(ViewBag.userlist, "Id", "FullName"), "Selectionez un employé", new { @class = "form-control" })
+                    </div>
+
+
+
+                    <div class="form-group">
+                        <label asp-for="Justifiatiffile" class="control-label"></label>
+                        <div class="custom-file">
+                            <input asp-for="Justifiatiffile" class="custom-file-input" id="customFile">
+                            <label class="custom-file-label" for="customFile">Choose file</label>
+                        </div>
+                        <span asp-validation-for="Justifiatiffile" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <div style="text-align:center">
+                            <input type="submit" value="Ajouter" class="btn btn-success" />
+                            </div>
+                        </div>
+
+</form>
+            </div>
+        </div>
+
+        <div>
+            <a asp-action="Index">Retour à la liste des frais </a>
+        </div>
+
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            <script>
+                //show file name
+                $(".custom-file-input").on("change", function () {
+                    var fileName = $(this).val().split("\\").pop();
+                    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+                });
+            </script>
+        }

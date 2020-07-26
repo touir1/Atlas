@@ -29,6 +29,16 @@ public class Mission implements Serializable {
 	private Float duree;
 	@Column(nullable = false)
 	private String lieu;
+	@Column(nullable=false)
+	private String description;
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "mission")
@@ -86,21 +96,23 @@ public class Mission implements Serializable {
 		this.lieu = lieu;
 	}
 
-	public Mission(Long id, String type, Date date, Float duree, String lieu) {
+	public Mission(Long id, String type, Date date, Float duree, String lieu,String description) {
 		super();
 		this.id = id;
 		this.type = type;
 		this.date = date;
 		this.duree = duree;
 		this.lieu = lieu;
+		this.description=description;
 	}
 
-	public Mission(String type, Date date, Float duree, String lieu) {
+	public Mission(String type, Date date, Float duree, String lieu,String description) {
 		super();
 		this.type = type;
 		this.date = date;
 		this.duree = duree;
 		this.lieu = lieu;
+		this.description=description;
 	}
 
 	public Mission() {

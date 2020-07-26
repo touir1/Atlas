@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Atlas_frontend.Models.FraisModel>
+
+@{
+    ViewData["Title"] = "Index2";
+}
+<h1></h1>
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        Frais à rembourser
+    </div>
+    
+    <div class="card-body">
+        <h5 class="card-title">Liste des frais à rembourser</h5>
+
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Type)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Description)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Justificatif)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Remboursable)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Frais)
+                    </th>
+                    <th>
+                        Mission
+                    </th>
+                    <th>
+                        Projet
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    @if (item.Status == "validé")
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Description)
+                            </td>
+                            <td>
+                                <a href="~/images/justificatifs/@item.Justificatif" target="_blank">Télécharger le justificatif</a>
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Remboursable)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Frais)
+                            </td>
+                            <td>
+                                @if (item.Mission != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Mission.Description)
+                                }
+                            </td>
+                            <td>
+                                @if (item.Mission != null)
+                                {
+                                    @Html.DisplayFor(modelItem => item.Mission.Projet.Titre)
+                                }
+                            </td>
+
+                            <td>
+                                @Html.ActionLink("Rembourser", "Valider", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+        </div>
+</div>
