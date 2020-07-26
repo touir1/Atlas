@@ -17,28 +17,28 @@ import org.apache.log4j.Logger;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import tn.esprit.entity.Frais;
-import tn.esprit.interfaces.IFraisService;
+import tn.esprit.entity.Configuration;
+import tn.esprit.interfaces.IConfigurationService;
 import tn.esprit.ws.AtlasWSActivator.Secured;
 
-@Path("frais")
-@Api(value = "FraisRESTService", description = "Frais service")
-public class FraisController {
-
-	private final static Logger logger = Logger.getLogger(FraisController.class);
+@Path("configuration")
+@Api(value = "ConfigurationRESTService", description = "Configuration service")
+public class ConfigurationController {
+	
+	private final static Logger logger = Logger.getLogger(ConfigurationController.class);
 
 	@EJB
-	private IFraisService service;
-
+	private IConfigurationService service;
+	
 	@GET
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "get the list of all the frais")
+	@ApiOperation(value = "get the list of all the configurations")
 	public Response getAll() {
 		try {
 			return Response.status(Status.OK).entity(service.getAll()).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get the list of fraiss", e);
+			logger.error("failed while trying to get the list of configurations", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -47,15 +47,32 @@ public class FraisController {
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("{id}")
-	@ApiOperation(value = "get a frais by id")
+	@ApiOperation(value = "gets a configuration by id")
 	public Response getOne(@PathParam("id") long id) {
 		try {
-			Frais entity = service.get(id);
+			Configuration entity = service.get(id);
 			if (entity != null)
 				return Response.status(Status.OK).entity(entity).build();
 			return Response.status(Status.NOT_FOUND).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to get a frais", e);
+			logger.error("failed while trying to get a configuration", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("getByKey/{key}")
+	@ApiOperation(value = "gets a configuration by key")
+	public Response getByKey(@PathParam("key") String key) {
+		try {
+			Configuration entity = service.getByKey(key);
+			if (entity != null)
+				return Response.status(Status.OK).entity(entity).build();
+			return Response.status(Status.NOT_FOUND).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get a configuration by key", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
@@ -63,29 +80,29 @@ public class FraisController {
 	@POST
 	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "adds a frais to the database")
-	public Response add(Frais entity) {
+	@ApiOperation(value = "adds a configuration to the database")
+	public Response add(Configuration entity) {
 		try {
 			entity = service.add(entity);
 			if(entity != null)
 				return Response.status(Status.CREATED).entity(entity).build();
 			return Response.status(Status.BAD_REQUEST).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to save a frais", e);
+			logger.error("failed while trying to save a configuration", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 
 	@PUT
-	//@Secured
+	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "updates a frais")
-	public Response update(Frais entity) {
+	@ApiOperation(value = "updates a configuration")
+	public Response update(Configuration entity) {
 		try {
 			service.update(entity);
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to update a frais", e);
+			logger.error("failed while trying to update a configuration", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 
@@ -94,15 +111,14 @@ public class FraisController {
 	@DELETE
 	@Secured
 	@Path("{id}")
-	@ApiOperation(value = "deletes a frais from the database")
+	@ApiOperation(value = "deletes a configuration from the database")
 	public Response delete(@PathParam("id") long id) {
 		try {
-			service.remove(new Frais(id));
+			service.remove(new Configuration(id));
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
-			logger.error("failed while trying to delete a frais", e);
+			logger.error("failed while trying to delete a configuration", e);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
-
 }

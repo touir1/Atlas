@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Atlas_frontend.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Atlas_frontend.Models
         [JsonProperty("type")]
         public String Type { get; set; }
         [JsonProperty("date")]
+        [JsonConverter(typeof(DateFormatConverter), "yyyy-MM-dd HH:mm:ss")]
         public DateTime? Date { get; set; }
         [JsonProperty("duree")]
         public float Duree { get; set; }
@@ -24,6 +26,8 @@ namespace Atlas_frontend.Models
         public List<FacturationModel> Facturations { get; set; }
         [JsonProperty("projet")]
         public ProjetModel Projet { get; set; }
+        [JsonProperty("description")]
+        public String Description { get; set; }
 
     }
 }

@@ -19,6 +19,8 @@ public class Frais implements Serializable {
 	private String justificatif;
 	@Column(nullable = false)
 	private Boolean remboursable;
+	@Column(nullable =false)
+	private float frais;
 
 	@ManyToOne
 	private User user;
@@ -79,7 +81,7 @@ public class Frais implements Serializable {
 		this.remboursable = remboursable;
 	}
 
-	public Frais(Long id, String type, String status, String description, String justificatif, Boolean remboursable) {
+	public Frais(Long id, String type, String status, String description, String justificatif, Boolean remboursable,float frais) {
 		super();
 		this.id = id;
 		this.type = type;
@@ -87,19 +89,29 @@ public class Frais implements Serializable {
 		this.description = description;
 		this.justificatif = justificatif;
 		this.remboursable = remboursable;
+		this.frais=frais;
 	}
 
-	public Frais(String type, String status, String description, String justificatif, Boolean remboursable) {
+	public Frais(String type, String status, String description, String justificatif, Boolean remboursable,float frais) {
 		super();
 		this.type = type;
 		this.status = status;
 		this.description = description;
 		this.justificatif = justificatif;
 		this.remboursable = remboursable;
+		this.frais=frais;
 	}
 
 	public Frais() {
 		super();
+	}
+
+	public float getFrais() {
+		return frais;
+	}
+
+	public void setFrais(float frais) {
+		this.frais = frais;
 	}
 
 	public User getUser() {
