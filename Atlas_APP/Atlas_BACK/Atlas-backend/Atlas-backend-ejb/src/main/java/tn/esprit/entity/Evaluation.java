@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -22,9 +23,40 @@ public class Evaluation implements Serializable {
 //	
 	@Column(nullable = false)
 	private String status;
+  
+	@Column(nullable = false)
+	private String titre;
+	
+	public String getTitre() {
+		return titre;
+	}
+
+
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
 
 	@ManyToOne
 	private User user;
+	
+	
+	
+	@JsonIgnore
+	@ManyToMany
+	public List<User> getMembres() {
+		return membres;
+	}
+
+
+
+	public void setMembres(List<User> membres) {
+		this.membres = membres;
+	}
+
+	@JsonIgnore
+	@ManyToMany
+	private List<User> membres;
 	
 	@ManyToOne
 	private User createdBy;

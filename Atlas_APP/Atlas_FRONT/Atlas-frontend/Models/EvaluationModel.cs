@@ -23,5 +23,8 @@ namespace Atlas_frontend.Models
 
         [JsonProperty("reponses")]
         public List<ResponseModel> Reponses { get; set; }
+
+        [JsonProperty("titre")]
+        public String Titre{ get; set; }
     }
 }

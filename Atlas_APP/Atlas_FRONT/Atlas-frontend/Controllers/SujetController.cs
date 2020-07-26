@@ -37,7 +37,7 @@ namespace Atlas_frontend.Controllers
             //GET LIST OF USER By manager
 
             List<SujetModel> sujets = await _sujetService.GetListAsync(HttpContext.Session);
-            ViewBag.lstsujets = sujets ?? new List<SujetModel>(); ;
+            ViewBag.lstsujets = sujets ?? new List<SujetModel>(); 
 
             return View();
         }

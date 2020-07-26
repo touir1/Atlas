@@ -104,4 +104,65 @@ public class EvaluationController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	@PUT
+	@Secured
+	@Consumes(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "Affecter user to eval")
+	@Path("Affecter/{idEvaluation}/{idUser}")
+	public Response AffecterUserToEvaluation(@PathParam("idEvaluation")Long idEvaluation,@PathParam("idUser") Long idUser) {
+		try {
+			service.affecterUserToEvalution(idEvaluation, idUser);
+			return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to update a eval", e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+	}
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of members by évaluation")
+	@Path("Members/{idEvaluation}")
+	public Response getListMembersByEval(@PathParam("idEvaluation")  long idEvaluation) {
+		try {
+			return Response.status(Status.OK).entity(service.getMembreByEval(idEvaluation)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of members by eval", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of sujets by évaluation")
+	@Path("Sujets/{idEvaluation}")
+	public Response getListSujetsByEval(@PathParam("idEvaluation")  long idEvaluation) {
+		try {
+			return Response.status(Status.OK).entity(service.getSujetsByEval(idEvaluation)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of sujets by eval", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of evaluation by user")
+	@Path("Members/{idUser}")
+	public Response getListEvalByUser(@PathParam("idUser")  long idUser) {
+		try {
+			return Response.status(Status.OK).entity(service.getEvalByUser(idUser)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of members by eval", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	
+	
+	
 }

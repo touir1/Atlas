@@ -1,0 +1,54 @@
+﻿@{
+
+    var list = ViewBag.lstEval;
+
+}
+
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="card">
+    <div class="card-header">
+        Evaluation
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Liste des évaluations</h5>
+        <br /><br />
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Coefficient</th>
+                    <th scope="col">Noter</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EvaluationModel sujet in list)
+                {
+                    <tr>
+                        <td>@sujet.Titre</td>
+                        <td>@sujet.CreatedBy</td>
+                        <td>@sujet.Status</td>
+
+                        <td>
+
+                            @Html.ActionLink("Modifier", "Edit", new { id = sujet.Id }, new { @class = "btn btn-primary" }) |
+                            @Html.ActionLink("Supprimer", "Delete", new { id = sujet.Id }, new { @class = "btn btn-danger" })
+
+
+                        </td>
+                    </tr>
+                }
+
+        </table>
+    </div>
+</div>
+
+
+

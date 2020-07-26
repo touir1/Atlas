@@ -107,5 +107,19 @@ private final static Logger logger = Logger.getLogger(QuestionController.class);
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	@GET
+	//@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of question by sujet")
+	@Path("bySujet/{idSujet}")
+	public Response getListQuestionBySujet(@PathParam("idSujet")  long idSujet) {
+		try {
+			return Response.status(Status.OK).entity(service.getQuestionBySujet(idSujet)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of question by sujet", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 }

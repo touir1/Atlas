@@ -59,7 +59,8 @@ public class SujetService implements ISujetService {
 	public Sujet update(Sujet a) {
 		return em.merge(a);
 	}
-	
+
+		
 
 
 }

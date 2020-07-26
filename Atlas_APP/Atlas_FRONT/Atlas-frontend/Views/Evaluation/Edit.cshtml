@@ -1,0 +1,134 @@
+﻿@model Atlas_frontend.Models.EvaluationModel
+
+@{
+    ViewData["Title"] = "Edit";
+    var usersBymanager = ViewBag.lstUser;
+    var sujetsbyeval = ViewBag.lstsujet;
+}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<div class="card">
+    <div class="card-header">
+        Evaluation
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Modifier évaluation</h5>
+        <form asp-action="Edit" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="display:none">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Titre" class="control-label"></label>
+                <input asp-for="Titre" class="form-control" />
+                <span asp-validation-for="Titre" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="display:none">
+                <label asp-for="Status" class="control-label"></label>
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="lstMembre">Liste des membre de projet</label>
+                <select id="choices_membres" placeholder="Selectionner les memebres de projet " multiple name="membres">
+                </select>
+
+            </div>
+            
+            <div class="form-group">
+                <label for="lstMembre">Liste des sujets</label>
+                <select id="choices_sujets" placeholder="Selectionner les sujets " multiple name="sujets">
+                </select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" asp-action="Edit" class="btn btn-primary" />
+            </div>
+
+        </form>
+
+
+
+
+        <div>
+            <a asp-action="Liste">Back to List</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+   var x = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(usersBymanager))
+        console.log(x)
+    if (x.length > 0 && x[0].id == 0) {
+        x = [];
+    }
+        $(document).ready(function () {
+
+            var multipleCancelButton = new Choices('#choices_membres', {
+                removeItemButton: true,
+                maxItemCount: 5,
+                searchResultLimit: 5,
+                renderChoiceLimit: 5,
+                duplicateItemsAllowed: false,
+            })
+            const items= []
+            x.forEach((Element) => {
+                items.push({ value: Element.Id, label: Element.Nom + " " + Element.Prenom, selected: Element.Selected })
+            });
+            console.log(items)
+
+            multipleCancelButton.setChoices(
+                items,
+                'value',
+                'label',
+                false,);
+
+
+
+
+        });
+    </script>
+
+    <script>
+   var y = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(sujetsbyeval))
+        console.log(y)
+    if (y.length > 0 && y[0].id == 0) {
+        y = [];
+    }
+        $(document).ready(function () {
+
+            var choicesujet = new Choices('#choices_sujets', {
+                removeItemButton: true,
+                maxItemCount: 5,
+                searchResultLimit: 5,
+                renderChoiceLimit: 5,
+                duplicateItemsAllowed: false,
+            })
+            const elements= []
+            y.forEach((Element) => {
+                elements.push({ value: Element.Id, label: Element.Titre , selected: Element.Selected })
+            });
+            console.log(elements)
+
+            choicesujet.setChoices(
+                elements,
+                'value',
+                'label',
+                false,);
+
+
+
+
+        });
+    </script>
+}
+

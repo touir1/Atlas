@@ -54,4 +54,14 @@ public class QuestionService  implements IQuestionService{
 	public Question update(Question a) {
 		return em.merge(a);
 	}
+
+
+		@Override
+		public List<Question> getQuestionBySujet(long idSujet) {
+			// TODO Auto-generated method stub
+			return em.createQuery("select q from Question q where q.sujet.id = :sjt",Question.class)
+					.setParameter("sjt", idSujet)
+					.getResultList();
+		}
+	
 }

@@ -1,9 +1,11 @@
 ﻿@model Atlas_frontend.Models.EvaluationModel
 @{
-    var list = ViewBag.lstsujets;
+
     var users = ViewBag.lstUser;
+    var list = ViewBag.lstsujets;
+    
 }
-}
+
 @{
     ViewData["Title"] = "Index";
 
@@ -23,13 +25,40 @@
         <form method="post">
             <div class="form-group">
                 <label for="inputTitre">Sélectionnez les sujets de l'évaluation</label>
-                <input type="text" class="form-control" id="Titre" name="Titre" placeholder="Titre sujet">
+                <input type="text" class="form-control" id="Titre" name="Titre" placeholder="Titre d'évaluation">
             </div>
 
 
-            <br /><br />
             <div class="form-group">
-                <label for="lstMembre">Liste des membre de projet</label>
+                <label for="lstMembre">Liste des sujets</label>
+                <select id="choices-multiple-remove-button"
+                        placeholder="Selectionner les sujets " multiple
+                        name="list">
+                    @foreach (SujetModel membre in list)
+
+                    {
+                        <option value="@membre.Id">
+
+
+                            @if (@membre.Coeficient == 0)
+                            {
+                                @membre.Titre @Html.Raw(" ( Non noté ) ")
+                            }
+                            else
+                            {
+                                @membre.Titre @Html.Raw(" ( Noté ) ( ") @membre.Coeficient @Html.Raw(" )")
+                            }
+
+                        </option>
+                    }
+
+
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label for="lstMembre">Liste des emloyés</label>
                 <select id="choices-multiple-remove-button"
                         placeholder="Selectionner les memebres de projet " multiple
                         name="membres">
@@ -46,13 +75,28 @@
                 </select>
 
             </div>
+            <button type="submit" class="btn btn-primary" asp-action="AddEval">Ajouter</button>
+        
 
             <div>
-                <a asp-action="Index">Back to List</a>
+                <a asp-action="Liste">Back to List</a>
             </div>
         </form>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount: 5,
+            searchResultLimit: 5,
+            renderChoiceLimit: 5
+        });
+
+
+    });
+</script>
 
 
 @section Scripts {

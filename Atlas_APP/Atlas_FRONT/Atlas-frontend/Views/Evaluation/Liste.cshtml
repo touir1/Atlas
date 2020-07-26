@@ -1,0 +1,65 @@
+﻿@{
+
+    var list = ViewBag.lsteval;
+    var listsujet = ViewBag.lstsujet;
+}
+@{
+    ViewData["Title"] = "List";
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
+<div class="card">
+    <div class="card-header">
+        Evaluation
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Liste des évaluations</h5>
+        <a class="btn btn-success btn-sm" asp-action="Index" style="margin-left: 88%; font-size:85%">Ajouter évaluation</a>
+        <br /><br />
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Titre</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Détails</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EvaluationModel eval in list)
+                {
+                <tr>
+                    <td>@eval.Titre</td>
+                    <td>@eval.Status</td>
+
+                    <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info">Afficher détails</button></td>
+                    <td>
+                        
+                        @Html.ActionLink("Modifier", "Edit", new { id = eval.Id }, new { @class = "btn btn-primary" }) |
+                        @Html.ActionLink("Supprimer", "Delete", new { id = eval.Id }, new { @class = "btn btn-danger" })
+
+
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<div>
+    <!--a asp-action="Index">Back to List</!a-->
+</div>
+
+
+
+
+
+
