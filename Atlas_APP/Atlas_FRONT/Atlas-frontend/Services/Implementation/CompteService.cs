@@ -1,4 +1,5 @@
 ﻿using Atlas_frontend.Models;
+using Atlas_frontend.Models.Enums;
 using Atlas_frontend.Utils.RestAPI;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
@@ -65,6 +66,47 @@ namespace Atlas_frontend.Services.Implementation
             {
                 return false;
             }
+        }
+
+        public async Task<bool> ExistsUsername(ISession session, string username)
+        {
+            try {
+                RestApiResponse<WSBaseResult> result = await _client.GetAsync<WSBaseResult>(session, $"{_baseServiceUrl}/existsUSername/{username}");
+                if (result != null && result.Result != null) return result.Result.Exists;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+            return false;
+        }
+
+        public bool HasRole(ISession session, RankEnum role)
+        {
+            return HasRole(session, role.ToString());
+        }
+
+        public bool HasRole(ISession session, string roleLabel)
+        {
+            if (nameof(RankEnum.Anonymous).ToLower().Equals(roleLabel.ToLower())) return true;
+            if (!IsConnected(session)) return false;
+
+            CompteModel compte = GetConnectedCompte(session);
+            if (compte.Roles == null) return false;
+            if (compte.Roles.Any(r => r.Libelle.Trim().ToLower().Equals(roleLabel.ToLower()))) return true;
+
+            return false;
+        }
+
+        public bool HasRole(ISession session, long roleId)
+        {
+            if (!IsConnected(session)) return false;
+
+            CompteModel compte = GetConnectedCompte(session);
+            if (compte.Roles == null) return false;
+            if (compte.Roles.Any(r => r.Id == roleId)) return true;
+
+            return false;
         }
     }
 }

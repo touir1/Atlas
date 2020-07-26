@@ -1,0 +1,35 @@
+﻿@model Atlas_frontend.Models.RoleModel
+
+@{
+    ViewData["Title"] = "Delete role";
+}
+
+<h1>Suppression d'un rôle</h1>
+
+<h3>Etes vous sûr de vouloir supprimer ce rôle?</h3>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Libelle)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Libelle)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        @if (!Model.Libelle.Trim().ToLower().Equals("administrator"))
+        {
+            <input type="submit" value="Supprimer" class="btn btn-sm btn-danger" />
+        }
+        <hr />
+        <a asp-action="Index">Retour à la liste de rôles</a>
+    </form>
+</div>

@@ -1,12 +1,17 @@
 ﻿@model Atlas_frontend.Models.CompteModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit compte";
 }
 
-<h1>Edit</h1>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<h4>CompteModel</h4>
+<h1>Modifier le compte</h1>
+
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,35 +19,88 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
-                <input asp-for="Id" class="form-control" />
+                <input asp-for="Id" class="form-control" readonly />
                 <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Username" class="control-label"></label>
-                <input asp-for="Username" class="form-control" />
+                <input asp-for="Username" class="form-control" readonly />
                 <span asp-validation-for="Username" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                @Html.PasswordFor(m => m.Password, new Dictionary<string, object> { { "data-val", false }, {"class", "form-control" } })
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Token" class="control-label"></label>
-                <input asp-for="Token" class="form-control" />
-                <span asp-validation-for="Token" class="text-danger"></span>
+                <label for="roles">Rôles</label>
+                <select id="choices-multiple-remove-button" placeholder="Selectionner les rôles" multiple name="roles">
+                    @foreach (RoleModel role in ViewBag.RoleList)
+                    {
+                        @if (Model.Roles != null && Model.Roles.Contains(role))
+                        {
+                            <option value="@role.Id" selected>@role.Libelle</option>
+                        }
+                        else
+                        {
+                            <option value="@role.Id">@role.Libelle</option>
+                        }
+
+                    }
+                </select>
+                @Html.ValidationMessage("roles", "", new { @class = "text-danger" })
+
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value="Enregistrer" class="btn btn-sm btn-warning" /> |
+                <input type="button" value="Generate random password" class="btn btn-warning" onclick="setSecurePassword()" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Retour à la liste de comptes</a>
 </div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script>
+
+        function generateSecurePassword() {
+            return Array(25)
+                .fill('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~!@@-#$')
+                .map(x => x[Math.floor(crypto.getRandomValues(new Uint32Array(1))[0] / (0xffffffff + 1) * x.length)])
+                .join('');
+        }
+
+        function setSecurePassword() {
+            var result = generateSecurePassword();
+            while (!checkIfPasswordSecure(result)) {
+                result = generateSecurePassword();
+                console.log(result);
+            }
+            $("#Password").val(result);
+        }
+
+        function checkIfPasswordSecure(password) {
+            if (password) {
+                if (/[~!@@\-#$]/.test(password)
+                    && /[a-z]/.test(password)
+                    && /[A-Z]/.test(password)
+                    && /[0-9]/.test(password)
+                    && password.length >= 8 && password.length <= 30)
+                    return true;
+            }
+            return false
+        }
+
+        var multipleCancelButton = new Choices('#choices-multiple-remove-button', {
+            removeItemButton: true,
+            maxItemCount: 5,
+            searchResultLimit: 5,
+            renderChoiceLimit: 5
+        });
+    </script>
 }

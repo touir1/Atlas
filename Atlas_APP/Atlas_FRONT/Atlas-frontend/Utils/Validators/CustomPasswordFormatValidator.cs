@@ -19,13 +19,18 @@ namespace Atlas_frontend.Utils.Validators
                     password == null 
                     || password.Length < 8 || password.Length > 30 
                     || !password.Any(char.IsUpper) || !password.Any(char.IsLower)
-                    || !password.Any(char.IsDigit) || !password.Any(char.IsSymbol)
+                    || !password.Any(char.IsDigit) || !password.Any(IsSymbol)
                     )
                 {
                     return false;
                 }
             }
             return true;
+        }
+
+        private bool IsSymbol(char c)
+        {
+            return " ^<>{}\"/|;:.,~!?@#$%^=&*\\]\\\\()\\[¿§«»ω⊙¤°℃℉€¥£¢¡®©0-9_+".ToCharArray().Contains(c);
         }
     }
 }

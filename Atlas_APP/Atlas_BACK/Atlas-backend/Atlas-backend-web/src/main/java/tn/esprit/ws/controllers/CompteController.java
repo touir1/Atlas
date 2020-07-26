@@ -30,6 +30,7 @@ import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Compte;
 import tn.esprit.interfaces.ICompteService;
 import tn.esprit.ws.AtlasWSActivator.Secured;
+import tn.esprit.ws.WSResponse;
 
 @Path("compte")
 @Api(value = "CompteRESTService", description = "Compte service")
@@ -53,7 +54,25 @@ public class CompteController {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "check if username exists in the compte table")
+	@Path("existsUsername/{username}")
+	public Response existsUsername(@PathParam("username") String username)
+	{
+		try {
+			WSResponse resposne = new WSResponse();
+			resposne.setExists(service.existsUsername(username.trim().toLowerCase()));
+			return Response.status(Status.OK).entity(resposne).build();
+		}
+		catch(Exception e){
+			logger.error("failed while trying to check if username exists", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
 	@GET
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)

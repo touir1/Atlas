@@ -13,6 +13,7 @@ namespace Atlas_frontend.Models.Enums
         Manager = 3,
         HR = 4,
         Finance = 5,
+        Connected = 6,
         Administrator = 99
     }
 }

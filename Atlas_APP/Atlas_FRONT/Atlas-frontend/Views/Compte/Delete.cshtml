@@ -1,44 +1,45 @@
 ﻿@model Atlas_frontend.Models.CompteModel
 
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "Delete compte";
 }
 
-<h1>Delete</h1>
+<h1>Supprimer un compte</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Etes vous sûr de vouloir supprimer ce compte?</h3>
 <div>
     <h4>CompteModel</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Id)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Id)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Username)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10">
             @Html.DisplayFor(model => model.Username)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Roles)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Token)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Token)
+        <dd class="col-sm-10">
+            @if (Model.Roles != null)
+            {
+                @foreach (RoleModel role in Model.Roles)
+                {
+                    <span class="badge badge-pill badge-success">@role.Libelle</span>
+                }
+            }
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <input type="submit" value="Supprimer" class="btn btn-sm btn-danger" />
+        <hr />
+        <a asp-action="Index">Retour à la liste de comptes</a>
     </form>
 </div>

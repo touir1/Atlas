@@ -54,4 +54,19 @@ public class RoleService implements IRoleService{
 		return em.merge(a);
 	}
 
+	@Override
+	public boolean existsRole(String libelle) {
+		try {
+			Role role = em
+					.createQuery("select r from Role r where lower(r.libelle) = lower(:libelle)", Role.class)
+					.setParameter("libelle", libelle)
+					.getSingleResult();
+			if(role == null) return false;
+			return true;
+		}
+		catch(Exception e) {
+			return false;
+		}
+	}
+
 }

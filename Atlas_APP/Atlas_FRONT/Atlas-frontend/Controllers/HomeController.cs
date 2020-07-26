@@ -20,7 +20,7 @@ namespace Atlas_frontend.Controllers
             _logger = logger;
         }
 
-        [Authorize(new[] { RankEnum.User })]
+        [Authorize(new[] { RankEnum.Connected })]
         public IActionResult Index()
         {
             return View();

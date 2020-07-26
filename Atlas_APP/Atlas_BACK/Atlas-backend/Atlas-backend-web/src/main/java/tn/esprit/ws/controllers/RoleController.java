@@ -19,6 +19,7 @@ import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Role;
 import tn.esprit.interfaces.IRoleService;
 import tn.esprit.ws.AtlasWSActivator.Secured;
+import tn.esprit.ws.WSResponse;
 
 @Path("role")
 @Api(value = "RoleRESTService", description = "Role service")
@@ -101,6 +102,22 @@ public class RoleController {
 		} catch (Exception e) {
 			logger.error("failed while trying to delete a role", e);
 			return Response.status(Status.BAD_REQUEST).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Path("existsRole/{label}")
+	@ApiOperation(value = "checks if role label exists in the table role")
+	public Response existsRole(@PathParam("label") String libelle) {
+		try {
+			WSResponse response = new WSResponse();
+			response.setExists(service.existsRole(libelle.trim().toLowerCase()));
+			return Response.status(Status.OK).entity(response).build();
+		}
+		catch(Exception e) {
+			logger.error("failed while trying to check if role exists",e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
 

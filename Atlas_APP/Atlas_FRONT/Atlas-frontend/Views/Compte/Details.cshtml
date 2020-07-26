@@ -1,13 +1,12 @@
 ﻿@model Atlas_frontend.Models.CompteModel
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Details compte";
 }
 
-<h1>Details</h1>
+<h1>Détails Compte</h1>
 
 <div>
-    <h4>CompteModel</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -22,21 +21,22 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Username)
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Password)
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Roles)
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Token)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Token)
+        <dd class="col-sm-10">
+            @if (Model.Roles != null)
+            {
+                @foreach (RoleModel role in Model.Roles)
+                {
+                    <span class="badge badge-pill badge-success">@role.Libelle</span>
+                }
+            }
         </dd>
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
-    <a asp-action="Index">Back to List</a>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }, htmlAttributes: new { @class = "btn btn-sm btn-warning" })
+    <hr />
+    <a asp-action="Index">Retour à la liste d'utilisateurs</a>
 </div>

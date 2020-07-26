@@ -17,7 +17,10 @@ namespace Atlas_frontend.Models
         [JsonProperty("comptes")]
         public List<CompteModel> Comptes { get; set; }
 
-
-
+        public override bool Equals(object obj)
+        {
+            return obj is RoleModel model &&
+                   Id == model.Id;
+        }
     }
 }

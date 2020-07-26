@@ -31,6 +31,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.User.Email)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Roles)
+            </th>
             <th></th>
         </tr>
     </thead>
@@ -64,6 +67,15 @@
                 @if (item.User != null)
                 {
                     @Html.DisplayFor(modelItem => item.User.Email)
+                }
+            </th>
+            <th>
+                @if (item.Roles != null)
+                {
+                    @foreach (RoleModel role in item.Roles)
+                    {
+                        <span class="badge badge-pill badge-success">@role.Libelle</span>
+                    }
                 }
             </th>
             <td>

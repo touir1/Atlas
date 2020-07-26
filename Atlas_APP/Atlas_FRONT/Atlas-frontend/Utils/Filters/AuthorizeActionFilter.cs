@@ -43,6 +43,10 @@ namespace Atlas_frontend.Utils.Filters
                         new RouteValueDictionary(new { controller = "Login", action = "Index" })
                     );
                 }
+                else if (_authorizedRanks.Contains(RankEnum.Connected))
+                {
+                    return;
+                }
                 else if (!CheckIfHasPermission(context))
                 {
                     context.Result = new UnauthorizedResult();
@@ -54,8 +58,12 @@ namespace Atlas_frontend.Utils.Filters
         private bool CheckIfHasPermission(AuthorizationFilterContext context)
         {
             CompteModel compte = _compteService.GetConnectedCompte(context.HttpContext.Session);
-            // TODO : finish checking authorizations from permission table
-            return true;
+            foreach(RankEnum rank in _authorizedRanks)
+            {
+                if (_compteService.HasRole(context.HttpContext.Session, rank)) return true;
+            }
+            
+            return false;
         }
     }
 }
