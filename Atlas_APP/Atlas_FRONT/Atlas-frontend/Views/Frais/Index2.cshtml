@@ -1,4 +1,11 @@
-﻿@model IEnumerable<Atlas_frontend.Models.FraisModel>
+﻿@using Microsoft.AspNetCore.Http
+@using Atlas_frontend.Services
+@inject ICompteService CompteService
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    bool connected = CompteService.HasRole(HttpContextAccessor.HttpContext.Session,"Finance");
+}
+@model IEnumerable<Atlas_frontend.Models.FraisModel>
 
 @{
     ViewData["Title"] = "Index2";
@@ -8,7 +15,7 @@
     <div class="card-header" style="text-align:center">
         Frais à rembourser
     </div>
-    
+    @if (connected == true) { 
     <div class="card-body">
         <h5 class="card-title">Liste des frais à rembourser</h5>
 
@@ -39,13 +46,16 @@
                     <th>
                         Projet
                     </th>
+                    <th>
+
+                    </th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                    @if (item.Status == "validé")
+                    @if ((item.Status =="Validé") || (item.Status=="Remboursé"))
                     {
                         <tr>
 
@@ -83,10 +93,14 @@
                             <td>
                                 @Html.ActionLink("Rembourser", "Valider", new { id = item.Id }, new { @class = "btn btn-success btn-sm" })
                             </td>
+                            <td>
+                                <a href="GeneratePDF">GeneratePDF</a>
+                            </td>
                         </tr>
                     }
                 }
             </tbody>
         </table>
-        </div>
+    </div>
+    }
 </div>

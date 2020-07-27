@@ -15,7 +15,7 @@ public class Frais implements Serializable {
 	@Column(nullable = false)
 	private String status;
 	private String description;
-	@Column(nullable = false)
+	@Column(nullable = true)
 	private String justificatif;
 	@Column(nullable = false)
 	private Boolean remboursable;

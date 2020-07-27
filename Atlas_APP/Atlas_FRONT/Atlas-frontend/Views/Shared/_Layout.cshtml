@@ -6,6 +6,9 @@
 @{
     bool connected = CompteService.IsConnected(HttpContextAccessor.HttpContext.Session);
     bool isAdministrator = CompteService.HasRole(HttpContextAccessor.HttpContext.Session, RankEnum.Administrator);
+    bool isFinance = CompteService.HasRole(HttpContextAccessor.HttpContext.Session, RankEnum.Finance);
+    bool isUser = CompteService.HasRole(HttpContextAccessor.HttpContext.Session, RankEnum.User);
+    bool isManager = CompteService.HasRole(HttpContextAccessor.HttpContext.Session, RankEnum.Manager);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -35,42 +38,78 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Projet" asp-action="List">Projets</a>
-                            </li>
+                            @if (isManager)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Projet" asp-action="List">Projets</a>
+                                </li>
+                            }
+                            @if (isAdministrator)
+                            {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Sujet" asp-action="List">Sujets</a>
                             </li>
+                            }
+                            @if (isUser)
+                            {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Evaluation" asp-action="Liste">Evaluation</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Rapport" asp-action="Index">Rapport d'activité</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Mission" asp-action="Index">Missions</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Frais" asp-action="Index">Frais</a>
-                            </li>
-                            @if (isAdministrator)
+                            }
+
+                            @if (isUser)
                             {
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">Administration</a>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Gestion d'utilisateurs</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Compte" asp-action="Index">Gestion des comptes</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Gestion des rôles</a>
-                                        <a class="dropdown-item" asp-area="" asp-controller="Configuration" asp-action="Index">Gestion des configurations</a>
-                                    </div>
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Rapport" asp-action="List">Rapport d'activité</a>
                                 </li>
                             }
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Absence" asp-action="Index">Absences</a>
-                            </li>
-                        }
+                            @if (isManager || isUser)
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Rapport" asp-action="Valider">Validation des rapports</a>
+                                </li>
+                            }
 
-                    </ul>
+                                @if (isManager || isUser)
+                                {
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Mission" asp-action="Index">Missions</a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Frais" asp-action="Index">Frais</a>
+                                    </li>
+                                }
+                                @if (isFinance)
+                                {
+
+                                    <li class="nav-item">
+                                        <a class="nav-link text-dark" asp-area="" asp-controller="Frais" asp-action="Index2">Remboursement</a>
+                                    </li>
+                                }
+
+
+
+
+
+                                @if (isAdministrator)
+                                {
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">Administration</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Gestion d'utilisateurs</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Compte" asp-action="Index">Gestion des comptes</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Gestion des rôles</a>
+                                            <a class="dropdown-item" asp-area="" asp-controller="Configuration" asp-action="Index">Gestion des configurations</a>
+                                        </div>
+                                    </li>
+                                }
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Absence" asp-action="Index">Absences</a>
+                                </li>
+                            }
+
+                        </ul>
                 </div>
                 @if (connected)
                 {

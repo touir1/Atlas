@@ -1,67 +1,85 @@
-﻿@model Atlas_frontend.Models.FraisModel
+﻿@using Microsoft.AspNetCore.Http
+@using Atlas_frontend.Services
+@inject ICompteService CompteService
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    bool connected = CompteService.HasRole(HttpContextAccessor.HttpContext.Session,"Manager");
+}
+
+
+
+@model Atlas_frontend.Models.FraisModel
 
 @{
     ViewData["Title"] = "Edit";
 }
-    <div class="card">
-        <div class="card-header" style="text-align:center">
-            Frais
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Modifier frais</h5>
-          <form asp-action="Edit">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group">
-                    <label asp-for="Type" class="control-label"></label>
-                    <input asp-for="Type" class="form-control" />
-                    <span asp-validation-for="Type" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Status" class="control-label"></label>
-                    @Html.DropDownList("Status", new SelectList(new string[] { "En cours", "Validé", "Refusé" }, Model.Status), new { @class = "form-control" })
-                    <span asp-validation-for="Status" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Description" class="control-label"></label>
-                    <input asp-for="Description" class="form-control" />
-                    <span asp-validation-for="Description" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Justifiatiffile" class="control-label"></label>
-                    <div class="custom-file">
-                        <input asp-for="Justifiatiffile" class="custom-file-input" id="customFile">
-                        <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                    <span asp-validation-for="Justifiatiffile" class="text-danger"></span>
-                </div>
-
-                <div class="form-group form-check">
-                    <label class="form-check-label">
-                        <input class="form-check-input" asp-for="Remboursable" /> @Html.DisplayNameFor(model => model.Remboursable)
-                    </label>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Frais" class="control-label"></label>
-                    <input asp-for="Frais" class="form-control" />
-                    <span asp-validation-for="Frais" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="Mission" class="control-label"></label>
-                    @Html.DropDownList("missionId",
-            new SelectList(ViewBag.listmission, "Id", "Description", Model.Mission.Description), new { @class = "form-control" })
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="User" class="control-label"></label>
-                    @Html.DropDownList("userId",
-            new SelectList(ViewBag.userlist, "Id", "FullName", Model.User.Id), new { @class = "form-control", disabled = "disabled", @name = "userID" })
-                </div>
-                <div class="form-group" style="text-align:center">
-                    <input type="submit" value="Modifier" class="btn btn-warning" />
-                </div>
-            </form>
-        </div>
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        Frais
     </div>
+    <div class="card-body">
+        <h5 class="card-title">Modifier frais</h5>
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                <input asp-for="Type" class="form-control" />
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+     @if (connected == true)
+     {
+            <div class="form-group">
+                <label asp-for="Status" class="control-label"></label>
+                @Html.DropDownList("Status", new SelectList(new string[] { "En cours", "Validé", "Refusé" }, Model.Status), new { @class = "form-control" })
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+
+     }
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Justifiatiffile" class="control-label"></label>
+                <div>
+                <a href="~/images/justificatifs/@Model.Justificatif" target="_blank">Télécharger le justificatif</a>
+             </div>
+                <div class="custom-file">
+                    <br />
+                    <input asp-for="Justifiatiffile" class="custom-file-input" id="customFile">
+                    <label class="custom-file-label" for="customFile">Choose file</label>
+                </div>
+                <span asp-validation-for="Justifiatiffile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Remboursable" /> @Html.DisplayNameFor(model => model.Remboursable)
+                </label>
+            </div>
+            <div class="form-group">
+                <label asp-for="Frais" class="control-label"></label>
+                <input asp-for="Frais" class="form-control" />
+                <span asp-validation-for="Frais" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mission" class="control-label"></label>
+                @Html.DropDownList("missionId",
+        new SelectList(ViewBag.listmission, "Id", "Description", Model.Mission.Description), new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label asp-for="User" class="control-label"></label>
+                @Html.DropDownList("userId",
+        new SelectList(ViewBag.userlist, "Id", "FullName", Model.User.Id), new { @class = "form-control", disabled = "disabled", @name = "userID" })
+            </div>
+            <div class="form-group" style="text-align:center">
+                <input type="submit" value="Modifier" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
 
 <div>
     <a class="btn btn-link" asp-action="Index">Retour à la liste des frais </a>

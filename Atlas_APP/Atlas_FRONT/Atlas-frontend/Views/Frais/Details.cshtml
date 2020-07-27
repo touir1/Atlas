@@ -1,81 +1,91 @@
-﻿@model Atlas_frontend.Models.FraisModel
+﻿@using Microsoft.AspNetCore.Http
+@using Atlas_frontend.Services
+@inject ICompteService CompteService
+@inject IHttpContextAccessor HttpContextAccessor
+@{
+    bool connected = CompteService.HasRole(HttpContextAccessor.HttpContext.Session,"Manager,user");
+}
+
+@model Atlas_frontend.Models.FraisModel
 
 @{
     ViewData["Title"] = "Details";
 }
+@if (connected == true)
+{
+<div class="card">
+    <div class="card-header" style="text-align:center">
+        Détails d'un frais
+    </div>
+    <div class="card-body">
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Type)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Type)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Status)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Status)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Justificatif)
+            </dt>
+            <dd class="col-sm-10">
+                <a href="~/images/justificatifs/@Model.Justificatif" target="_blank">Télécharger le justificatif</a>
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Remboursable)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Remboursable)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Frais)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Frais)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mission.Projet)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mission.Projet.Titre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Mission.Description)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Mission.Description)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.User)
+            </dt>
+            <dd class="col-sm-10">
+                @if (Model.User != null)
+                {
+                    @Html.DisplayFor(model => model.User.FullName)}
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <div class="form-group" style="text-align:center">
+            @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
+        </div>
+    </div>
 
-    <div class="card">
-        <div class="card-header" style="text-align:center">
-            Détails d'un frais
-        </div>
-        <div class="card-body">
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Type)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Type)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Status)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Status)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Description)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Description)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Justificatif)
-                </dt>
-                <dd class="col-sm-10">
-                    <a href="~/images/justificatifs/@Model.Justificatif" target="_blank">Télécharger le justificatif</a>
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Remboursable)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Remboursable)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Frais)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Frais)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Mission.Projet)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Mission.Projet.Titre)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Mission.Description)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.DisplayFor(model => model.Mission.Description)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.User)
-                </dt>
-                <dd class="col-sm-10">
-                    @if (Model.User != null)
-                    {
-                        @Html.DisplayFor(model => model.User.FullName)}
-                </dd>
-            </dl>
-        </div>
-        <div>
-            <div class="form-group" style="text-align:center">
-                @Html.ActionLink("Modifier", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" })
-                </div>
-            </div>
-         
-        </div>
+</div>
 <br />
 <div>
     <a asp-action="Index">Retour à la liste des frais </a>
 </div>
+}

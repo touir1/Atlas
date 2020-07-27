@@ -5,9 +5,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Atlas_frontend.Models;
 using Atlas_frontend.Services;
+using Atlas_frontend.Utils.Mail;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Rotativa;
 
 namespace Atlas_frontend.Controllers
 {
@@ -19,8 +21,9 @@ namespace Atlas_frontend.Controllers
         private IUserService _userService;
         private IFraisService _fraisService;
         private IWebHostEnvironment _webHostEnvironment;
+        private IMailService _mailService;
 
-        public FraisController(IMissionService missionService, IProjetService projetService, ICompteService compteService, IUserService userService,IFraisService fraisService, IWebHostEnvironment hostEnvironment)
+        public FraisController(IMissionService missionService, IProjetService projetService, ICompteService compteService, IUserService userService,IFraisService fraisService, IWebHostEnvironment hostEnvironment, IMailService mailService)
         {
             _missionService = missionService;
             _projetService = projetService;
@@ -28,6 +31,7 @@ namespace Atlas_frontend.Controllers
             _userService = userService;
             _fraisService = fraisService;
             _webHostEnvironment = hostEnvironment;
+            _mailService = mailService;
         }
 
         // GET: Frais
@@ -80,6 +84,8 @@ namespace Atlas_frontend.Controllers
                 string uniqueFileName = UploadedFile(model);
                 model.Justificatif = uniqueFileName;
                 model.Mission = new MissionModel { Id = missionId };
+                UserModel userSelected =await _userService.GetAsync(HttpContext.Session, userId);
+                model.User = userSelected;
 
                 await  _fraisService.AddAsync(HttpContext.Session,model);
                 return RedirectToAction("Index");
@@ -105,9 +111,8 @@ namespace Atlas_frontend.Controllers
             List<MissionModel> result = await _missionService.GetListAsync(HttpContext.Session);
             ViewBag.listmission = result ?? new List<MissionModel>();
             List<UserModel> listusers = await _userService.GetListUserByManagerAsync(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
-            listusers = listusers ?? new List<UserModel>();
             listusers.Add(compte.User);
-            ViewBag.userlist = listusers;
+            ViewBag.userlist = listusers ?? new List<UserModel>();
 
             FraisModel fees = await _fraisService.GetAsync(HttpContext.Session, id);
             ViewData.Model = fees;
@@ -182,9 +187,15 @@ namespace Atlas_frontend.Controllers
             FraisModel frais = await _fraisService.GetAsync(HttpContext.Session,id);
             frais.Status = "Remboursé";
             await _fraisService.UpdateAsync(HttpContext.Session, frais);
+            await _mailService.SendMailAsync(HttpContext.Session, frais.User.Email, "[Atlast] Remboursement","",false);
+            
             return RedirectToAction("Index2");
         }
 
+      //  public ActionResult GeneratePDF()
+       // {
+          //  return new ActionasPDF("Details");
+        //}
 
         private string UploadedFile(FraisModel model)
         {
