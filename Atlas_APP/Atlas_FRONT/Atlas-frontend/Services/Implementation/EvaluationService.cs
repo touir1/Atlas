@@ -38,7 +38,7 @@ namespace Atlas_frontend.Services.Implementation
 
         public async Task<List<EvaluationModel>> GetListEvalByUser(ISession session, long idUser)
         {
-            var result = await _client.GetAsync<List<EvaluationModel>>(session, $"{_baseServiceUrl}/Members/{idUser}");
+            var result = await _client.GetAsync<List<EvaluationModel>>(session, $"{_baseServiceUrl}/Members/User/{idUser}");
             return result.Result;
         }
     }

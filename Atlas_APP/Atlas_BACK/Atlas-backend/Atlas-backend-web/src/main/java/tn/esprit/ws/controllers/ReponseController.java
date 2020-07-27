@@ -105,5 +105,23 @@ public class ReponseController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	
+	@GET
+	//@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of responce by eval")
+	@Path("Evaluation/{idEvaluation}")
+	public Response getReponseByEval(@PathParam("idEvaluation")  long idEvaluation) {
+		try {
+			return Response.status(Status.OK).entity(service.getReponseByEval(idEvaluation)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of reponse by eval", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 }
+
+
+

@@ -1,0 +1,46 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+    var list = ViewBag.lstEval;
+}
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006288/BBBootstrap/choices.min.css?version=7.0.0">
+<script src="https://res.cloudinary.com/dxfq3iotg/raw/upload/v1569006273/BBBootstrap/choices.min.js?version=7.0.0"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<style>
+    .hiddenElement {
+        display: none;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        Evaluation
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Votre évaluation</h5>
+        <br /><br />
+    </div>
+    @foreach(ReponsePass item in list)
+    {
+        <label>@item.questions.Libelle</label>
+        @if(item.choix.Count == 0)
+        {
+            <input type="text" />
+        }
+        else if(item.questions.Type == "CheckBox")
+        {
+            <select>
+                @foreach(ChoixModel elem in item.choix)
+                {
+                <option>elem.</option>
+                }
+            </select>
+        }
+
+
+    }
+</div>

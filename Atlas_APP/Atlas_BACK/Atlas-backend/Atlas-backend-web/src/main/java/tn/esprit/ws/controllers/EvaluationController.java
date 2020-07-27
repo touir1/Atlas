@@ -152,7 +152,7 @@ public class EvaluationController {
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
 	@ApiOperation(value = "get the list of evaluation by user")
-	@Path("Members/{idUser}")
+	@Path("Members/User/{idUser}")
 	public Response getListEvalByUser(@PathParam("idUser")  long idUser) {
 		try {
 			return Response.status(Status.OK).entity(service.getEvalByUser(idUser)).build();

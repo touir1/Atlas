@@ -10,6 +10,7 @@ namespace Atlas_frontend.Controllers
 
 
 {
+
     public class SujetController : Controller
     {
         private ISujetService _sujetService;
@@ -32,7 +33,7 @@ namespace Atlas_frontend.Controllers
             return View();
         }
         // GET: /<controller>/
-        public async Task<IActionResult> ListAsync()
+        public async Task<IActionResult> ListeAsync()
         {
             //GET LIST OF USER By manager
 
@@ -51,7 +52,7 @@ namespace Atlas_frontend.Controllers
 
 
                 SujetModel suj = await _sujetService.AddAsync(HttpContext.Session, sujet);
-                return RedirectToAction("List", "Sujet");
+                return RedirectToAction("Liste", "Sujet");
             }
             catch (Exception e)
             {
@@ -121,7 +122,7 @@ namespace Atlas_frontend.Controllers
 
                 await _sujetService.UpdateAsync(HttpContext.Session, sujets);
 
-                return RedirectToAction("List", "Sujet");
+                return RedirectToAction("Liste", "Sujet");
             }
             catch (Exception e)
             {
@@ -137,7 +138,7 @@ namespace Atlas_frontend.Controllers
             try
             {
                 await _sujetService.DeleteAsync(HttpContext.Session, id);
-                return RedirectToAction("List", "Sujet");
+                return RedirectToAction("Liste", "Sujet");
             }
             catch
             {

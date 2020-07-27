@@ -17,6 +17,7 @@ using Atlas_frontend.Services.Implementation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Atlas_frontend.Utils.Mail;
+using Atlas_frontend.Service;
 
 namespace Atlas_frontend
 {

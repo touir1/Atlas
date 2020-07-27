@@ -33,13 +33,13 @@
                 {
                     <tr>
                         <td>@sujet.Titre</td>
-                        <td>@sujet.CreatedBy</td>
+                        <td>@sujet.User</td>
                         <td>@sujet.Status</td>
 
                         <td>
 
-                            @Html.ActionLink("Modifier", "Edit", new { id = sujet.Id }, new { @class = "btn btn-primary" }) |
-                            @Html.ActionLink("Supprimer", "Delete", new { id = sujet.Id }, new { @class = "btn btn-danger" })
+                            @Html.ActionLink("Répondre", "view", new { id = sujet.Id }, new { @class = "btn btn-primary" }) 
+                           
 
 
                         </td>

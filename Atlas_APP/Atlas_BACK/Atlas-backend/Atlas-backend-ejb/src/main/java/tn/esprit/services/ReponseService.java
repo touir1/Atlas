@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import tn.esprit.entity.Choix;
 import tn.esprit.entity.Reponse;
 import tn.esprit.interfaces.IReponseService;
 
@@ -63,6 +64,13 @@ public class ReponseService implements IReponseService {
 	@Override
 	public Reponse update(Reponse a) {
 		return em.merge(a);
+	}
+
+	@Override
+	public List<Reponse> getReponseByEval(long idEvaluation) {
+		return em.createQuery("select c from Reponse c join c.evaluation q where q.id = :evaluation",Reponse.class)
+				.setParameter("evaluation", idEvaluation)
+				.getResultList();
 	}
 
 }

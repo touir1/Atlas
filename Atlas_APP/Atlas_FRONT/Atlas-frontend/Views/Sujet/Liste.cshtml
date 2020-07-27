@@ -1,6 +1,7 @@
 ﻿
 @{
     var list = ViewBag.lstsujets;
+   
 }
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
@@ -291,7 +292,7 @@ return row;
                 dataType: "json",
                   data: { questions: data, sujet: sujet },
                 success: function (data, status, xhr) {
-                    window.location.href = "@Url.Action("List","Sujet")";
+                    window.location.href = "@Url.Action("Liste","Sujet")";
                 },
                 error: function () {
                     alert("An error has occured!!!");

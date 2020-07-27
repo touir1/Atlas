@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Choix;
+import tn.esprit.entity.Evaluation;
 import tn.esprit.interfaces.IChoixService;
 
 @Stateless
@@ -36,6 +37,7 @@ public class ChoixService implements IChoixService {
 		}catch(Exception e) {
 			return false;	
 		}
+		
 	}
 
 	@Override
@@ -52,5 +54,13 @@ public class ChoixService implements IChoixService {
 	@Override
 	public Choix update(Choix a) {
 		return em.merge(a);
+	}
+
+	@Override
+	public List<Choix> getChoixByQuestion(long idQuestion) {
+		// TODO Auto-generated method stub
+		return em.createQuery("select c from Choix c join c.question q where q.id = :question",Choix.class)
+				.setParameter("question", idQuestion)
+				.getResultList();
 	}
 }

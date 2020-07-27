@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Atlas_frontend.Models;
+using Atlas_frontend.Service;
 using Atlas_frontend.Services;
 using Atlas_frontend.Services.Implementation;
 using Microsoft.AspNetCore.Mvc;

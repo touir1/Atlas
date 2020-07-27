@@ -104,5 +104,20 @@ public class ChoixController {
 			return Response.status(Status.BAD_REQUEST).build();
 		}
 	}
+	
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of choix by question")
+	@Path("Question/{idQuestion}")
+	public Response getChoixByQuestion(@PathParam("idQuestion")  long idQuestion) {
+		try {
+			return Response.status(Status.OK).entity(service.getChoixByQuestion(idQuestion)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of choice by question", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 
 }
