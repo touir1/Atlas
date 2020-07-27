@@ -1,0 +1,134 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<RapportModel> lstRapportWeek = ViewBag.rapports;
+
+}
+<style>
+    .hiddenElement {
+        display: none;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        Rapport
+    </div>
+    <div class="card-body">
+
+
+        <h2>
+        </h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Projet</th>
+                    <th scope="col">Rubrique</th>
+                    <th scope="col">Lundi</th>
+                    <th scope="col">Mardi</th>
+                    <th scope="col">Mercredi</th>
+                    <th scope="col">Jeudi</th>
+                    <th scope="col">Vendredi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tbody class="tabbody">
+                <tr class="TabActivite hiddenElement">
+                    <td id="nameProjet" data-element="test">Test</td>
+                    <td id="nameRubrique" data-element="test">Test</td>
+                    <td><input class="input_duree input_duree_lundi" type="number" name="DureeLundi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_mardi" type="number" name="DureeMardi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_mercredi" type="number" name="DureeMercredi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_jeudi" type="number" name="DureeJeudi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_vendredi" type="number" name="DureeVendredi" value="0" style="width: 100px;" /></td>
+
+                </tr>
+                @foreach (RapportModel custom in lstRapportWeek)
+                {
+                    <tr class="TabActivite">
+                        <td id="nameProjet" data-element='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(custom.Rubrique.Projet))'>@custom.Rubrique.Projet.Titre</td>
+                        <td id="nameRubrique" data-element='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(custom.Rubrique))'>@custom.Rubrique.Titre</td>
+                        <td><input class="input_duree input_duree_lundi" type="number" name="DureeLundi" value="@custom.LundiDuree" style="width: 100px;" disabled /></td>
+                        <td><input class="input_duree input_duree_mardi" type="number" name="DureeMardi" value="@custom.MardiDuree" style="width: 100px;" disabled/></td>
+                        <td><input class="input_duree input_duree_mercredi" type="number" name="DureeMercredi" value="@custom.MercrediDuree" style="width: 100px;" disabled/></td>
+                        <td><input class="input_duree input_duree_jeudi" type="number" name="DureeJeudi" value="@custom.JeudiDuree" style="width: 100px;" disabled/></td>
+                        <td><input class="input_duree input_duree_vendredi" type="number" name="DureeVendredi" value="@custom.VendrediDuree" style="width: 100px;" disabled/></td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <table class="table">
+            <tr class="tabbody">
+                <td></td>
+                <td></td>
+                <td><input type="number" class="input_total" id="DureeLundiTotal" value="0" style="width: 100px;margin-left: 186px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeMardiTotal" value="0" style="width: 100px;margin-left: -133px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeMercrediTotal" value="0" style="width: 100px;margin-right: 0px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeJeudiTotal" value="0" style="width: 100px;margin-left: -6px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeVendrediTotal" value="0" style="width: 100px;margin-left: -46px;background-color:yellow" disabled></td>
+            </tr>
+        </table>
+   
+
+        <div id="error">
+
+        </div>
+
+    </div>
+</div>
+@section Scripts {
+    <script>
+        updateTotal();
+
+        function updateTotal() {
+            var lundi = 0,
+                mardi = 0,
+                mercredi = 0,
+                jeudi = 0,
+                vendredi = 0;
+            $('.input_duree_lundi').each(function (e) {
+                lundi += parseInt($(this).val());
+            });
+            $('.input_duree_mardi').each(function (e) {
+                mardi += parseInt($(this).val());
+            });
+            $('.input_duree_mercredi').each(function (e) {
+                mercredi += parseInt($(this).val());
+            });
+            $('.input_duree_jeudi').each(function (e) {
+                jeudi += parseInt($(this).val());
+            });
+            $('.input_duree_vendredi').each(function (e) {
+                vendredi += parseInt($(this).val());
+            });
+            $('#DureeLundiTotal').val(lundi);
+            changeBackgroundColor($('#DureeLundiTotal'), lundi);
+            $('#DureeMardiTotal').val(mardi);
+            changeBackgroundColor($('#DureeMardiTotal'), mardi);
+            $('#DureeMercrediTotal').val(mercredi);
+            changeBackgroundColor($('#DureeMercrediTotal'), mercredi);
+            $('#DureeJeudiTotal').val(jeudi);
+            changeBackgroundColor($('#DureeJeudiTotal'), jeudi);
+            $('#DureeVendrediTotal').val(vendredi);
+            changeBackgroundColor($('#DureeVendrediTotal'), vendredi);
+
+        }
+        function changeBackgroundColor(element, val) {
+            if (val < 8) {
+                element.css('background-color', 'yellow');
+            }
+            else if (val == 8) {
+                element.css('background-color', 'lightgreen');
+            }
+            else {
+                element.css('background-color', 'red');
+            }
+        }
+
+
+
+    </script>
+
+}

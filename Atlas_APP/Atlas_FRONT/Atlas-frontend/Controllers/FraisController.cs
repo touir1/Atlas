@@ -9,7 +9,7 @@ using Atlas_frontend.Utils.Mail;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Rotativa;
+
 
 namespace Atlas_frontend.Controllers
 {

@@ -15,7 +15,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 @Entity
 public class Rapport implements Serializable {
 
-	private boolean valider;
+	private Boolean valider;
 	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
 	@Column(nullable = false)
 	private Date dateCreation;
@@ -23,15 +23,17 @@ public class Rapport implements Serializable {
 	@Column(nullable = false)
 	private Date dateImputation;
 	@Column(nullable = false)
-	private Integer semaine;
-	@Column(nullable = false)
 	private Integer mois;
 	@Column(nullable = false)
-	private Integer annee;
+	private Float dureeLundi;
 	@Column(nullable = false)
-	private Integer joursSemaine;
+	private Float dureeMardi;
 	@Column(nullable = false)
-	private Float duree;
+	private Float dureeMercredi;
+	@Column(nullable = false)
+	private Float dureeJeudi;
+	@Column(nullable = false)
+	private Float dureeVendredi;
 
 	@Id
 	@ManyToOne
@@ -39,6 +41,14 @@ public class Rapport implements Serializable {
 	@Id
 	@ManyToOne
 	private Rubrique rubrique;
+	@Column(nullable = true)
+	private Integer joursSemaine;
+	@Column(nullable = false)
+	@Id
+	private Integer annee;
+	@Column(nullable = false)
+	@Id
+	private Integer semaine;
 
 	public Rapport(User user, Rubrique rubrique) {
 		super();
@@ -46,17 +56,87 @@ public class Rapport implements Serializable {
 		this.rubrique = rubrique;
 	}
 
-	public Rapport(Boolean valider, Date dateCreation, Date dateImputation, Integer semaine, Integer mois,
-			Integer joursSemaine, Float duree) {
+
+
+	public Rapport(Boolean valider, Date dateCreation, Date dateImputation, Integer mois, Float dureeLundi,
+			Float dureeMardi, Float dureeMercredi, Float dureeJeudi, Float dureeVendredi, Integer joursSemaine,
+			Integer annee, Integer semaine) {
 		super();
 		this.valider = valider;
 		this.dateCreation = dateCreation;
 		this.dateImputation = dateImputation;
-		this.semaine = semaine;
 		this.mois = mois;
+		this.dureeLundi = dureeLundi;
+		this.dureeMardi = dureeMardi;
+		this.dureeMercredi = dureeMercredi;
+		this.dureeJeudi = dureeJeudi;
+		this.dureeVendredi = dureeVendredi;
 		this.joursSemaine = joursSemaine;
-		this.duree = duree;
+		this.annee = annee;
+		this.semaine = semaine;
 	}
+
+
+
+	public Float getDureeLundi() {
+		return dureeLundi;
+	}
+
+
+
+	public void setDureeLundi(Float dureeLundi) {
+		this.dureeLundi = dureeLundi;
+	}
+
+
+
+	public Float getDureeMardi() {
+		return dureeMardi;
+	}
+
+
+
+	public void setDureeMardi(Float dureeMardi) {
+		this.dureeMardi = dureeMardi;
+	}
+
+
+
+	public Float getDureeMercredi() {
+		return dureeMercredi;
+	}
+
+
+
+	public void setDureeMercredi(Float dureeMercredi) {
+		this.dureeMercredi = dureeMercredi;
+	}
+
+
+
+	public Float getDureeJeudi() {
+		return dureeJeudi;
+	}
+
+
+
+	public void setDureeJeudi(Float dureeJeudi) {
+		this.dureeJeudi = dureeJeudi;
+	}
+
+
+
+	public Float getDureeVendredi() {
+		return dureeVendredi;
+	}
+
+
+
+	public void setDureeVendredi(Float dureeVendredi) {
+		this.dureeVendredi = dureeVendredi;
+	}
+
+
 
 	public Rapport() {
 		super();
@@ -110,13 +190,7 @@ public class Rapport implements Serializable {
 		this.joursSemaine = joursSemaine;
 	}
 
-	public Float getDuree() {
-		return duree;
-	}
 
-	public void setDuree(Float duree) {
-		this.duree = duree;
-	}
 
 	public User getUser() {
 		return user;

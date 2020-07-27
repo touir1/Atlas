@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    List<CustomModel> rapportsHistory = ViewBag.historiqueRapport;
+
+}
+    <div class="card">
+        <div class="card-header">
+            Rapport
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Historique des rapports</h5>
+            <a class="btn btn-success" asp-action="Index" style="margin-left: 88%;">Rapport d'activité </a>
+            <br /> <br />
+            <table class="table">
+               
+                <tbody>
+                    @foreach (CustomModel item in rapportsHistory)
+                    {
+                        <tr>
+                            <td>Semaine @item.Semaine /@item.Annee</td>
+                            <td>@Html.ActionLink("Apperçu", "view", new { semaine = item.Semaine, annee = item.Annee , mois= item.Mois}, new { @class = "btn btn-primary" }) </td>
+                        </tr>
+                       
+
+                    }
+
+                </tbody>
+            </table>
+        </div>
+</div>

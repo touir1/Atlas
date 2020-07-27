@@ -14,7 +14,7 @@ namespace Atlas_frontend.Services.Implementation
         {
         }
 
-        public async Task<List<RubriqueModel>> GetListRubriqueByUser(ISession session, long? idProjet)
+        public async Task<List<RubriqueModel>> GetListRubriqueByProjet(ISession session, long? idProjet)
         {
             RestApiResponse<List<RubriqueModel>> result = await _client.GetAsync<List<RubriqueModel>>(session, $"rubrique/byProjet/{idProjet}");
             return result.Result;

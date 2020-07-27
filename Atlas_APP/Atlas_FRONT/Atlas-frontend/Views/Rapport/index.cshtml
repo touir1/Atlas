@@ -7,6 +7,7 @@
     var year = ViewBag.year;
     var fdow = ViewBag.fdow;
     var start = ViewBag.start;
+    List<RapportModel> lstRapportWeek = ViewBag.lstRapportWeek;
 
     List<ProjetModel> projets = ViewBag.projets;
 
@@ -18,81 +19,104 @@
         display: none;
     }
 </style>
-<p>@WeekOfYear</p>
-<p>@DayOfweek</p>
-<p>@monthOfYear</p>
-<p>@year</p>
-<p>@fdow</p>
-<p>@start</p>
-<p>@start</p>
-<div>
+<div class="card">
+    <div class="card-header">
+        Rapport Semaine @WeekOfYear
+    </div>
+    <div class="card-body">
+        <div>
 
-    <select class="form-control" id="Projet" name="StudentGender">
+            <select class="form-control" id="Projet" name="StudentGender">
 
-        <option>Selectionnez un projet</option>
-        @foreach (ProjetModel membre in projets)
-        {
-            <option value="@Newtonsoft.Json.JsonConvert.SerializeObject(membre)">@membre.Titre</option>
-           
-        }
+                <option>Selectionnez un projet</option>
+                @foreach (ProjetModel membre in projets)
+                {
+                    <option value='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(membre))'>@membre.Titre</option>
 
-    </select>
-    <br />
-    <select class="form-control" id="Rubrique" name="StudentGender">
-        
-    </select>
-    <br />
-    <button onclick="addRapport()" class="btn btn-primary">Ajouter</button>
-    
+                }
+
+            </select>
+            <br />
+            <select class="form-control" id="Rubrique" name="StudentGender">
+            </select>
+            <br />
+            <button onclick="addRapport()" class="btn btn-primary">Ajouter</button>
+
+        </div>
+
+        <h2>
+        </h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Projet</th>
+                    <th scope="col">Rubrique</th>
+                    <th scope="col">Lundi</th>
+                    <th scope="col">Mardi</th>
+                    <th scope="col">Mercredi</th>
+                    <th scope="col">Jeudi</th>
+                    <th scope="col">Vendredi</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tbody class="tabbody">
+                <tr class="TabActivite hiddenElement">
+                    <td id="nameProjet" data-element="test">Test</td>
+                    <td id="nameRubrique" data-element="test">Test</td>
+                    <td><input class="input_duree input_duree_lundi" type="number" name="DureeLundi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_mardi" type="number" name="DureeMardi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_mercredi" type="number" name="DureeMercredi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_jeudi" type="number" name="DureeJeudi" value="0" style="width: 100px;" /></td>
+                    <td><input class="input_duree input_duree_vendredi" type="number" name="DureeVendredi" value="0" style="width: 100px;" /></td>
+
+                </tr>
+                @foreach (RapportModel custom in lstRapportWeek)
+                {
+                    <tr class="TabActivite">
+                        <td id="nameProjet" data-element='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(custom.Rubrique.Projet))'>@custom.Rubrique.Projet.Titre</td>
+                        <td id="nameRubrique" data-element='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(custom.Rubrique))'>@custom.Rubrique.Titre</td>
+                        <td><input class="input_duree input_duree_lundi" type="number" name="DureeLundi" value="@custom.LundiDuree" style="width: 100px;" /></td>
+                        <td><input class="input_duree input_duree_mardi" type="number" name="DureeMardi" value="@custom.MardiDuree" style="width: 100px;" /></td>
+                        <td><input class="input_duree input_duree_mercredi" type="number" name="DureeMercredi" value="@custom.MercrediDuree" style="width: 100px;" /></td>
+                        <td><input class="input_duree input_duree_jeudi" type="number" name="DureeJeudi" value="@custom.JeudiDuree" style="width: 100px;" /></td>
+                        <td><input class="input_duree input_duree_vendredi" type="number" name="DureeVendredi" value="@custom.VendrediDuree" style="width: 100px;" /></td>
+
+                    </tr>
+
+                }
+            </tbody>
+        </table>
+        <table class="table">
+            <tr class="tabbody">
+                <td></td>
+                <td></td>
+                <td><input type="number" class="input_total" id="DureeLundiTotal" value="0" style="width: 100px;margin-left: 186px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeMardiTotal" value="0" style="width: 100px;margin-left: -133px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeMercrediTotal" value="0" style="width: 100px;margin-right: 0px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeJeudiTotal" value="0" style="width: 100px;margin-left: -6px;background-color:yellow" disabled></td>
+                <td><input type="number" class="input_total" id="DureeVendrediTotal" value="0" style="width: 100px;margin-left: -46px;background-color:yellow" disabled></td>
+            </tr>
+        </table>
+        <button class="btn btn-dark" onclick="saveRubrique()">Valider</button>
+        <div id="error">
+
+        </div>
+
+    </div>
 </div>
-<h2>
-    Semaine @WeekOfYear
-</h2>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Projet</th>
-            <th scope="col">Rubrique</th>
-            <th scope="col">Lundi</th>
-            <th scope="col">Mardi</th>
-            <th scope="col">Mercredi</th>
-            <th scope="col">Jeudi</th>
-            <th scope="col">Vendredi</th>
-        </tr>
-    </thead>
-    <tbody>
-    <tbody class="tabbody">
-        <tr class="TabActivite hiddenElement">
-            <td id="nameProjet">Test</td>
-            <td id="nameRubrique">Test</td>
-            <td><input class="input_duree input_duree_lundi" type="number" name="DureeLundi" value="0" style="width: 100px;" /></td>
-            <td><input class="input_duree input_duree_mardi" type="number" name="DureeMardi" value="0" style="width: 100px;" /></td>
-            <td><input class="input_duree input_duree_mercredi" type="number" name="DureeMercredi" value="0" style="width: 100px;" /></td>
-            <td><input class="input_duree input_duree_jeudi" type="number" name="DureeJeudi" value="0" style="width: 100px;" /></td>
-            <td><input class="input_duree input_duree_vendredi" type="number" name="DureeVendredi" value="0" style="width: 100px;" /></td>
 
-        </tr>
-    </tbody>
-</table>
-<table class="table">
-    <tr class="tabbody">
-        <td></td>
-        <td></td>
-        <td><input type="number" class="input_total" id="DureeLundiTotal" value="0" style="width: 100px;margin-left: 186px;background-color:yellow" disabled></td>
-        <td><input type="number" class="input_total" id="DureeMardiTotal" value="0" style="width: 100px;margin-left: -133px;background-color:yellow"disabled></td>
-        <td><input type="number" class="input_total" id="DureeMercrediTotal" value="0" style="width: 100px;margin-right: 0px;background-color:yellow"disabled></td>
-        <td><input type="number" class="input_total" id="DureeJeudiTotal" value="0" style="width: 100px;margin-left: -6px;background-color:yellow"disabled></td>
-        <td><input type="number" class="input_total" id="DureeVendrediTotal" value="0" style="width: 100px;margin-left: -46px;background-color:yellow"disabled></td>
-    </tr>
-</table>
-<button class="btn btn-dark" onclick="saveRubrique()">Valider</button>
-<div id="error">
-
-</div>
 @section Scripts {
     <script>
 
-        var tab = [];
+        var tab = @Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(lstRapportWeek));
+        updateTotal()
+        $(".input_duree").on('change', function (e) {
+            e.preventDefault();
+            updateTotal();
+        });
+        console.log(tab)
+
+
         document.getElementById('Projet').addEventListener('change', function () {
             var projet = JSON.parse(document.getElementById('Projet').value);
             console.log(projet);
@@ -129,7 +153,7 @@
             var exist = false;
             var i = 0;
             while ( i < tab.length && exist == false) {
-                if (tab[i].projet.id == el.projet.id && tab[i].rubrique.id == el.rubrique.id ) {
+                if (tab[i].rubrique.projet.id == el.projet.id && tab[i].rubrique.id == el.rubrique.id ) {
                     exist = true;
                     i++;
 
@@ -143,9 +167,26 @@
                 var newRow = document.getElementsByClassName('TabActivite')[0].cloneNode(true);
                 newRow.classList.remove("hiddenElement");
                 newRow.children[0].innerText = el.projet.titre;
-                newRow.children[0].value = JSON.stringify(el.projet);
                 newRow.children[1].innerText = el.rubrique.titre;
-                newRow.children[1].value = JSON.stringify(el.rubrique);
+
+                if (@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(lstRapportWeek)) != '') {
+                    try {
+                        newRow.children[0].data("element", JSON.stringify(el.projet));
+                        newRow.children[1].data("element", JSON.stringify(el.rubrique));
+                    } catch (e) {
+                        $(newRow.children[0]).data("element", JSON.stringify(el.projet));
+                        $(newRow.children[1]).data("element", JSON.stringify(el.rubrique));
+                    }
+                    
+                } else {
+                    newRow.children[0].setAttribute('data-element', JSON.stringify(el.projet));
+                    newRow.children[0].value = (el.projet);
+                    newRow.children[1].setAttribute('data-element', JSON.stringify(el.rubrique));
+                    newRow.children[1].value = (el.rubrique);
+                }
+
+
+
                 tabTbody.appendChild(newRow);
                 $(".input_duree").on('change', function (e) {
                     e.preventDefault();
@@ -243,11 +284,26 @@
                                     row['semaine'] = @WeekOfYear;
                                     row['mois'] = @monthOfYear;
                                     row['annee'] = @year;
-                                        
+
                                 });
                             }
                             else {
-                                row[columns[i]] = JSON.parse(($(this).val()));
+                                if (@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(lstRapportWeek)) != '') {
+                                    if (typeof ($(this).data("element")) == "string") {
+                                        row[columns[i]] = JSON.parse(($(this).data("element")));
+                                    } else {
+                                        row[columns[i]] = ($(this).data("element"));
+                                    }
+                                } else {
+                                    console.log($(this))
+                                    if (typeof ($(this).data("element")) == "string") {
+                                        row[columns[i]] = JSON.parse(($(this).data("element")));
+                                    } else {
+                                        row[columns[i]] = ($(this).data("element"));
+                                     }
+                                  
+                                }
+
                             }
 
 
@@ -263,8 +319,7 @@
                     dataType: "json",
                     data: { customModel: data },
                     success: function (data, status, xhr) {
-                        console.log(data)
-
+                        window.location.href = "@Url.Action("List","Rapport")";  
                     },
                     error: function () {
                         alert("An error has occured!!!");

@@ -26,12 +26,19 @@ namespace Atlas_frontend.Models
 
         [JsonProperty("joursSemaine")]
         public int? JoursSemaine { get; set; }
-        [JsonProperty("duree")]
-        public float? Duree { get; set; }
         [JsonProperty("user")]
         public UserModel User { get; set; }
         [JsonProperty("rubrique")]
         public RubriqueModel Rubrique { get; set; }
-
+        [JsonProperty("dureeLundi")]
+        public float LundiDuree { get; set; }
+        [JsonProperty("dureeMardi")]
+        public float MardiDuree { get; set; }
+        [JsonProperty("dureeMercredi")]
+        public float MercrediDuree { get; set; }
+        [JsonProperty("dureeJeudi")]
+        public float JeudiDuree { get; set; }
+        [JsonProperty("dureeVendredi")]
+        public float VendrediDuree { get; set; }
     }
 }

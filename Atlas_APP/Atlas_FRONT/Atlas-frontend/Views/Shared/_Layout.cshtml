@@ -63,7 +63,7 @@
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Rapport" asp-action="List">Rapport d'activité</a>
                                 </li>
                             }
-                            @if (isManager || isUser)
+                            @if (isManager)
                             {
                                 <li class="nav-item">
                                     <a class="nav-link text-dark" asp-area="" asp-controller="Rapport" asp-action="Valider">Validation des rapports</a>

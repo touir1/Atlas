@@ -37,7 +37,7 @@
                     <td>@membre.Titre</td>
                     <td>@membre.DateCreation</td>
                     <td>@membre.DateCloture</td>
-                    <td>0/255</td>
+                    <td>@membre.EstimationTotal</td>
                     <td><button data-toggle="modal" data-target="#exampleModal" type="button" class="btn btn-info" data-projet='@Html.Raw(@Newtonsoft.Json.JsonConvert.SerializeObject(membre))'>Rubrique</button></td>
                     @if (!membre.Cloturer)
                     {

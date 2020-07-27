@@ -25,7 +25,7 @@ namespace Atlas_frontend.Controllers
         }
         // GET: /<controller>/
         public async Task<IActionResult> Index()
-        {
+        {  
             CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
             List<UserModel> result = await _userService.GetListUserByManagerAsync(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
             ViewBag.lstUser = result ?? new List<UserModel>();
@@ -69,6 +69,15 @@ namespace Atlas_frontend.Controllers
             //GET LIST OF USER By manager 
             CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
             List<ProjetModel> result = await _projetService.GetListProjectByManager(HttpContext.Session, compte.User.Id.GetValueOrDefault(0));
+            foreach(ProjetModel element in result)
+            {
+                List<RubriqueModel> rubriques = await _rubriqueService.GetListRubriqueByProjet(HttpContext.Session, element.Id);
+                foreach(RubriqueModel item in rubriques)
+                {
+                    element.EstimationTotal = element.EstimationTotal + (float)item.Estimation;
+                }
+                
+            }
             ViewBag.lstmanager = result ?? new List<ProjetModel>();
             return View();
         }

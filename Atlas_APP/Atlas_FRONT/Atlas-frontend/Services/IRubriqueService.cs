@@ -9,7 +9,7 @@ namespace Atlas_frontend.Services
 {
     public interface IRubriqueService: IBaseEntityService<RubriqueModel>
     {
-        public Task<List<RubriqueModel>> GetListRubriqueByUser(ISession session, long? idProjet);
+        public Task<List<RubriqueModel>> GetListRubriqueByProjet(ISession session, long? idProjet);
 
     }
 }

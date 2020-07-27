@@ -77,7 +77,20 @@ public class RapportController {
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}
-
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@Path("/rapportAll/{idUser}/{semaine}")
+	@ApiOperation(value = "get list rapport by user & semaine ")
+	public Response getAllRapportsByUser(@PathParam("semaine") int semaine,@PathParam("idUser") long idUser) {
+		try {
+			List<Rapport> reponses = service.getAllRapportByUser(idUser, semaine);
+			return Response.status(Status.OK).entity(reponses).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get a rapport", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
 	@POST
 	@Secured
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -116,6 +129,26 @@ public class RapportController {
 	public Response delete(@PathParam("idUser") long idUser, @PathParam("idRubrique") long idRubrique) {
 		try {
 			service.remove(new Rapport(new User(idUser), new Rubrique(idRubrique)));
+			return Response.status(Status.ACCEPTED).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to delete a rapport", e);
+			return Response.status(Status.BAD_REQUEST).build();
+		}
+	}
+	@GET
+	@Secured
+	@Path("delete/{idUser}/{idRubrique}/{semaine}/{annee}")
+	@ApiOperation(value = "deletes a rapport from the database")
+	public Response delete(@PathParam("idUser") long idUser, @PathParam("idRubrique") long idRubrique,
+			@PathParam("semaine") int semaine,
+			@PathParam("annee") int annee) {
+		try {
+			Rapport rapport = new Rapport();
+			rapport.setUser(new User(idUser));
+			rapport.setRubrique(new Rubrique(idRubrique));
+			rapport.setAnnee(annee);
+			rapport.setSemaine(semaine);
+			service.deleteRapport(rapport);
 			return Response.status(Status.ACCEPTED).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to delete a rapport", e);

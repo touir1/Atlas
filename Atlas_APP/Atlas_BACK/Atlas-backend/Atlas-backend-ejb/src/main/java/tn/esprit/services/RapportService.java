@@ -89,4 +89,35 @@ public class RapportService implements IRapportService {
 		return rapports;
 	}
 
+	@Override
+	public void deleteRapport(Rapport rapport) {
+		try {
+		
+			Rapport toRemove = em.createQuery("select r from Rapport r where r.user.id = :user"
+					+ " and r.rubrique.id = :rubrique and r.semaine= :s and r.annee = :an",Rapport.class)
+					.setParameter("s", rapport.getSemaine())
+					.setParameter("an", rapport.getAnnee())
+					.setParameter("user", rapport.getUser().getId())
+					.setParameter("rubrique", rapport.getRubrique().getId())
+					.getSingleResult();
+			em.remove(toRemove);
+		
+		}catch(Exception e) {
+		
+		
+	}
+	
+	}
+
+	@Override
+	public List<Rapport> getAllRapportByUser(long idUser, int semaine) {
+		// TODO Auto-generated method stub
+		
+		List<Rapport> rapports = em.createQuery("select r from Rapport r where r.semaine != :semaine"
+				+ " and r.user.id = :user and r.valider = :valid",Rapport.class)
+				.setParameter("semaine", semaine)
+				.setParameter("valid", true)
+				.setParameter("user", idUser)
+				.getResultList();
+		return rapports;	}
 }
