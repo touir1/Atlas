@@ -1,0 +1,173 @@
+﻿@model Atlas_frontend.Models.AbsenceModel
+@using Atlas_frontend.Models.Enums
+
+@{
+    ViewData["Title"] = "Create absence";
+
+    List<String> AbsenceTypes = AbsenceType.getValues();
+}
+
+<h1>Demande d'absence</h1>
+<br />
+Solde de congés : <input id="solde" type="text" class="mb-sm-1" disabled/> jour(s), vous allez prendre <input id="joursConge" value="0" type="text" class="mb-sm-1" disabled /> jour(s).
+<br />
+Il vous restera <input id="remaining" type="text" class="mb-sm-1" disabled /> jour(s).
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DateDebutConge" class="control-label"></label>
+                <input asp-for="DateDebutConge" class="form-control" />
+                <span asp-validation-for="DateDebutConge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DateFinConge" class="control-label"></label>
+                <input asp-for="DateFinConge" class="form-control" readonly/>
+                <span asp-validation-for="DateFinConge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Heures" class="control-label"></label>
+                <input asp-for="Heures" class="form-control" />
+                <span asp-validation-for="Heures" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Type" class="control-label"></label>
+                @Html.DropDownList("Type",
+                   new SelectList(AbsenceTypes.Select(s => new { Value = s, Text = s }).ToList(),"Value","Text"),
+                   "Sélectionner un type",
+                   new { @class = "form-control" })
+                <span asp-validation-for="Type" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Demander" class="btn btn-sm btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Retour à la liste d'absences</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    var solde = parseFloat('@ViewBag.soldeCongee'.replace(',','.'));
+
+    var soldeField = $('#solde');
+    var heureField = $("#Heures");
+    var dateDebutField = $('#DateDebutConge');
+    var dateFinField = $('#DateFinConge');
+    var joursCongeField = $('#joursConge');
+    var typeField = $('select[name="Type"]');
+    var remainingField = $('#remaining');
+
+    soldeField.val(solde);
+    remainingField.val(solde);
+
+    if (solde > 0) {
+        remainingField.css('background-color', 'lightgreen');
+    }
+    else {
+        remainingField.css('background-color', 'red');
+    }
+
+    heureField.on('keyup', function (e) {
+        if (dateDebutField.val()) {
+            var heures = parseInt(heureField.val());
+            if (heures) {
+                var dtDebut = new Date(dateDebutField.val());//new Date(dateDebutField.val()) + (heures / 8)
+                var dtFin = new Date(dtDebut.valueOf());
+                dtFin.setDate(dtDebut.getDate() + (heures / 8));
+                dateFinField.val(dtFin.getFullYear() + '-' + ("0" + (dtFin.getMonth() + 1)).slice(-2) + '-' + ("0" + dtFin.getDate()).slice(-2));
+                if (typeField.val() && typeField.val() == "Congé") {
+                    joursCongeField.val(heures / 8);
+                    remainingField.val(parseFloat(soldeField.val()) - parseFloat(joursCongeField.val()));
+                    updateColors();
+                }
+                else {
+                    joursCongeField.val(0);
+                    remainingField.val(soldeField.val());
+                    updateColors();
+                }
+            }
+            else {
+                joursCongeField.val(0);
+                remainingField.val(soldeField.val());
+                updateColors();
+            }
+        }
+        else {
+            joursCongeField.val(0);
+            remainingField.val(soldeField.val());
+            updateColors();
+        }
+    });
+    dateDebutField.on('change', function (e) {
+        if (heureField.val()) {
+            if (dateDebutField.val()) {
+                var heures = parseInt(heureField.val());
+                var dtDebut = new Date(dateDebutField.val());//new Date(dateDebutField.val()) + (heures / 8)
+                var dtFin = new Date(dtDebut.valueOf());
+                dtFin.setDate(dtDebut.getDate() + (heures / 8));
+                dateFinField.val(dtFin.getFullYear() + '-' + ("0" + (dtFin.getMonth() + 1)).slice(-2) + '-' + ("0" + dtFin.getDate()).slice(-2));
+                if (typeField.val() && typeField.val() == "Congé") {
+                    joursCongeField.val(heures / 8);
+                    remainingField.val(parseFloat(soldeField.val()) - parseFloat(joursCongeField.val()));
+                    updateColors();
+                }
+                else {
+                    joursCongeField.val(0);
+                    remainingField.val(soldeField.val());
+                    updateColors();
+                }
+            }
+            else {
+                joursCongeField.val(0);
+                remainingField.val(soldeField.val());
+                updateColors();
+            }
+        }
+        else {
+            joursCongeField.val(0);
+            remainingField.val(soldeField.val());
+            updateColors();
+        }
+    });
+
+    typeField.on('change', function (e) {
+        if (heureField.val() && dateDebutField.val()) {
+            if (typeField.val() && typeField.val() == "Congé") {
+                var heures = parseInt(heureField.val());
+                joursCongeField.val(heures / 8);
+                remainingField.val(parseFloat(soldeField.val()) - parseFloat(joursCongeField.val()));
+                updateColors();
+            }
+            else {
+                joursCongeField.val(0);
+                remainingField.val(soldeField.val());
+                updateColors();
+            }
+        }
+        else {
+            joursCongeField.val(0);
+            remainingField.val(soldeField.val());
+            updateColors();
+        }
+    });
+
+    function updateColors() {
+        if (parseFloat(remainingField.val()) > 0) {
+            remainingField.css('background-color', 'lightgreen');
+        }
+        else {
+            remainingField.css('background-color', 'red');
+        }
+
+    }
+
+
+</script>
+}

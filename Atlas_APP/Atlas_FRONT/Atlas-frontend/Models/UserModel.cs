@@ -62,6 +62,8 @@ namespace Atlas_frontend.Models
         public List<UserFormationModel> UserFormations { get; set; }
         [JsonProperty("rapports")]
         public List<RapportModel> Rapports { get; set; }
+        [JsonProperty("chef")]
+        public UserModel Chef { get; set; }
 
         [JsonIgnore]
         [Display(Name = "Image de profil")]

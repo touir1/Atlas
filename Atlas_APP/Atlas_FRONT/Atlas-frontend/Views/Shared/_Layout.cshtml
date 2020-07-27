@@ -1,9 +1,11 @@
 ﻿@using Microsoft.AspNetCore.Http
 @using Atlas_frontend.Services
+@using Atlas_frontend.Models.Enums
 @inject ICompteService CompteService
 @inject IHttpContextAccessor HttpContextAccessor
 @{
     bool connected = CompteService.IsConnected(HttpContextAccessor.HttpContext.Session);
+    bool isAdministrator = CompteService.HasRole(HttpContextAccessor.HttpContext.Session, RankEnum.Administrator);
 }
 <!DOCTYPE html>
 <html lang="en">
@@ -51,11 +53,27 @@
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Frais" asp-action="Index">Frais</a>
                             </li>
+                            @if (isAdministrator)
+                            {
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-dark dropdown-toggle" data-toggle="dropdown" href="#" aria-haspopup="true" aria-expanded="false">Administration</a>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="" asp-controller="User" asp-action="Index">Gestion d'utilisateurs</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Compte" asp-action="Index">Gestion des comptes</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Role" asp-action="Index">Gestion des rôles</a>
+                                        <a class="dropdown-item" asp-area="" asp-controller="Configuration" asp-action="Index">Gestion des configurations</a>
+                                    </div>
+                                </li>
+                            }
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Absence" asp-action="Index">Absences</a>
+                            </li>
                         }
 
                     </ul>
                 </div>
-                @if (connected) { 
+                @if (connected)
+                {
                     <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                         <ul class="navbar-nav">
                             <li class="nav-item">
@@ -64,8 +82,8 @@
                         </ul>
                     </div>
                 }
-                </div>
-</nav>
+            </div>
+        </nav>
     </header>
     <div class="container">
         <main role="main" class="pb-3">

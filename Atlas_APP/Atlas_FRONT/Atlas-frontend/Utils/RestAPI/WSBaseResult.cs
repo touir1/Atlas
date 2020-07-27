@@ -10,5 +10,7 @@ namespace Atlas_frontend.Utils.RestAPI
     {
         [JsonProperty("exists")]
         public bool Exists { get; set; }
+        [JsonProperty("soldeCongee")]
+        public float SoldeCongee { get; set; }
     }
 }

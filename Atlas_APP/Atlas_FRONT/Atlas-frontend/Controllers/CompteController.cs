@@ -97,7 +97,7 @@ namespace Atlas_frontend.Controllers
                 await _compteService.AddAsync(HttpContext.Session, compte);
 
                 UserModel user = await _userService.GetAsync(HttpContext.Session, idUser);
-                await _mailService.SendMailAsync(HttpContext.Session, user.Email, "[Atlast] Compte créé", "NewComptePassword.html", new Dictionary<string, string> {
+                await _mailService.SendMailAsync(HttpContext.Session, user.Email, "[Atlas] Compte créé", "NewComptePassword.html", new Dictionary<string, string> {
                     {"#_USER_FULLNAME_#",user.FullName},
                     {"#_USERNAME_#",compte.Username},
                     {"#_PASSWORD_#",compte.Password}
@@ -170,7 +170,7 @@ namespace Atlas_frontend.Controllers
                
                 if (updatedPassword)
                 {
-                    await _mailService.SendMailAsync(HttpContext.Session, compte.User.Email, "[Atlast] Mot de passe modifié", "CompteUpdatePassword.html", new Dictionary<string, string> {
+                    await _mailService.SendMailAsync(HttpContext.Session, compte.User.Email, "[Atlas] Mot de passe modifié", "CompteUpdatePassword.html", new Dictionary<string, string> {
                         {"#_USER_FULLNAME_#",compte.User.FullName},
                         {"#_USERNAME_#",compte.Username},
                         {"#_PASSWORD_#",compte.Password}

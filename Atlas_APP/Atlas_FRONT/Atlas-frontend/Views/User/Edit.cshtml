@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Edit";
+
+    List<UserModel> userList = ViewBag.users ?? new List<UserModel>();
 }
 
 <h1>Modifier l'utilisateur</h1>
@@ -9,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit"  enctype="multipart/form-data">
+        <form asp-action="Edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group" hidden>
                 <label asp-for="Id" class="control-label"></label>
@@ -33,7 +35,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Poste" class="control-label"></label>
-                <input asp-for="Poste" class="form-control"/>
+                <input asp-for="Poste" class="form-control" />
                 <span asp-validation-for="Poste" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -53,6 +55,14 @@
                 <label asp-for="DateContrat" class="control-label"></label>
                 <input asp-for="DateContrat" class="form-control" />
                 <span asp-validation-for="DateContrat" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                @Html.DropDownList("idChef",
+                    new SelectList(userList, "Id", "FullName"),
+                    "Sélectionner un chef",
+                   new { @class = "form-control" }
+               )
+                @Html.ValidationMessage("idChef", "", new { @class = "text-danger" })
             </div>
             <div class="form-group">
                 <input type="submit" value="Enregistrer" class="btn btn-sm btn-warning" />

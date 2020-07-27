@@ -18,11 +18,13 @@ namespace Atlas_frontend.Controllers
     {
         private IUserService _userService;
         private IWebHostEnvironment _webHostEnvironment;
+        private ICompteService _compteService;
 
-        public UserController(IUserService userService, IWebHostEnvironment hostEnvironment)
+        public UserController(IUserService userService, IWebHostEnvironment hostEnvironment, ICompteService compteService)
         {
             _userService = userService;
             _webHostEnvironment = hostEnvironment;
+            _compteService = compteService;
         }
         // GET: User
         [Authorize(new[] { RankEnum.Administrator })]
@@ -43,8 +45,13 @@ namespace Atlas_frontend.Controllers
 
         // GET: User/Create
         [Authorize(new[] { RankEnum.Administrator })]
-        public ActionResult Create()
+        public async Task<ActionResult> CreateAsync()
         {
+            CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+            List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
+            users.Remove(compte.User);
+            ViewBag.users = users;
+
             return View();
         }
 
@@ -52,23 +59,35 @@ namespace Atlas_frontend.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(new[] { RankEnum.Administrator })]
-        public async Task<ActionResult> CreateAsync(UserModel model)
+        public async Task<ActionResult> CreateAsync(UserModel model, long idChef)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
+                    CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+                    List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
+                    users.Remove(compte.User);
+                    ViewBag.users = users;
+
                     return View();
                 }
-                string uniqueFileName = UploadedFile(model);
+                string uniqueFileName = UploadedFile(model,null);
                 model.Image = uniqueFileName;
 
-                // TODO: Add insert logic here
+                UserModel chef = await _userService.GetAsync(HttpContext.Session, idChef);
+                model.Chef = chef;
+                
                 await _userService.AddAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+                List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
+                users.Remove(compte.User);
+                ViewBag.users = users;
+
                 return View();
             }
         }
@@ -79,6 +98,11 @@ namespace Atlas_frontend.Controllers
         {
             UserModel user = await _userService.GetAsync(HttpContext.Session, id);
             ViewData.Model = user;
+            CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+            List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
+            users.Remove(compte.User);
+            ViewBag.users = users;
+
             return View();
         }
 
@@ -86,23 +110,36 @@ namespace Atlas_frontend.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(new[] { RankEnum.Administrator })]
-        public async Task<ActionResult> EditAsync(int id, UserModel model)
+        public async Task<ActionResult> EditAsync(int id, UserModel model, long idChef)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
+                    CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+                    List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
+                    users.Remove(compte.User);
+                    ViewBag.users = users;
+
                     return View();
                 }
-                // TODO: Add update logic here
-                string uniqueFileName = UploadedFile(model);
-                model.Image = uniqueFileName;
+
+                model.Image = UploadedFile(model, model.Image);
                 model.Id = id;
+
+                UserModel chef = await _userService.GetAsync(HttpContext.Session, idChef);
+                model.Chef = chef;
+
                 await _userService.UpdateAsync(HttpContext.Session, model);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
+                CompteModel compte = _compteService.GetConnectedCompte(HttpContext.Session);
+                List<UserModel> users = await _userService.GetListAsync(HttpContext.Session);
+                users.Remove(compte.User);
+                ViewBag.users = users;
+
                 return View();
             }
         }
@@ -133,7 +170,7 @@ namespace Atlas_frontend.Controllers
             }
         }
 
-        private string UploadedFile(UserModel model)
+        private string UploadedFile(UserModel model, string defaultValue)
         {
             string uniqueFileName = null;
 
@@ -147,7 +184,7 @@ namespace Atlas_frontend.Controllers
                     model.ProfileImage.CopyTo(fileStream);
                 }
             }
-            return uniqueFileName;
+            return uniqueFileName ?? defaultValue;
         }
     }
 }

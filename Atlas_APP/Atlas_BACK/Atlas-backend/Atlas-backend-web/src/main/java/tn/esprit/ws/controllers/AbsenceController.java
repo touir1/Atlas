@@ -18,6 +18,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import tn.esprit.entity.Absence;
 import tn.esprit.interfaces.IAbsenceService;
+import tn.esprit.ws.WSResponse;
 import tn.esprit.ws.AtlasWSActivator.Secured;
 
 @Path("absence")
@@ -59,13 +60,73 @@ public class AbsenceController {
 	@GET
 	@Secured
 	@Produces(MediaType.APPLICATION_JSON)
-	@ApiOperation(value = "get the list of all the absences of users by status")
+	@ApiOperation(value = "get the list of all the absences of user by status")
 	@Path("byStatusForUser/{idUser}/{status}")
 	public Response getListByStatusForUser(@PathParam("status") String status, @PathParam("idUser")  long idUser) {
 		try {
 			return Response.status(Status.OK).entity(service.getListByStatusForUser(status, idUser)).build();
 		} catch (Exception e) {
 			logger.error("failed while trying to get the list of absences", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the absences of users by status")
+	@Path("byStatus/{status}")
+	public Response getListByStatus(@PathParam("status") String status) {
+		try {
+			return Response.status(Status.OK).entity(service.getListByStatus(status)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of absences", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the list of all the absences of a user")
+	@Path("forUser/{idUser}")
+	public Response getListForUser(@PathParam("idUser")  long idUser) {
+		try {
+			return Response.status(Status.OK).entity(service.getListForUser(idUser)).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the list of absences for user", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the remaining solde for user")
+	@Path("soldeCongee/{idUser}")
+	public Response getSoldeCongee(@PathParam("idUser")  long idUser) {
+		try {
+			WSResponse response = new WSResponse();
+			response.setSoldeCongee(service.getSoldeCongee(idUser));
+			return Response.status(Status.OK).entity(response).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the solde congee for user", e);
+			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+	
+	@GET
+	@Secured
+	@Produces(MediaType.APPLICATION_JSON)
+	@ApiOperation(value = "get the remaining solde for user (totale)")
+	@Path("soldeCongeeTotale/{idUser}")
+	public Response getSoldeCongeeTotlae(@PathParam("idUser")  long idUser) {
+		try {
+			WSResponse response = new WSResponse();
+			response.setSoldeCongee(service.getSoldeCongeeTotale(idUser));
+			return Response.status(Status.OK).entity(response).build();
+		} catch (Exception e) {
+			logger.error("failed while trying to get the solde congee for user", e);
 			return Response.status(Status.INTERNAL_SERVER_ERROR).build();
 		}
 	}

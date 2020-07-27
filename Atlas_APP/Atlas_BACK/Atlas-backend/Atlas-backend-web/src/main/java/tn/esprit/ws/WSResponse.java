@@ -8,6 +8,7 @@ public class WSResponse implements Serializable {
 	}
 
 	private boolean exists;
+	private float soldeCongee;
 
 	public boolean isExists() {
 		return exists;
@@ -15,6 +16,14 @@ public class WSResponse implements Serializable {
 
 	public void setExists(boolean exists) {
 		this.exists = exists;
+	}
+
+	public float getSoldeCongee() {
+		return soldeCongee;
+	}
+
+	public void setSoldeCongee(float soldeCongee) {
+		this.soldeCongee = soldeCongee;
 	}
 
 }

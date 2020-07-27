@@ -1,5 +1,8 @@
 package tn.esprit.services;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.ejb.LocalBean;
@@ -8,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import tn.esprit.entity.Absence;
+import tn.esprit.entity.User;
 import tn.esprit.interfaces.IAbsenceService;
 
 @Stateless
@@ -73,6 +77,78 @@ public class AbsenceService  implements IAbsenceService{
 				.setParameter("status", status)
 				.setParameter("user", idUser)
 				.getResultList();
+	}
+	
+	@Override
+	public List<Absence> getListByStatus(String status) {
+		return em.createQuery("select a from Absence a where a.status = :status",Absence.class)
+				.setParameter("status", status)
+				.getResultList();
+	}
+	
+	@Override
+	public List<Absence> getListForUser(long idUser){
+		return em.createQuery("select a from Absence a where a.user.id = :user",Absence.class)
+				.setParameter("user", idUser)
+				.getResultList();
+	}
+	
+	@Override
+	public float getSoldeCongee(long idUser) {
+		Calendar dateDebutContrat = new GregorianCalendar();
+		dateDebutContrat.setTime(em.find(User.class, idUser).getDateContrat());
+		Calendar today = new GregorianCalendar();
+		
+		int yearsInBetween = today.get(Calendar.YEAR)
+				- dateDebutContrat.get(Calendar.YEAR);
+		int monthsDiff = today.get(Calendar.MONTH)
+				- dateDebutContrat.get(Calendar.MONTH);
+		long ageContratInMonths = yearsInBetween * 12 + monthsDiff;
+		
+		long soldeCongeTotal = ageContratInMonths * 2;
+		List<Absence> congeeList = em.createQuery("from Absence a where lower(a.type) = lower(:type)"
+				+ " and lower(a.status) != lower(:refus) and a.user.id = :user" , Absence.class)
+				.setParameter("type", "Congé")
+				.setParameter("refus", "Refusé")
+				.setParameter("user", idUser)
+				.getResultList();
+		float resultat = (float) soldeCongeTotal;
+		if(congeeList != null) {
+			for(int i=0;i<congeeList.size();i++) {
+				resultat -= (congeeList.get(i).getHeures() / 8);
+			}
+		}
+		return resultat;
+	}
+	
+	@Override
+	public float getSoldeCongeeTotale(long idUser) {
+		Calendar dateDebutContrat = new GregorianCalendar();
+		dateDebutContrat.setTime(em.find(User.class, idUser).getDateContrat());
+		Calendar today = new GregorianCalendar();
+		
+		int yearsInBetween = today.get(Calendar.YEAR)
+				- dateDebutContrat.get(Calendar.YEAR);
+		int monthsDiff = today.get(Calendar.MONTH)
+				- dateDebutContrat.get(Calendar.MONTH);
+		long ageContratInMonths = yearsInBetween * 12 + monthsDiff;
+		
+		long soldeCongeTotal = ageContratInMonths * 2;
+		List<Absence> congeeList = em.createQuery("from Absence a where lower(a.type) = lower(:type)"
+				+ " and lower(a.status) != lower(:refus) and lower(a.status) != lower(:encours)"
+				+ " and a.user.id = :user" , Absence.class)
+				.setParameter("type", "Congé")
+				.setParameter("refus", "Refusé")
+				.setParameter("encours", "A valider")
+				.setParameter("user", idUser)
+				.getResultList();
+		float resultat = (float) soldeCongeTotal;
+		if(congeeList != null) {
+			for(int i=0;i<congeeList.size();i++) {
+				resultat -= (congeeList.get(i).getHeures() / 8);
+			}
+		}
+		return resultat;
 	}
 
 }
