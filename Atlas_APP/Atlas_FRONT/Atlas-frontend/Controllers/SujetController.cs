@@ -86,12 +86,15 @@ namespace Atlas_frontend.Controllers
                     qst.Sujet = sujet;
                     qst.Type = item.Type;
                     qst = await _questionService.AddAsync(HttpContext.Session, qst);
-                    foreach(String element in item.Choix)
+                    if (item.Choix != null)
                     {
-                        ChoixModel choix = new ChoixModel();
-                        choix.Libelle = element;
-                        choix.Question = qst;
-                        choix = await _choixService.AddAsync(HttpContext.Session, choix);
+                        foreach (String element in item.Choix)
+                        {
+                            ChoixModel choix = new ChoixModel();
+                            choix.Libelle = element;
+                            choix.Question = qst;
+                            choix = await _choixService.AddAsync(HttpContext.Session, choix);
+                        }
                     }
                 }
                 return Json(new { someValue = "ok" });

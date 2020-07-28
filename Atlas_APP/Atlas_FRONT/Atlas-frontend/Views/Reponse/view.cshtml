@@ -24,23 +24,43 @@
         <h5 class="card-title">Votre évaluation</h5>
         <br /><br />
     </div>
-    @foreach(ReponsePass item in list)
+    @foreach (ReponsePass item in list)
     {
-        <label>@item.questions.Libelle</label>
-        @if(item.choix.Count == 0)
-        {
-            <input type="text" />
-        }
-        else if(item.questions.Type == "CheckBox")
-        {
-            <select>
-                @foreach(ChoixModel elem in item.choix)
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="inputTitre">@item.questions.Libelle</label>
+            </div></div>
+            @if (item.choix.Count == 0)
+            {
+                <input type="text" class="form-control" id="inputTitre" name="titreRubrique" placeholder="Votre question" />
+            }
+            else if (item.questions.Type == "CheckBox")
+            {
+                <select>
+                    @foreach (ChoixModel elem in item.choix)
+                    {
+                        <!--option value="@elem.Id">@elem.Libelle</option-->
+                        <input type="checkbox" name="checkbox" value="@elem.Id" />
+                        @elem.Libelle
+                    }
+                </select>
+            }
+            else
+            {
+                @foreach (ChoixModel elem in item.choix)
                 {
-                <option>elem.</option>
+                    <input type="radio" name="radio" value="@elem.Libelle" />
+
                 }
-            </select>
-        }
+            }
 
 
-    }
-</div>
+            }
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" asp-action="Liste">Back to List</button>
+                <button type="submit" class="btn btn-primary" asp-action="">Valider</button>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
